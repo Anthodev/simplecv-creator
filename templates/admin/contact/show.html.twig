@@ -14,7 +14,7 @@
 <div>
     {{ form_start(form_contact) }}
         {{ form_widget(form_contact) }}
-        {% if contact.title != '' %}
+        {% if contact.name != '' %}
         <input class="form-control btn btn-primary" type="submit" value="Edit"/>
         {% else %}
         <input class="form-control btn btn-primary" type="submit" value="Add"/>
