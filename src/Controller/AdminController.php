@@ -19,6 +19,7 @@ use App\Repository\ContactRepository;
 use App\Repository\AptitudeRepository;
 use App\Repository\InterestRepository;
 use App\Repository\TrainingRepository;
+use App\Repository\PortfolioRepository;
 use App\Repository\ExperienceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -39,11 +40,12 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(ExperienceRepository $expRepo, ContactRepository $contactRepo, TrainingRepository $trainingRepo, AptitudeRepository $aptRepo, SkillRepository $skillRepo, SoftRepository $softRepo, InterestRepository $interestRepo, EntityManagerInterface $em, Request $request)
+    public function index(ExperienceRepository $expRepo, ContactRepository $contactRepo, TrainingRepository $trainingRepo, PortfolioRepository $portfolioRepo, AptitudeRepository $aptRepo, SkillRepository $skillRepo, SoftRepository $softRepo, InterestRepository $interestRepo, EntityManagerInterface $em, Request $request)
     {
         $experiences = $expRepo->findBy([], ['list_order' => 'ASC']);
         $contacts = $contactRepo->findBy([], ['contactOrder' => 'ASC']);
         $trainings = $trainingRepo->findBy([], ['list_order' => 'ASC']);
+        $portfolio = $portfolioRepo->findBy([], ['list_order' => 'ASC']);
         $aptitudes = $aptRepo->findAll();
         $skills = $skillRepo->findBy([], ['level' => 'DESC']);
         $softs = $softRepo->findAll();
@@ -134,6 +136,7 @@ class AdminController extends AbstractController
             'experiences' => $experiences,
             'contacts' => $contacts,
             'trainings' => $trainings,
+            'portfolio' => $portfolio,
             'aptitudes' => $aptitudes,
             'skills' => $skills,
             'softs' => $softs,
