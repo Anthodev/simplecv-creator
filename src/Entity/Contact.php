@@ -22,7 +22,7 @@ class Contact
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=512)
+     * @ORM\Column(type="string", length=512, nullable=true)
      */
     private $link;
 

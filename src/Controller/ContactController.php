@@ -10,12 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/admin-cv/contacts", name="contacts_")
+ * @Route("/acv/contacts", name="admin_contacts_")
  */
 class ContactController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="list")
      */
     public function index(ContactRepository $contactRepo, Request $request)
     {
@@ -31,12 +31,12 @@ class ContactController extends AbstractController
             $em->persist($contact);
             $em->flush();
 
-            $this->addFlash('success', 'Contact ajoutée');
+            $this->addFlash('success', 'Contact ajouté');
 
-            return $this->redirectToRoute('admin_contacts_home');
+            return $this->redirectToRoute('admin_contacts_list');
         }
 
-        return $this->render('contact/index.html.twig', [
+        return $this->render('admin/contact/index.html.twig', [
             'contacts' => $contacts,
         ]);
     }
@@ -46,7 +46,7 @@ class ContactController extends AbstractController
      */
     public function show(Contact $contact, Request $request)
     {
-        if(!$contact) throw $this->createNotFoundException('Expérience introuvable');
+        if(!$contact) throw $this->createNotFoundException('Contact introuvable');
 
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
@@ -58,10 +58,11 @@ class ContactController extends AbstractController
 
             $this->addFlash('success', 'Contact mis à jour');
 
-            return $this->redirectToRoute('admin_contacts_home');
+            return $this->redirectToRoute('admin_contacts_list');
         }
 
-        return $this->render('contact/show.html.twig', [
+        return $this->render('admin/contact/show.html.twig', [
+            'contact' => $contact,
             'form_contact' => $form->createView(),
         ]);
     }
@@ -71,7 +72,7 @@ class ContactController extends AbstractController
      */
     public function delete(Contact $contact)
     {
-        if(!$contact) throw $this->createNotFoundException('Expérience introuvable');
+        if(!$contact) throw $this->createNotFoundException('Contact introuvable');
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($contact);
@@ -79,6 +80,6 @@ class ContactController extends AbstractController
 
         $this->addFlash('success', 'Contact supprimée');
 
-        return $this->redirectToRoute('admin_contacts_home');
+        return $this->redirectToRoute('admin_home');
     }
 }

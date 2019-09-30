@@ -23,9 +23,6 @@ class ContactType extends AbstractType
             ])
             ->add('link', TextType::class, [
                 'required' => false,
-                'constraints' => [
-                    new NotBlank()
-                ]
             ])
             ->add('icon', TextType::class, [
                 'required' => false,
