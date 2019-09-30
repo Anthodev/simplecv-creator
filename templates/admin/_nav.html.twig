@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{ path('admin_home') }}">CV Admin</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="{{ path('admin_experiences_list') }}" rel="noopener">Experiences</a>
+            <a class="nav-item nav-link" href="{{ path('admin_trainings_list') }}" rel="noopener">Trainings</a>
+            <a class="nav-item nav-link" href="{{ path('admin_aptitudes_list') }}" rel="noopener">Aptitudes</a>
+            <a class="nav-item nav-link" href="{{ path('admin_softs_list') }}" rel="noopener">Soft-skills</a>
+        </div>
+    </div>
+
+    <div class="my-2 my-lg-0">
+        <a href="{{ path('app_logout') }}" rel="noopener noreferrer"><button class="btn btn-outline-danger my-2 my-sm-0" type="button">Logout</button></a>
+        <a href="{{ path('home') }}" target="_blank" rel="noopener noreferrer"><button class="btn btn-outline-success my-2 my-sm-0" type="button">See the CV</button></a>
+    </div>
+</nav>

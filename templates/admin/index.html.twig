@@ -1,0 +1,60 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}CV Admin - Home{% endblock %}
+
+{% block body %}
+
+<div class="row d-flex flex-wrap">
+    <div class="col-12 mb-3">
+        <div class="list-group list-group-horizontal text-center d-flex flex-wrap" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action col-3 active" id="list-info-list" data-toggle="list" href="#list-info" role="tab" aria-controls="info">My information</a>
+                <a class="list-group-item list-group-item-action col-3" id="list-contact-list" data-toggle="list" href="#list-contact" role="tab" aria-controls="contact">Contacts <span class="badge badge-primary badge-pill">{{ contacts|length }}</span></a>
+                <a class="list-group-item list-group-item-action col-3" id="list-experiences-list" data-toggle="list" href="#list-experiences" role="tab" aria-controls="experiences">Experiences <span class="badge badge-primary badge-pill">{{ experiences|length }}</span></a>
+                <a class="list-group-item list-group-item-action col-3" id="list-trainings-list" data-toggle="list" href="#list-trainings" role="tab" aria-controls="trainings">Trainings <span class="badge badge-primary badge-pill">{{ trainings|length }}</span></a>
+                <a class="list-group-item list-group-item-action col-3" id="list-aptitudes-list" data-toggle="list" href="#list-aptitudes" role="tab" aria-controls="aptitudes">Aptitudes <span class="badge badge-primary badge-pill">{{ aptitudes|length }}</span></a>
+                <a class="list-group-item list-group-item-action col-3" id="list-skills-list" data-toggle="list" href="#list-skills" role="tab" aria-controls="skills">Skills <span class="badge badge-primary badge-pill">{{ skills|length }}</span></a>
+                <a class="list-group-item list-group-item-action col-3" id="list-softs-list" data-toggle="list" href="#list-softs" role="tab" aria-controls="softs">Soft skills <span class="badge badge-primary badge-pill">{{ softs|length }}</span></a>
+                <a class="list-group-item list-group-item-action col-3" id="list-interests-list" data-toggle="list" href="#list-interests" role="tab" aria-controls="interests">Interests <span class="badge badge-primary badge-pill">{{ interests|length }}</span></a>
+                <a class="list-group-item list-group-item-action col-3" id="list-languages-list" data-toggle="list" href="#list-languages" role="tab" aria-controls="languages">Languages <span class="badge badge-primary badge-pill">{{ experiences|length }}</span></a>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-info" role="tabpanel" aria-labelledby="list-info-list">
+                {% include 'admin/_info_pane.html.twig' %}
+            </div>
+
+            <div class="tab-pane fade" id="list-contact" role="tabpanel" aria-labelledby="list-contact-list">
+                {% include 'admin/contact/_pane.html.twig' %}
+            </div>
+
+            <div class="tab-pane fade" id="list-experiences" role="tabpanel" aria-labelledby="list-experiences-list">
+                {% include 'admin/experience/_pane.html.twig' %}
+            </div>
+
+            <div class="tab-pane fade" id="list-trainings" role="tabpanel" aria-labelledby="list-trainings-list">
+                {% include 'admin/training/_pane.html.twig' %}
+            </div>
+
+            <div class="tab-pane fade" id="list-aptitudes" role="tabpanel" aria-labelledby="list-aptitudes-list">
+                {% include 'admin/aptitude/_pane.html.twig' %}
+            </div>
+
+            <div class="tab-pane fade" id="list-skills" role="tabpanel" aria-labelledby="list-skills-list">
+                {% include 'admin/skill/_pane.html.twig' %}
+            </div>
+
+            <div class="tab-pane fade" id="list-softs" role="tabpanel" aria-labelledby="list-softs-list">
+                {% include 'admin/soft/_pane.html.twig' %}
+            </div>
+
+            <div class="tab-pane fade" id="list-interests" role="tabpanel" aria-labelledby="list-interests-list">
+                {% include 'admin/interest/_pane.html.twig' %}
+            </div>
+
+            <div class="tab-pane fade" id="list-languages" role="tabpanel" aria-labelledby="list-languages-list">...</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

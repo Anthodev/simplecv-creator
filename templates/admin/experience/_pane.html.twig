@@ -1,0 +1,28 @@
+<h1>Experiences</h1>
+<hr>
+
+<a href="{{ path('admin_experiences_show', {'id': 'new'}) }}"><button type="button" class="btn btn-primary my-2">Create new</button></a>
+
+<table class="table table-light table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th class="col-3">Company</th>
+            <th class="col-1">Order</th>
+            <th class="col-1">Edit</th>
+            <th class="col-1">Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for experience in experiences %}
+        <tr>
+            <td>{{ experience.title }}</td>
+            <td>{{ experience.company }}</td>
+            <td class="text-center">{{ experience.listOrder }}</td>
+            <td class="text-center"><a href="{{ path('admin_experiences_show', {'id': experience.id}) }}" rel="noopener"><button type="button" class="btn btn-primary">Edit</button></a></td>
+            <td class="text-center"><a href="{{ path('admin_experiences_delete', {'id': experience.id}) }}" rel="noopener"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete it?')">Delete</button></a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

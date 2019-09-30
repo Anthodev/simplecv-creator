@@ -1,0 +1,27 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Hello AptitudeController!{% endblock %}
+
+{% block body %}
+
+{% if aptitude.name != '' %}
+<h1>Edit the aptitude: {{ aptitude.title }}</h1>
+{% else %}
+<h1>Add a new aptitude:</h1>
+{% endif %}
+<hr>
+
+<div>
+    {{ form_start(form_aptitude) }}
+        {{ form_widget(form_aptitude) }}
+        
+        {% if aptitude.name != '' %}
+        <input class="form-control btn btn-primary" type="submit" value="Edit"/>
+        {% else %}
+        <input class="form-control btn btn-primary" type="submit" value="Add"/>
+        {% endif %}
+
+    {{ form_end(form_aptitude) }}
+</div>
+
+{% endblock %}

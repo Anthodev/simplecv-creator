@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <header class="header">
+        <div class="header__desc">
+            <h1 class="desc__title">{{ info.name is defined ? info.name : 'Name placeholder' }}</h1>
+            <h2 class="desc__subtitle">{{ info.title is defined ? info.title : 'Title placeholder' }}</h2>
+
+            {% if contacts is defined and contacts|length > 0 %}
+            <div class="desc__contact">
+                {% for contact in contacts %}
+                <p class="contact__text"><i class="{{ contact.icon }}"></i> <a href="{{ contact.link }}" target="_blank" rel="noopener noreferrer">{{ contact.name }}</a></p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        </div>
+        {% if info.photo is defined %}
+        <div class="header__photo"><img src="{{ asset('uploads/photo/' ~ info.photo) }}" alt="Photo de Cédric" class="desc__photo"></div>
+        {% else %}
+        <div class="header__photo"><img src="" alt="Photo de Cédric" class="desc__photo"></div>
+        {% endif %}
+    </header>
+
+    <main>
+        <section class="resume">
+
+            {% if experiences is defined and experiences|length > 0 %}
+            <section class="resume__experiences" id="resume__experience">
+                <h1 class="resume__title">Expérience</h1>
+                {% for experience in experiences %}
+                <section class="experiences__experience">
+                    <h2 class="resume__subtitle">{{ experience.title }}</h2>
+                    <h2 class="resume__company">
+                        {% if experience.companyLink is defined %}
+                        <a href="{{ experience.companyLink }}" class="resume__link" target="_blank" rel="noopener noreferrer">{{ experience.company }}</a>
+                        {% else %}
+                            {{ experience.company }}
+                        {% endif %}
+                    </h2>
+                    <p class="resume__date">
+                        <i class="fas fa-calendar"></i> 
+                        <span>{{ experience.dateStart|date("m/Y") }} - {{ experience.datEend|date("m/Y") }}</span>
+                        <i class="fas fa-map-marker-alt"></i> 
+                        <strong>{{ experience.location }}</strong>
+                    </p>
+                    <p class="resume__desc">
+                        {{ experience.description | raw }}
+                    </p>
+                </section>
+                {% endfor %}
+            </section>
+            {% endif %}
+
+            {% if portfolios is defined and portfolios|length > 0 %}
+            <section id="resume__projects" class="resume__projects">
+                <h1 class="resume__title">Portfolio Professionnel</h1>
+                <section class="projects__gallery">
+                    {% for portfolio in portfolios %}
+                    <figure class="gallery__figure">
+                        <img src="{{ asset('assets/img/portfolio/' ~ portfolio.image) }}" alt="Image {{ portfolio.name }}" class="gallery__image">
+                        <figcaption class="gallery__figcaption">{{ portfolio.name }}</figcaption>
+                    </figure>
+                    {% endfor %}
+                </section>
+            </section>
+            {% endif %}
+
+            {% if trainings is defined and trainings|length > 0 %}
+            <section id="resume__formations" class="resume__formation">
+                <h1 class="resume__title">Formations</h1>
+                {% for training in trainings %}
+                <section class="formations__formation">
+                    <h2 class="resume__subtitle">{{ training.title }}</h2>
+                    <h3 class="resume__company">
+                        {% if training.companyLink != '' %}
+                        <a href="{{ training.companyLink }}" class="resume__link" target="_blank" rel="noopener noreferrer">{{ training.company }}</a>
+                        {% else %}
+                            {{ training.company }}
+                        {% endif %}
+                    </h3>
+                    <p class="resume__date">
+                        <i class="fas fa-calendar"></i> 
+                        <span>{{ training.dateStart|date("m/Y") }} - {{ training.dateEnd|date("m/Y") }}</span>
+                        <i class="fas fa-map-marker-alt"></i> 
+                        <strong>{{ training.location }}</strong>
+                    </p>
+                    <p class="resume__desc">
+                        {{ training.description | raw }}
+                    </p>
+                </section>
+                {% endfor %}
+            </section>
+            {% endif %}
+        </section>
+
+        <section class="expertises">
+
+            {% if skills is defined and skills|length > 0 %}
+            <section id="expertises__skills" class="expertise">
+                <h2 class="expertise__title">LANGAGES</h2>
+                <div class="expertise__desc">
+                    {% for skill in skills %}
+                    <div class="expertise__skill">
+                        <p class="skill__title">{{ skill.name }}</p>
+                        <p class="skill__level">
+                            {% for i in 1..5 %}
+                                {% if i <= skill.level %}
+                                <i class="fas fa-circle"></i>
+                                {% else %}
+                                <i class="far fa-circle"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+            {% if aptitudes is defined and aptitudes|length > 0 %}
+            <section id="expertises__techno" class="expertise">
+                <h2 class="expertise__title">COMPÉTENCES</h2>
+                <div class="expertise__desc">
+                    {% for aptitude in aptitudes %}
+                    <button type="button" class="btn btn-outline-warning skill__button" disabled>{{ aptitude.name }}</button>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+            {% if softs is defined and softs|length > 0 %}
+            <section id="expertises__soft-skill" class="expertise">
+                <h2 class="expertise__title">SOFT-SKILLS</h2>
+                <div class="expertise__desc">
+                    {% for soft in softs %}
+                    <button type="button" class="btn btn-outline-warning skill__button" disabled>{{ soft.name }}</button>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+            {% if languages is defined and languages|length > 0 %}
+            <section id="expertise__lang" class="expertise">
+                <h2 class="expertise__title">LANGUES</h2>
+                <div class="expertise__desc">
+                    {% for language in languages %}
+                    <div class="lang__desc">
+                        <div class="lang__text">
+                            <p class="lang__title">{{ language.name }}</p>
+                            <p class="lang__level-text">{{ language.description }}</p>
+                        </div>
+                        <div class="lang__graph">
+                            <p class="graph__level">
+                                {% for i in 1..5 %}
+                                {% if i <= language.level %}
+                                <i class="fas fa-circle"></i>
+                                {% else %}
+                                <i class="far fa-circle"></i>
+                                {% endif %}
+                            {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+            {% if interests is defined and interests|length > 0 %}
+            <section id="expertises__interests" class="expertise">
+                <h2 class="expertise__title">INTÉRÊTS</h2>
+                <div class="expertise__desc">
+                    {% for interest in interests %}
+                    <p><i class="{{ interest.icon }}"></i> &nbsp;&nbsp; {{ interest.name }}</p>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+            <section id="expertises_particularities" class="expertise">
+                <h2 class="expertise__title">PARTICULARITÉS</h2>
+                <div class="expertise__desc">
+                    <p>
+                        <a name="surdoue" id="surdoue" class="btn btn-outline-warning" href="https://www.davidsongifted.org/Search-Database/entry/A10495" target="_blank" rel="noopener noreferrer" role="button">Surefficient mental</a>
+                        <!-- <a name="mbti" id="mbti" class="btn btn-outline-warning disabled" href="#" role="button" aria-disabled>MBTI: INTP</a> -->
+                    </p>
+                </div>
+            </section>
+        </section>
+    </main>
+</div>
+{% endblock %}

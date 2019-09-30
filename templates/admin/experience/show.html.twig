@@ -1,0 +1,25 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}CV Admin - Add a new experience{% endblock %}
+
+{% block body %}
+
+{% if experience.title != '' %}
+<h1>Edit the experience: {{ experience.title }}</h1>
+{% else %}
+<h1>Add a new experience:</h1>
+{% endif %}
+<hr>
+
+<div>
+    {{ form_start(form_experience) }}
+        {{ form_widget(form_experience) }}
+        {% if experience.title != '' %}
+        <input class="form-control btn btn-primary" type="submit" value="Edit"/>
+        {% else %}
+        <input class="form-control btn btn-primary" type="submit" value="Add"/>
+        {% endif %}
+    {{ form_end(form_experience) }}
+</div>
+
+{% endblock %}

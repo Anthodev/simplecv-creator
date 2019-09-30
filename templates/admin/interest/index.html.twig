@@ -1,0 +1,25 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}CV Admin - Edit a new interest{% endblock %}
+
+{% block body %}
+
+{% if interest.name != '' %}
+<h1>Edit the interest: {{ interest.name }}</h1>
+{% else %}
+<h1>Add a new interest:</h1>
+{% endif %}
+<hr>
+
+<div>
+    {{ form_start(form_interest) }}
+        {{ form_widget(form_interest) }}
+        {% if interest.name != '' %}
+        <input class="form-control btn btn-primary" type="submit" value="Edit"/>
+        {% else %}
+        <input class="form-control btn btn-primary" type="submit" value="Add"/>
+        {% endif %}
+    {{ form_end(form_interest) }}
+</div>
+
+{% endblock %}

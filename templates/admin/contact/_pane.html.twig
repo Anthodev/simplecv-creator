@@ -1,0 +1,35 @@
+<h1>Contacts</h1>
+<hr>
+
+<div class="mb-4">
+    {{ form_start(form_contact) }}
+        {{ form_widget(form_contact) }}
+        <input class="form-control btn btn-primary" type="submit" value="Add"/>
+    {{ form_end(form_contact) }}
+</div>
+
+<table class="table table-light table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Link</th>
+            <th class="col-2 text-center">Icon</th>
+            <th class="col-1 text-center">Order</th>
+            <th class="col-1 text-center">Edit</th>
+            <th class="col-1 text-center">Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for contact in contacts %}
+        <tr>
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.link }}</td>
+            <td>{{ contact.icon }}</td>
+            <td>{{ contact.listOrder }}</td>
+            <td class="text-center"><a href="{{ path('admin_contacts_show', {'id': contact.id}) }}" rel="noopener"><button type="button" class="btn btn-primary">Edit</button></a></td>
+            <td class="text-center"><a href="{{ path('admin_contacts_delete', {'id': contact.id}) }}" rel="noopener"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete it?')">Delete</button></a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
