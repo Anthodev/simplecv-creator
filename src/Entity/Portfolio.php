@@ -41,6 +41,11 @@ class Portfolio
      */
     private $list_order;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $caption;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -107,6 +112,18 @@ class Portfolio
     public function setListOrder(?int $list_order): self
     {
         $this->list_order = $list_order;
+
+        return $this;
+    }
+
+    public function getCaption(): ?string
+    {
+        return $this->caption;
+    }
+
+    public function setCaption(?string $caption): self
+    {
+        $this->caption = $caption;
 
         return $this;
     }

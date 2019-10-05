@@ -9,9 +9,11 @@ use App\Entity\Contact;
 use App\Form\SkillType;
 use App\Entity\Aptitude;
 use App\Entity\Interest;
+use App\Entity\Portfolio;
 use App\Form\ContactType;
 use App\Form\AptitudeType;
 use App\Form\InterestType;
+use App\Form\PortfolioType;
 use App\Form\ExperienceType;
 use App\Repository\SoftRepository;
 use App\Repository\SkillRepository;
@@ -45,13 +47,14 @@ class AdminController extends AbstractController
         $experiences = $expRepo->findBy([], ['list_order' => 'ASC']);
         $contacts = $contactRepo->findBy([], ['contactOrder' => 'ASC']);
         $trainings = $trainingRepo->findBy([], ['list_order' => 'ASC']);
-        $portfolio = $portfolioRepo->findBy([], ['list_order' => 'ASC']);
+        $portfolios = $portfolioRepo->findBy([], ['list_order' => 'ASC']);
         $aptitudes = $aptRepo->findAll();
         $skills = $skillRepo->findBy([], ['level' => 'DESC']);
         $softs = $softRepo->findAll();
         $interests = $interestRepo->findBy([], ['list_order' => 'ASC']);
 
         $contact = new Contact();
+        $portfolio = new Portfolio();
         $aptitude = new Aptitude();
         $skill = new Skill();
         $soft = new Soft();
@@ -72,6 +75,20 @@ class AdminController extends AbstractController
 
             return $this->redirectToRoute('admin_home', [
                 '_fragment' => 'list-contacts',
+            ]);
+        }
+
+        $form_portfolio = $this->createForm(PortfolioType::class, $portfolio);
+        $form_portfolio->handleRequest($request);
+
+        if($form_portfolio->isSubmitted() && $form_portfolio->isValid()) {
+            $em->persist($portfolio);
+            $em->flush();
+
+            $this->addFlash('success', 'Portfolio added');
+
+            return $this->redirectToRoute('admin_home', [
+                '_fragment' => 'list-portfolio',
             ]);
         }
 
@@ -136,12 +153,13 @@ class AdminController extends AbstractController
             'experiences' => $experiences,
             'contacts' => $contacts,
             'trainings' => $trainings,
-            'portfolio' => $portfolio,
+            'portfolios' => $portfolios,
             'aptitudes' => $aptitudes,
             'skills' => $skills,
             'softs' => $softs,
             'interests' => $interests,
             'form_contact' => $form_contact->createView(),
+            'form_portfolio' => $form_portfolio->createView(),
             'form_aptitude' => $form_aptitude->createView(),
             'form_skill' => $form_skill->createView(),
             'form_soft' => $form_soft->createView(),

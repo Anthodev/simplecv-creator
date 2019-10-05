@@ -1,18 +1,20 @@
-<h1>Interests</h1>
+<h1>Portfolio</h1>
 <hr>
 
 <div class="mb-4">
-    {{ form_start(form_interest) }}
-        {{ form_widget(form_interest) }}
+    {{ form_start(form_portfolio) }}
+        {{ form_widget(form_portfolio) }}
         <input class="form-control btn btn-primary" type="submit" value="Add"/>
-    {{ form_end(form_interest) }}
+    {{ form_end(form_portfolio) }}
 </div>
 
 <table class="table table-light table-striped table-hover">
     <thead>
         <tr>
             <th>Name</th>
-            <th class="col-2 text-center">Icon</th>
+            <th class="col-2 text-center">Image</th>
+            <th class="col-2 text-center">Caption</th>
+            <th class="col-2 text-center">Description</th>
             <th class="col-1 text-center">Order</th>
             <th class="col-1 text-center">Edit</th>
             <th class="col-1 text-center">Delete</th>
@@ -20,13 +22,15 @@
     </thead>
 
     <tbody>
-    {% for interest in interests %}
+    {% for currentPortfolio in portfolios %}
         <tr>
-            <td>{{ interest.name }}</td>
-            <td>{{ interest.icon }}</td>
-            <td>{{ interest.listOrder }}</td>
-            <td class="text-center"><a href="{{ path('admin_interests_show', {'id': interest.id}) }}" rel="noopener"><button type="button" class="btn btn-primary">Edit</button></a></td>
-            <td class="text-center"><a href="{{ path('admin_interests_delete', {'id': interest.id}) }}" rel="noopener"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete it?')">Delete</button></a></td>
+            <td>{{ currentPortfolio.name }}</td>
+            <td>{{ currentPortfolio.image }}</td>
+            <td>{{ currentPortfolio.caption }}</td>
+            <td>{{ currentPortfolio.description }}</td>
+            <td>{{ currentPortfolio.listOrder }}</td>
+            <td class="text-center"><a href="{{ path('admin_portfolio_show', {'id': currentPortfolio.id}) }}" rel="noopener"><button type="button" class="btn btn-primary">Edit</button></a></td>
+            <td class="text-center"><a href="{{ path('admin_portfolio_delete', {'id': currentPortfolio.id}) }}" rel="noopener"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete it?')">Delete</button></a></td>
         </tr>
     {% endfor %}
     </tbody>
