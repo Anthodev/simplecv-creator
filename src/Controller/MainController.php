@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Knp\Snappy\Pdf;
 use App\Repository\SoftRepository;
 use App\Repository\SkillRepository;
 use App\Repository\ContactRepository;
@@ -12,12 +11,8 @@ use App\Repository\LanguageRepository;
 use App\Repository\TrainingRepository;
 use App\Repository\PortfolioRepository;
 use App\Repository\ExperienceRepository;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class MainController extends AbstractController
 {
@@ -107,21 +102,6 @@ class MainController extends AbstractController
             'softs' => $softs,
             'languages' => $languages,
         ]);
-    }
-
-    /**
-     * @Route("/pdf/export", name="home_pdf_export")
-     */
-    public function pdfExport(Request $request, Pdf $snappy)
-    {
-        $snappy->setOption("encoding", "UTF-8");
-
-        return new PdfResponse(
-            $snappy->getOutput($request->getSchemeAndHttpHost()."/pdf"),
-            'cv.pdf',
-            'application/pdf',
-            'inline'
-        );
     }
 
         /**
