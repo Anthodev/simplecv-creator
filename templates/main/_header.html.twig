@@ -1,0 +1,27 @@
+<header class="header">
+    <div class="header__desc">
+        <h1 class="desc__title">{{ info.name is defined ? info.name : 'Name placeholder' }}</h1>
+        <h2 class="desc__subtitle">{{ info.title is defined ? info.title : 'Title placeholder' }}</h2>
+
+        {% if contacts is defined and contacts|length > 0 %}
+            <div class="desc__contact">
+                {% for contact in contacts %}
+                    {% if contact.link matches '/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/' %}
+                        <p class="contact__text"><i class="{{ contact.icon }}"></i> <a href="mailto:{{ contact.link }}" target="_blank" rel="noopener noreferrer">{{ contact.name }}</a></p>
+                    {% elseif contact.link is null %}
+                        <p class="contact__text"><i class="{{ contact.icon }}"></i> {{ contact.name }}</p>
+                    {% else %}
+                        <p class="contact__text"><i class="{{ contact.icon }}"></i> <a href="{{ contact.link }}" target="_blank" rel="noopener noreferrer">{{ contact.name }}</a></p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+    
+    {% if info.photo is defined %}
+        <div class="header__photo"><img src="{{ asset('uploads/photo/' ~ info.photo) }}" alt="Photo de Cédric" class="desc__photo"></div>
+    {% else %}
+        <div class="header__photo"><img src="" alt="Photo de Cédric" class="desc__photo"></div>
+    {% endif %}
+</header>

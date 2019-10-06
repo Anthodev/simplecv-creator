@@ -1,0 +1,15 @@
+{% if portfolios_perso is defined and portfolios_perso|length > 0 %}
+    <section id="resume__projects" class="resume__projects">
+        <h1 class="resume__title">Portfolio Personnel</h1>
+
+        <div class="personnal_projects">
+            {% for portfolio in portfolios_perso %}
+                <div class="project">
+                    <h3 class="resume__subtitle">{{ portfolio.name }}</h3>
+                    <div>{{ portfolio.description | raw }}</div>
+                </div>
+            {% endfor %}
+        </div>
+        
+    </section>
+{% endif %}

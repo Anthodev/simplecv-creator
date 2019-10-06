@@ -1,0 +1,30 @@
+{% if languages is defined and languages|length > 0 %}
+    <section id="expertise__lang" class="expertise">
+        <h2 class="expertise__title">LANGUES</h2>
+
+        <div class="expertise__desc">
+            {% for language in languages %}
+                <div class="lang__desc">
+                    <div class="lang__text">
+                        <p class="lang__title">{{ language.name }}</p>
+                        <p class="lang__level-text">{{ language.description }}</p>
+                    </div>
+
+                    <div class="lang__graph">
+                        <p class="graph__level">
+                            {% for i in 1..5 %}
+                            {% if i <= language.level %}
+                            <i class="fas fa-circle"></i>
+                            {% else %}
+                            <i class="far fa-circle"></i>
+                            {% endif %}
+                        {% endfor %}
+                        </p>
+                    </div>
+                    
+                </div>
+            {% endfor %}
+        </div>
+
+    </section>
+{% endif %}

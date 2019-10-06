@@ -1,0 +1,12 @@
+{% if softs is defined and softs|length > 0 %}
+    <section id="expertises__soft-skill" class="expertise">
+        <h2 class="expertise__title">SOFT-SKILLS</h2>
+
+        <div class="expertise__desc">
+            {% for soft in softs %}
+                <button type="button" class="btn btn-outline-warning skill__button" disabled>{{ soft.name }}</button>
+            {% endfor %}
+        </div>
+        
+    </section>
+{% endif %}

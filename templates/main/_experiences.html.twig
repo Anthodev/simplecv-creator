@@ -1,0 +1,29 @@
+{% if experiences is defined and experiences|length > 0 %}
+    <section class="resume__experiences" id="resume__experience">
+        <h1 class="resume__title">Expérience</h1>
+
+        {% for experience in experiences %}
+            <section class="experiences__experience">
+                <h2 class="resume__subtitle">{{ experience.title }}</h2>
+                <h2 class="resume__company">
+                    {% if experience.companyLink is defined %}
+                        <a href="{{ experience.companyLink }}" class="resume__link" target="_blank" rel="noopener noreferrer">{{ experience.company }}</a>
+                    {% else %}
+                        {{ experience.company }}
+                    {% endif %}
+                </h2>
+
+                <p class="resume__date">
+                    <i class="fas fa-calendar"></i> 
+                    <span>{{ experience.dateStart|date("m/Y") }} - {{ experience.datEend|date("m/Y") }}</span>
+                    <i class="fas fa-map-marker-alt"></i> 
+                    <strong>{{ experience.location }}</strong>
+                </p>
+
+                <p class="resume__desc">
+                    {{ experience.description | raw }}
+                </p>
+            </section>
+        {% endfor %}
+    </section>
+{% endif %}

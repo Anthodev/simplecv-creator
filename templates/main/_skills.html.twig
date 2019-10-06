@@ -1,0 +1,25 @@
+{% if skills is defined and skills|length > 0 %}
+    <section id="expertises__skills" class="expertise">
+        <h2 class="expertise__title">LANGAGES</h2>
+
+        <div class="expertise__desc">
+            {% for skill in skills %}
+                <div class="expertise__skill">
+                    <p class="skill__title">{{ skill.name }}</p>
+
+                    <p class="skill__level">
+                        {% for i in 1..5 %}
+                            {% if i <= skill.level %}
+                                <i class="fas fa-circle"></i>
+                            {% else %}
+                                <i class="far fa-circle"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                    
+                </div>
+            {% endfor %}
+        </div>
+
+    </section>
+{% endif %}
