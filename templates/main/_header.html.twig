@@ -7,11 +7,11 @@
             <div class="desc__contact">
                 {% for contact in contacts %}
                     {% if contact.link matches '/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/' %}
-                        <p class="contact__text"><i class="{{ contact.icon }}"></i> <a href="mailto:{{ contact.link }}" target="_blank" rel="noopener noreferrer">{{ contact.name }}</a></p>
+                        <p class="contact__text"><i class="{{ contact.icon }}"></i> <a href="mailto:{{ contact.link }}" target="_blank" rel="noopener noreferrer">{{ (app.request.get('_route') ends with 'pdf') ? contact.link : contact.name }}</a></p>
                     {% elseif contact.link is null %}
                         <p class="contact__text"><i class="{{ contact.icon }}"></i> {{ contact.name }}</p>
                     {% else %}
-                        <p class="contact__text"><i class="{{ contact.icon }}"></i> <a href="{{ contact.link }}" target="_blank" rel="noopener noreferrer">{{ contact.name }}</a></p>
+                        <p class="contact__text"><i class="{{ contact.icon }}"></i> <a href="{{ contact.link }}" target="_blank" rel="noopener noreferrer">{{ (app.request.get('_route') ends with 'pdf') ? contact.link : contact.name }}</a></p>
                     {% endif %}
                 {% endfor %}
             </div>

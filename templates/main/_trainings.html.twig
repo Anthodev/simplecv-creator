@@ -7,7 +7,7 @@
                 <h2 class="resume__subtitle">{{ training.title }}</h2>
                 <h3 class="resume__company">
                     {% if training.companyLink != '' %}
-                    <a href="{{ training.companyLink }}" class="resume__link" target="_blank" rel="noopener noreferrer">{{ training.company }}</a>
+                    <a href="{{ training.companyLink }}" class="resume__link" target="_blank" rel="noopener noreferrer">{{ training.company }}</a>  {{ (app.request.get('_route') ends with 'pdf') ? ("<span class='text-muted'><small> - " ~ training.companyLink ~ "</small></span>") | raw : ''  }}
                     {% else %}
                         {{ training.company }}
                     {% endif %}

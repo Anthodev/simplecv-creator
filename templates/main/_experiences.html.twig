@@ -7,7 +7,7 @@
                 <h2 class="resume__subtitle">{{ experience.title }}</h2>
                 <h2 class="resume__company">
                     {% if experience.companyLink is defined %}
-                        <a href="{{ experience.companyLink }}" class="resume__link" target="_blank" rel="noopener noreferrer">{{ experience.company }}</a>
+                        <a href="{{ experience.companyLink }}" class="resume__link" target="_blank" rel="noopener noreferrer">{{ experience.company }}</a> {{ (app.request.get('_route') ends with 'pdf') ? ("<span class='text-muted'><small> - " ~ experience.companyLink ~ "</small></span>") | raw : ''  }}
                     {% else %}
                         {{ experience.company }}
                     {% endif %}
