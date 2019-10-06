@@ -46,6 +46,14 @@ section {
   text-align: center;
 }
 
+.desc__title {
+  width: 100%;
+}
+
+.desc__subtitle {
+  width: 100%;
+}
+
 .desc__contact {
   display: flex;
   flex-wrap: wrap;
