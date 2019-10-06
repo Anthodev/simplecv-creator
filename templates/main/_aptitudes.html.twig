@@ -1,10 +1,10 @@
 {% if aptitudes is defined and aptitudes|length > 0 %}
     <section id="expertises__techno" class="expertise">
-        <h2 class="expertise__title">COMPÉTENCES</h2>
+        <h2 class="expertise__title">TECHNOLOGIES</h2>
 
         <div class="expertise__desc">
             {% for aptitude in aptitudes %}
-                <button type="button" class="btn btn-outline-warning skill__button" disabled>{{ aptitude.name }}</button>
+                <button type="button" class="btn {{ (app.request.get('_route') ends with 'pdf') ? 'btn-outline-primary' : 'btn-outline-warning' }} skill__button" disabled>{{ aptitude.name }}</button>
             {% endfor %}
         </div>
 

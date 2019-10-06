@@ -6,6 +6,12 @@ body {
 
 a {
   cursor: pointer;
+  color: #B48A1A;
+}
+
+a:hover {
+  color: #BDBEC4;
+  text-decoration: none;
 }
 
 img {
