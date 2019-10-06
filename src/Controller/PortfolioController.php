@@ -48,15 +48,57 @@ class PortfolioController extends AbstractController
     {
         if(is_null($portfolio)) $portfolio = new Portfolio();
 
+        $oldImage = $portfolio->getImage();
+
         $form = $this->createForm(PortfolioType::class, $portfolio);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $description = $portfolio->getDescription();
+
+            if(\strpos($description, 'https://www.youtube.com/watch?v=') || \strpos($description, 'https://youtu.be')) {
+                dump($description);
+                if(\strpos($description, 'https://www.youtube.com/watch?v=')) {
+                    $pattern = "/(watch\?v=)/";
+                    $description = \preg_replace($pattern, 'embed/', $description);
+                } else {
+                    $pattern = "/(https:\/\/youtu.be)/";
+                    $description = \preg_replace($pattern, 'https://www.youtube.com/embed', $description);
+                }
+
+                $description = \str_replace('<p>', '', $description);
+                $description = \str_replace('</p>', '', $description);
+
+                $portfolio->setDescription($description);
+            }
+
+            $file = $portfolio->getImage();
+
+            if (!is_null($file)) {
+                $filename = $this->generateUniqueFilename() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('portfolio_directory'),
+                        $filename
+                    );
+                } catch (FileException $e) {
+                    dump($e);
+                }
+                if ($oldImage != null || $oldImage != '') {
+                    $filesystem = new Filesystem();
+                    $filesystem->remove($this->getParameter('portfolio_directory') . '/' . $oldImage);
+                }
+                $portfolio->setImage($filename);
+            } else {
+                $portfolio->setImage($oldImage);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($portfolio);
             $em->flush();
 
-            $this->addFlash('success', 'Portfolio updated');
+            $this->addFlash('success', 'Portfolio entry updated');
 
             return $this->redirectToRoute('admin_home', [
                 '_fragment' => 'list-portfolio',

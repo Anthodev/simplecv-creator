@@ -3,3 +3,7 @@ body {
   color: #E5F0FF;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.portfolio_edit_image {
+  max-width: 25%;
+}

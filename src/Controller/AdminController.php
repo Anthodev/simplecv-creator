@@ -82,6 +82,23 @@ class AdminController extends AbstractController
         $form_portfolio->handleRequest($request);
 
         if($form_portfolio->isSubmitted() && $form_portfolio->isValid()) {
+            $description = $portfolio->getDescription();
+
+            if (\strpos($description, 'https://www.youtube.com/watch?v=') || \strpos($description, 'https://youtu.be')) {
+                if (\strpos($description, 'https://www.youtube.com/watch?v=')) {
+                    $pattern = "/(watch\?v=)/";
+                    $description = \preg_replace($pattern, 'embed/', $description);
+                } else {
+                    $pattern = "/(https:\/\/youtu.be)/";
+                    $description = \preg_replace($pattern, 'https://www.youtube.com/embed', $description);
+                }
+
+                $description = \str_replace('<p>', '', $description);
+                $description = \str_replace('</p>', '', $description);
+
+                $portfolio->setDescription($description);
+            }
+
             $file = $form_portfolio->get('image')->getData();
 
             if(!is_null($portfolio->getImage())) {

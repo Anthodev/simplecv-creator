@@ -16,7 +16,7 @@
     <div>
         {{ form_start(form_portfolio) }}
 
-        <div class="text-center"><img class="img-fluid" src="{{ asset(portfolio_directory ~ portfolio.image) }}" alt="{{ portfolio.name }}"></div>
+        <div class="text-center"><img class="img-fluid portfolio_edit_image" src="{{ asset(portfolio_directory ~ portfolio.image) }}" alt="{{ portfolio.name }}"></div>
 
         {{ form_widget(form_portfolio) }}
         {% if portfolio.name != '' %}
