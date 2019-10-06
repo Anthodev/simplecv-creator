@@ -13,8 +13,7 @@
         <tr>
             <th>Name</th>
             <th class="col-2 text-center">Image</th>
-            <th class="col-2 text-center">Caption</th>
-            <th class="col-2 text-center">Description</th>
+            <th class="col-4 text-center">Caption</th>
             <th class="col-1 text-center">Order</th>
             <th class="col-1 text-center">Edit</th>
             <th class="col-1 text-center">Delete</th>
@@ -24,13 +23,12 @@
     <tbody>
     {% for currentPortfolio in portfolios %}
         <tr>
-            <td>{{ currentPortfolio.name }}</td>
-            <td>{{ currentPortfolio.image }}</td>
-            <td>{{ currentPortfolio.caption }}</td>
-            <td>{{ currentPortfolio.description }}</td>
-            <td>{{ currentPortfolio.listOrder }}</td>
-            <td class="text-center"><a href="{{ path('admin_portfolio_show', {'id': currentPortfolio.id}) }}" rel="noopener"><button type="button" class="btn btn-primary">Edit</button></a></td>
-            <td class="text-center"><a href="{{ path('admin_portfolio_delete', {'id': currentPortfolio.id}) }}" rel="noopener"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete it?')">Delete</button></a></td>
+            <td class="align-middle">{{ currentPortfolio.name }}</td>
+            <td><img src="{{ asset(portfolio_directory ~ currentPortfolio.image) }}" alt="currentPortfolio.name" class="img-fluid"></td>
+            <td class="align-middle">{{ currentPortfolio.caption }}</td>
+            <td class="align-middle">{{ currentPortfolio.listOrder }}</td>
+            <td class="text-center align-middle"><a href="{{ path('admin_portfolio_show', {'id': currentPortfolio.id}) }}" rel="noopener"><button type="button" class="btn btn-primary">Edit</button></a></td>
+            <td class="text-center align-middle"><a href="{{ path('admin_portfolio_delete', {'id': currentPortfolio.id}) }}" rel="noopener"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete it?')">Delete</button></a></td>
         </tr>
     {% endfor %}
     </tbody>

@@ -82,6 +82,23 @@ class AdminController extends AbstractController
         $form_portfolio->handleRequest($request);
 
         if($form_portfolio->isSubmitted() && $form_portfolio->isValid()) {
+            $file = $form_portfolio->get('image')->getData();
+
+            if(!is_null($portfolio->getImage())) {
+                $filename = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('portfolio_directory'),
+                        $filename
+                    );
+                } catch (FileException $e) {
+                    dump($e);
+                }
+
+                $portfolio->setImage($filename);
+            }
+
             $em->persist($portfolio);
             $em->flush();
 

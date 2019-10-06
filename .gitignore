@@ -25,3 +25,5 @@
 /public/uploads/
 !/public/uploads/photo/.keep
 !/public/uploads/portfolio/.keep
+
+/.vscode/

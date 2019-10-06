@@ -69,7 +69,7 @@
                 <section class="projects__gallery">
                     {% for portfolio in portfolios %}
                     <figure class="gallery__figure">
-                        <img src="{{ asset('assets/img/portfolio/' ~ portfolio.image) }}" alt="Image {{ portfolio.name }}" class="gallery__image">
+                        <img src="{{ asset(portfolio_directory ~ portfolio.image) }}" alt="Image {{ portfolio.name }}" class="gallery__image">
                         <figcaption class="gallery__figcaption">{{ portfolio.caption }}</figcaption>
                     </figure>
                     {% endfor %}

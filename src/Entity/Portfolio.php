@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PortfolioRepository")
@@ -22,6 +23,12 @@ class Portfolio
     private $name;
 
     /**
+     * @Assert\File(
+     * maxSize = "4096k",
+     * mimeTypes={ "image/jpg", "image/jpeg", "image/png" },
+     * mimeTypesMessage = "Please valid image format : png, jpg, jpeg"
+     * )
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;

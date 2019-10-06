@@ -25,12 +25,16 @@ class PortfolioType extends AbstractType
                 ]
             ])
             ->add('image', FileType::class,[
-                'label' => 'Image (jpg,png,gif)',
+                'data_class' => null,
+                'required' => false,
+                'label' => 'Image (jpg,png,jpeg)',
                 'empty_data' => '', 
             ])
-            ->add('caption', TextType::class)
+            ->add('caption', TextType::class, [
+                'required' => false
+            ])
             ->add('description', CKEditorType::class, [
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'rows' => 4,
                 ],
@@ -49,6 +53,7 @@ class PortfolioType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Portfolio::class,
+            'attr' => ['novalidate' => 'novalidate']
         ]);
     }
 }
