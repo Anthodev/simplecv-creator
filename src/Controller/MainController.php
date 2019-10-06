@@ -41,7 +41,8 @@ class MainController extends AbstractController
         $aptitudes = $aptRepo->findAll();
         $interests = $interestRepo->findBy([], ['list_order' => 'ASC']);
         $contacts = $contactRepo->findAll();
-        $portfolios = $portfolioRepo->findAll();
+        $portfolios_pro = $portfolioRepo->findBy(['type' => 'pro'], ['list_order' => 'ASC']);
+        $portfolios_perso = $portfolioRepo->findBy(['type' => 'perso'], ['list_order' => 'ASC']);
         $softs = $softRepo->findAll();
         $languages = $langRepo->findAll();
         
@@ -53,7 +54,8 @@ class MainController extends AbstractController
             'aptitudes' => $aptitudes,
             'interests' => $interests,
             'contacts' => $contacts,
-            'portfolios' => $portfolios,
+            'portfolios_pro' => $portfolios_pro,
+            'portfolios_perso' => $portfolios_perso,
             'softs' => $softs,
             'languages' => $languages,
         ]);

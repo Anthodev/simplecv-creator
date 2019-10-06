@@ -47,7 +47,7 @@ class AdminController extends AbstractController
         $experiences = $expRepo->findBy([], ['list_order' => 'ASC']);
         $contacts = $contactRepo->findBy([], ['contactOrder' => 'ASC']);
         $trainings = $trainingRepo->findBy([], ['list_order' => 'ASC']);
-        $portfolios = $portfolioRepo->findBy([], ['list_order' => 'ASC']);
+        $portfolios = $portfolioRepo->findBy([], ['type' => 'DESC', 'list_order' => 'ASC']);
         $aptitudes = $aptRepo->findAll();
         $skills = $skillRepo->findBy([], ['level' => 'DESC']);
         $softs = $softRepo->findAll();

@@ -8,12 +8,14 @@
     {{ form_end(form_portfolio) }}
 </div>
 
+<h2>Portfolio entries</h2>
 <table class="table table-light table-striped table-hover">
     <thead>
         <tr>
             <th>Name</th>
             <th class="col-2 text-center">Image</th>
             <th class="col-4 text-center">Caption</th>
+            <th class="col-1 text-center">Type</th>
             <th class="col-1 text-center">Order</th>
             <th class="col-1 text-center">Edit</th>
             <th class="col-1 text-center">Delete</th>
@@ -23,10 +25,11 @@
     <tbody>
     {% for currentPortfolio in portfolios %}
         <tr>
-            <td class="align-middle">{{ currentPortfolio.name }}</td>
-            <td><img src="{{ asset(portfolio_directory ~ currentPortfolio.image) }}" alt="currentPortfolio.name" class="img-fluid"></td>
-            <td class="align-middle">{{ currentPortfolio.caption }}</td>
-            <td class="align-middle">{{ currentPortfolio.listOrder }}</td>
+            <td class="text-center align-middle">{{ currentPortfolio.name }}</td>
+            <td class="text-center align-middle">{{ (currentPortfolio.image is not null) ? ("<img src='" ~ asset(portfolio_directory ~ currentPortfolio.image) ~ "' alt='" ~ currentPortfolio.name ~ "' class='img-fluid'>") | raw : '' }}</td>
+            <td class="text-center align-middle">{{ currentPortfolio.caption }}</td>
+            <td class="text-center align-middle">{{ currentPortfolio.type }}</td>
+            <td class="text-center align-middle">{{ currentPortfolio.listOrder }}</td>
             <td class="text-center align-middle"><a href="{{ path('admin_portfolio_show', {'id': currentPortfolio.id}) }}" rel="noopener"><button type="button" class="btn btn-primary">Edit</button></a></td>
             <td class="text-center align-middle"><a href="{{ path('admin_portfolio_delete', {'id': currentPortfolio.id}) }}" rel="noopener"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete it?')">Delete</button></a></td>
         </tr>

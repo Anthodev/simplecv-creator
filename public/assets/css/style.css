@@ -140,6 +140,15 @@ section {
   font-style: italic;
 }
 
+.project {
+  border-bottom: 1px solid #E5F0FF;
+  margin-bottom: 1rem;
+}
+
+.project:last-child {
+  border-bottom: unset;
+}
+
 .resume__formations {
   margin-bottom: 2rem;
 }

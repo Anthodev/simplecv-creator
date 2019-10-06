@@ -10,6 +10,10 @@ var app = {
             modal.find('.modal-body iframe').attr("src", content)
         })
 
+        $('#videoModal').on('hidden.bs.modal', function () {
+            $('#videoModal iframe').removeAttr('src');
+        })
+
         app.autoPlayYouTubeModal();
     },
 

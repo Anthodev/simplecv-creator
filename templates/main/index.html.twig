@@ -63,12 +63,11 @@
             </section>
             {% endif %}
 
-            {% if portfolios is defined and portfolios|length > 0 %}
+            {% if portfolios_pro is defined and portfolios_pro|length > 0 %}
             <section id="resume__projects" class="resume__projects">
                 <h1 class="resume__title">Portfolio Professionnel</h1>
                 <section class="projects__gallery">
-                    {% for portfolio in portfolios %}
-
+                    {% for portfolio in portfolios_pro %}
                         {% set regex = '{(https:\/\/www.youtube.com\/|https:\/\/youtu.be\/)}'  %}
 
                         <figure class="gallery__figure">
@@ -86,6 +85,20 @@
                         </figure>
                     {% endfor %}
                 </section>
+            </section>
+            {% endif %}
+
+            {% if portfolios_perso is defined and portfolios_perso|length > 0 %}
+            <section id="resume__projects" class="resume__projects">
+                <h1 class="resume__title">Portfolio Personnel</h1>
+                <div class="personnal_projects">
+                    {% for portfolio in portfolios_perso %}
+                        <div class="project">
+                            <h3 class="resume__subtitle">{{ portfolio.name }}</h3>
+                            <div>{{ portfolio.description | raw }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
             </section>
             {% endif %}
 
