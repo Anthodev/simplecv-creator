@@ -31,15 +31,6 @@
             {% include 'main/_languages.html.twig' %}
 
             {% include 'main/_interests.html.twig' %}
-
-            <section id="expertises_particularities" class="expertise">
-                <h2 class="expertise__title">PARTICULARITÉS</h2>
-                <div class="expertise__desc">
-                    <p>
-                        <a name="surdoue" id="surdoue" class="btn btn-outline-warning" href="https://www.davidsongifted.org/Search-Database/entry/A10495" target="_blank" rel="noopener noreferrer" role="button">Surefficient mental</a>
-                    </p>
-                </div>
-            </section>
         </section>
 
         <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalTitle" aria-hidden="true">
@@ -63,6 +54,12 @@
             </div>
         </div>
     </main>
+
+    <footer class="text-center">
+        <div>
+            <a href="{{ path('home_pdf') }}" rel="noopener noreferrer">View the print version</a>
+        </div>
+    </footer>
 </div>
 {% endblock %}
 

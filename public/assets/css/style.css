@@ -226,6 +226,10 @@ section {
   text-transform: uppercase;
 }
 
+footer {
+  width: 100%;
+}
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
   .header__desc {
