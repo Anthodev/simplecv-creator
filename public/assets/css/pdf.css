@@ -11,6 +11,14 @@ a:hover {
   color: #BDBEC4;
 }
 
+.header__desc {
+  max-width: 75%;
+}
+
+.contact__text {
+  flex-basis: 50%;
+}
+
 .resume__title {
   border-bottom: .1875rem solid #17181C;
 }
