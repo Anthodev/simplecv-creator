@@ -5,13 +5,13 @@
     <div class="form-group row">
         <label class="col-1 col-form-label" for="inputName">Name</label>
         <div class="col-11">
-            <input type="text" class="form-control" id="inputName" name="name" aria-describedby="nameHelp" placeholder="{{ info.name != "" ? info.name : 'Enter the name to be displayed' }}">
+            <input type="text" class="form-control" id="inputName" name="name" aria-describedby="nameHelp" placeholder="{{ info.name is defined ? info.name : 'Enter the name to be displayed' }}">
         </div>
     </div>
     <div class="form-group row">
         <label class="col-1 col-form-label" for="inputTitle">Title</label>
         <div class="col-11">
-            <input type="text" class="form-control" id="inputTitle" name="title" placeholder="{{ info.title != "" ? info.title : 'Title of the CV' }}">
+            <input type="text" class="form-control" id="inputTitle" name="title" placeholder="{{ info.title is defined ? info.title : 'Title of the CV' }}">
         </div>
     </div>
     <div class="custom-file mb-3">
