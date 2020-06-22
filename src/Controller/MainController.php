@@ -19,46 +19,49 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(
-        ExperienceRepository $expRepo,
-        TrainingRepository $trainingRepo,
-        SkillRepository $skillRepo,
-        AptitudeRepository $aptRepo,
-        InterestRepository $interestRepo,
-        ContactRepository $contactRepo,
-        PortfolioRepository $portfolioRepo,
-        SoftRepository $softRepo,
-        LanguageRepository $langRepo
-    )
-    {
-        $info = file_get_contents($this->getParameter('data_directory') . '/data.json');
-        $info = \json_decode($info);
+    // public function index(
+    //     ExperienceRepository $expRepo,
+    //     TrainingRepository $trainingRepo,
+    //     SkillRepository $skillRepo,
+    //     AptitudeRepository $aptRepo,
+    //     InterestRepository $interestRepo,
+    //     ContactRepository $contactRepo,
+    //     PortfolioRepository $portfolioRepo,
+    //     SoftRepository $softRepo,
+    //     LanguageRepository $langRepo
+    // )
+    // {
+    //     $info = file_get_contents($this->getParameter('data_directory') . '/data.json');
+    //     $info = \json_decode($info);
         
-        $experiences = $expRepo->findBy([], ['list_order' => 'ASC']);
-        $trainings = $trainingRepo->findBy([], ['list_order' => 'ASC']);
-        $skills = $skillRepo->findBy([], ['level' => 'DESC']);
-        $aptitudes = $aptRepo->findAll();
-        $interests = $interestRepo->findBy([], ['list_order' => 'ASC']);
-        $contacts = $contactRepo->findAll();
-        $portfolios_pro = $portfolioRepo->findBy(['type' => 'pro'], ['list_order' => 'ASC']);
-        $portfolios_perso = $portfolioRepo->findBy(['type' => 'perso'], ['list_order' => 'ASC']);
-        $softs = $softRepo->findAll();
-        $languages = $langRepo->findAll();
+    //     $experiences = $expRepo->findBy([], ['list_order' => 'ASC']);
+    //     $trainings = $trainingRepo->findBy([], ['list_order' => 'ASC']);
+    //     $skills = $skillRepo->findBy([], ['level' => 'DESC']);
+    //     $aptitudes = $aptRepo->findAll();
+    //     $interests = $interestRepo->findBy([], ['list_order' => 'ASC']);
+    //     $contacts = $contactRepo->findAll();
+    //     $portfolios_pro = $portfolioRepo->findBy(['type' => 'pro'], ['list_order' => 'ASC']);
+    //     $portfolios_perso = $portfolioRepo->findBy(['type' => 'perso'], ['list_order' => 'ASC']);
+    //     $softs = $softRepo->findAll();
+    //     $languages = $langRepo->findAll();
         
-        return $this->render('main/index.html.twig', [
-            'info' => $info,
-            'experiences' => $experiences,
-            'trainings' => $trainings,
-            'skills' => $skills,
-            'aptitudes' => $aptitudes,
-            'interests' => $interests,
-            'contacts' => $contacts,
-            'portfolios_pro' => $portfolios_pro,
-            'portfolios_perso' => $portfolios_perso,
-            'softs' => $softs,
-            'languages' => $languages,
-        ]);
-    }
+    //     return $this->render('main/index.html.twig', [
+    //         'info' => $info,
+    //         'experiences' => $experiences,
+    //         'trainings' => $trainings,
+    //         'skills' => $skills,
+    //         'aptitudes' => $aptitudes,
+    //         'interests' => $interests,
+    //         'contacts' => $contacts,
+    //         'portfolios_pro' => $portfolios_pro,
+    //         'portfolios_perso' => $portfolios_perso,
+    //         'softs' => $softs,
+    //         'languages' => $languages,
+    //     ]);
+        public function index()
+        {
+            return $this->render('main/index.html.twig');
+        }
 
     /**
      * @Route("/pdf", name="home_pdf")
