@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main class="mx-auto">
       <v-container fluid>
           <router-view></router-view>
       </v-container>
@@ -11,9 +11,5 @@
 <script>
 export default {
   name: "App",
-
-  created() {
-    // this.$vuetify.theme.dark = true
-  }
 };
 </script>
