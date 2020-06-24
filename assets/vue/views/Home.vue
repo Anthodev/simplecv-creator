@@ -19,6 +19,16 @@
         <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Portfolio professionnel</div>
         <app-portfolio-pro />
       </v-col>
+
+      <v-col cols="12">
+        <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Portfolio personnel</div>
+        <app-portfolio-perso />
+      </v-col>
+
+      <v-col cols="12">
+        <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Training</div>
+        <app-training />
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -29,7 +39,9 @@ export default {
 
   components: {
     appExperience: () => import('../components/Experience'),
-    appPortfolioPro: () => import('../components/PortfolioPro')
+    appPortfolioPro: () => import('../components/PortfolioPro'),
+    appPortfolioPerso: () => import('../components/PortfolioPerso'),
+    appTraining: () => import('../components/Training'),
   }
 };
 </script>
