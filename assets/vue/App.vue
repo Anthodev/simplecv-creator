@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="mb-6">
     <v-main class="mx-auto">
       <v-container fluid>
           <router-view></router-view>

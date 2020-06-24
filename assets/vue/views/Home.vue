@@ -14,6 +14,11 @@
         <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Expériences</div>
         <app-experience />
       </v-col>
+
+      <v-col cols="12">
+        <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Portfolio professionnel</div>
+        <app-portfolio-pro />
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -23,7 +28,8 @@ export default {
   name: "Home",
 
   components: {
-    appExperience: () => import('../components/Experience')
+    appExperience: () => import('../components/Experience'),
+    appPortfolioPro: () => import('../components/PortfolioPro')
   }
 };
 </script>
