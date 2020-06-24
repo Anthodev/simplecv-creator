@@ -1,36 +1,44 @@
 <template>
-  <div>
-    <v-row align="center" justify="center">
-      <v-col cols="10">
-        <p class="text-h3">Nom</p>
-        <p class="text-h4">Title</p>
-      </v-col>
-      <v-col cols='2'>
+  <v-row align="top" justify="center">
+    <v-col cols="9">
+      <v-row>
+        <v-col cols="12">
+          <p class="text-h3">Nom</p>
+          <p class="text-h4">Title</p>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="12">
+          <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Expériences</div>
+          <app-experience />
+        </v-col>
+
+        <v-col cols="12">
+          <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Portfolio professionnel</div>
+          <app-portfolio-pro />
+        </v-col>
+
+        <v-col cols="12">
+          <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Portfolio personnel</div>
+          <app-portfolio-perso />
+        </v-col>
+
+        <v-col cols="12">
+          <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Formations</div>
+          <app-training />
+        </v-col>
+      </v-row>
+    </v-col>
+    <v-col cols="3">
+      <v-col cols="12" class="mb-3">
         <v-img src="https://www.citationbonheur.fr/wp-content/uploads/2017/08/placeholder-1024x1024.png" />
       </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Expériences</div>
-        <app-experience />
-      </v-col>
 
-      <v-col cols="12">
-        <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Portfolio professionnel</div>
-        <app-portfolio-pro />
-      </v-col>
-
-      <v-col cols="12">
-        <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Portfolio personnel</div>
-        <app-portfolio-perso />
-      </v-col>
-
-      <v-col cols="12">
-        <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Training</div>
-        <app-training />
-      </v-col>
-    </v-row>
-  </div>
+      <app-language />
+      <app-skill />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -42,6 +50,8 @@ export default {
     appPortfolioPro: () => import('../components/PortfolioPro'),
     appPortfolioPerso: () => import('../components/PortfolioPerso'),
     appTraining: () => import('../components/Training'),
+    appLanguage: () => import('../components/Language'),
+    appSkill: () => import('../components/Skill'),
   }
 };
 </script>
