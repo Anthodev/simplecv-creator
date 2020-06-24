@@ -37,6 +37,7 @@
 
       <app-language />
       <app-skill />
+      <app-soft-skill />
     </v-col>
   </v-row>
 </template>
@@ -52,6 +53,7 @@ export default {
     appTraining: () => import('../components/Training'),
     appLanguage: () => import('../components/Language'),
     appSkill: () => import('../components/Skill'),
+    appSoftSkill: () => import('../components/SoftSkill'),
   }
 };
 </script>
