@@ -38,6 +38,8 @@
       <app-language />
       <app-skill />
       <app-soft-skill />
+      <app-interest />
+      <app-extra />
     </v-col>
   </v-row>
 </template>
@@ -54,11 +56,13 @@ export default {
     appLanguage: () => import('../components/Language'),
     appSkill: () => import('../components/Skill'),
     appSoftSkill: () => import('../components/SoftSkill'),
+    appInterest: () => import('../components/Interest'),
+    appExtra: () => import('../components/Extra'),
   }
 };
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .section-title {
   border-bottom: 1px solid gold;
 }

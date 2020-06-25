@@ -18,10 +18,3 @@
     </v-col>
   </v-row>
 </template>
-
-<style lang="sass" scoped>
-.section-title {
-  border-bottom: 1px solid gold;
-  font-size: 0.7em;
-}
-</style>

@@ -6,7 +6,7 @@
       <v-row justify="space-around">
         <v-col cols="12">
           <v-chip-group column>
-            <v-chip v-for="tag in tags" :key="tag">
+            <v-chip color="amber" outlined v-for="tag in tags" :key="tag">
               {{ tag }}
             </v-chip>
           </v-chip-group>
@@ -34,9 +34,3 @@ export default {
   },
 }
 </script>
-
-<style lang="sass" scoped>
-.section-title {
-  border-bottom: 1px solid gold;
-}
-</style>
