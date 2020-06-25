@@ -6,6 +6,9 @@
           <p class="text-h3">Nom</p>
           <p class="text-h4">Title</p>
         </v-col>
+        <v-col cols="12">
+          <app-contact />
+        </v-col>
       </v-row>
 
       <v-row>
@@ -49,6 +52,7 @@ export default {
   name: "Home",
 
   components: {
+    appContact: () => import('../components/Contact'),
     appExperience: () => import('../components/Experience'),
     appPortfolioPro: () => import('../components/PortfolioPro'),
     appPortfolioPerso: () => import('../components/PortfolioPerso'),
