@@ -13,55 +13,22 @@ use App\Repository\PortfolioRepository;
 use App\Repository\ExperienceRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="index")
+     * @Route("/{vueRouting}", requirements={"vueRouting"="^(?!.*api|_wdt|_profiler).+"}, name="vue_pages")
      */
-    // public function index(
-    //     ExperienceRepository $expRepo,
-    //     TrainingRepository $trainingRepo,
-    //     SkillRepository $skillRepo,
-    //     AptitudeRepository $aptRepo,
-    //     InterestRepository $interestRepo,
-    //     ContactRepository $contactRepo,
-    //     PortfolioRepository $portfolioRepo,
-    //     SoftRepository $softRepo,
-    //     LanguageRepository $langRepo
-    // )
-    // {
-    //     $info = file_get_contents($this->getParameter('data_directory') . '/data.json');
-    //     $info = \json_decode($info);
-        
-    //     $experiences = $expRepo->findBy([], ['list_order' => 'ASC']);
-    //     $trainings = $trainingRepo->findBy([], ['list_order' => 'ASC']);
-    //     $skills = $skillRepo->findBy([], ['level' => 'DESC']);
-    //     $aptitudes = $aptRepo->findAll();
-    //     $interests = $interestRepo->findBy([], ['list_order' => 'ASC']);
-    //     $contacts = $contactRepo->findAll();
-    //     $portfolios_pro = $portfolioRepo->findBy(['type' => 'pro'], ['list_order' => 'ASC']);
-    //     $portfolios_perso = $portfolioRepo->findBy(['type' => 'perso'], ['list_order' => 'ASC']);
-    //     $softs = $softRepo->findAll();
-    //     $languages = $langRepo->findAll();
-        
-    //     return $this->render('main/index.html.twig', [
-    //         'info' => $info,
-    //         'experiences' => $experiences,
-    //         'trainings' => $trainings,
-    //         'skills' => $skills,
-    //         'aptitudes' => $aptitudes,
-    //         'interests' => $interests,
-    //         'contacts' => $contacts,
-    //         'portfolios_pro' => $portfolios_pro,
-    //         'portfolios_perso' => $portfolios_perso,
-    //         'softs' => $softs,
-    //         'languages' => $languages,
-    //     ]);
-        public function index()
-        {
-            return $this->render('main/index.html.twig');
-        }
+    public function index(Request $request)
+    {
+        return $this->render('main/index.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
+            'controller_name' => 'MainController',
+        ]);
+    }
 
     /**
      * @Route("/pdf", name="home_pdf")

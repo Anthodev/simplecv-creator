@@ -35,7 +35,6 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
  * @Route("/acv", name="admin_")
- * @IsGranted("ROLE_ADMIN")
  */
 class AdminController extends AbstractController
 {
