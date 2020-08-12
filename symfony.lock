@@ -113,6 +113,30 @@
     "imagine/imagine": {
         "version": "1.2.3"
     },
+    "jean85/pretty-package-versions": {
+        "version": "1.5.0"
+    },
+    "jms/metadata": {
+        "version": "2.3.0"
+    },
+    "jms/serializer": {
+        "version": "3.8.0"
+    },
+    "lcobucci/jwt": {
+        "version": "3.3.2"
+    },
+    "lexik/jwt-authentication-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "5b2157bcd5778166a5696e42f552ad36529a07a6"
+        },
+        "files": [
+            "config/packages/lexik_jwt_authentication.yaml"
+        ]
+    },
     "liip/imagine-bundle": {
         "version": "1.8",
         "recipe": {
@@ -131,6 +155,9 @@
     },
     "monolog/monolog": {
         "version": "1.25.4"
+    },
+    "namshi/jose": {
+        "version": "7.2.3"
     },
     "nikic/php-parser": {
         "version": "v4.5.0"
@@ -380,6 +407,9 @@
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.17.0"
+    },
+    "symfony/polyfill-intl-normalizer": {
+        "version": "v1.18.1"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.17.0"

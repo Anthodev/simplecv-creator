@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Portfolio;
 use App\Form\PortfolioType;
 use App\Repository\PortfolioRepository;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
 * @Route("/acv/portfolios", name="admin_portfolio_")
