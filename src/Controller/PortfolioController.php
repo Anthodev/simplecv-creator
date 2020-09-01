@@ -2,34 +2,24 @@
 
 namespace App\Controller;
 
-use App\Document\Portfolio;
+use App\Entity\Portfolio;
 use App\Form\PortfolioType;
-use Doctrine\ODM\MongoDB\DocumentManager;
-use Symfony\Component\Filesystem\Filesystem;
+use App\Repository\PortfolioRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
 * @Route("/acv/portfolios", name="admin_portfolio_")
 */
 class PortfolioController extends AbstractController
 {
-    private $portfolioRepo;
-    private $dm;
-
-    public function __construct(DocumentManager $dm)
-    {
-        $this->dm = $dm;
-        $this->portfolioRepo = $dm->getRepository(Portfolio::class);
-    }
     /**
     * @Route("/", name="list", methods={"GET", "POST"})
     */
-    public function index(Request $request)
+    public function index(PortfolioRepository $expRepo, Request $request)
     {
-        $portfolios = $portfolioRepo->findAll();
+        $portfolios = $expRepo->findAll();
 
         $portfolio = new Portfolio();
 
@@ -37,9 +27,9 @@ class PortfolioController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $this->dm = $this->getDoctrine()->getManager();
-            $this->dm->persist($portfolio);
-            $this->dm->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($portfolio);
+            $em->flush();
 
             $this->addFlash('success', 'Portfolio added');
 
@@ -104,9 +94,9 @@ class PortfolioController extends AbstractController
                 $portfolio->setImage($oldImage);
             }
 
-            $this->dm = $this->getDoctrine()->getManager();
-            $this->dm->persist($portfolio);
-            $this->dm->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($portfolio);
+            $em->flush();
 
             $this->addFlash('success', 'Portfolio entry updated');
 
@@ -126,11 +116,11 @@ class PortfolioController extends AbstractController
     */
     public function delete(Portfolio $portfolio)
     {
-        if(!$portfolio) throw $this->createNotFoundException('Portfolio not found');
+        if(!$portfolio) throw $this->createNotFoundException('Expérience introuvable');
 
-        $this->dm = $this->getDoctrine()->getManager();
-        $this->dm->remove($portfolio);
-        $this->dm->flush();
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($portfolio);
+        $em->flush();
 
         $this->addFlash('success', 'Portfolio deleted');
 

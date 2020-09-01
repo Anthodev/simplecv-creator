@@ -2,15 +2,28 @@
 
 namespace App\Controller;
 
-use App\Document\Aptitude;
-use App\Document\Contact;
-use App\Document\Experience;
-use App\Document\Interest;
-use App\Document\Portfolio;
-use App\Document\Skill;
-use App\Document\Soft;
-use App\Document\Training;
-use Doctrine\ODM\MongoDB\DocumentManager;
+use App\Entity\Soft;
+use App\Entity\Skill;
+use App\Form\SoftType;
+use App\Entity\Contact;
+use App\Form\SkillType;
+use App\Entity\Aptitude;
+use App\Entity\Interest;
+use App\Entity\Portfolio;
+use App\Form\ContactType;
+use App\Form\AptitudeType;
+use App\Form\InterestType;
+use App\Form\PortfolioType;
+use App\Form\ExperienceType;
+use App\Repository\SoftRepository;
+use App\Repository\SkillRepository;
+use App\Repository\ContactRepository;
+use App\Repository\AptitudeRepository;
+use App\Repository\InterestRepository;
+use App\Repository\TrainingRepository;
+use App\Repository\PortfolioRepository;
+use App\Repository\ExperienceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\File;
@@ -22,46 +35,23 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
  * @Route("/acv", name="admin_")
+ * @IsGranted("ROLE_ADMIN")
  */
 class AdminController extends AbstractController
 {
-    private $expRepo;
-    private $contactRepo;
-    private $trainingRepo;
-    private $portfolioRepo;
-    private $aptRepo;
-    private $skillRepo;
-    private $softRepo;
-    private $interestRepo;
-    private $dm;
-    
-    public function __construct(DocumentManager $dm)
-    {
-        $this->dm = $dm;
-        $this->expRepo = $dm->getRepository(Experience::class);
-        $this->contactRepo = $dm->getRepository(Contact::class);
-        $this->trainingRepo = $dm->getRepository(Training::class);
-        $this->portfolioRepo = $dm->getRepository(Portfolio::class);
-        $this->aptRepo = $dm->getRepository(Aptitude::class);
-        $this->skillRepo = $dm->getRepository(Skill::class);
-        $this->softRepo = $dm->getRepository(Soft::class);
-        $this->interestRepo = $dm->getRepository(Interest::class);
-        // $this->serializer = $serializer;
-    }
-
     /**
      * @Route("/", name="home")
      */
-    public function index(Request $request)
+    public function index(ExperienceRepository $expRepo, ContactRepository $contactRepo, TrainingRepository $trainingRepo, PortfolioRepository $portfolioRepo, AptitudeRepository $aptRepo, SkillRepository $skillRepo, SoftRepository $softRepo, InterestRepository $interestRepo, EntityManagerInterface $em, Request $request)
     {
-        $experiences = $this->expRepo->findBy([], ['list_order' => 'ASC']);
-        $contacts = $this->contactRepo->findBy([], ['contactOrder' => 'ASC']);
-        $trainings = $this->trainingRepo->findBy([], ['list_order' => 'ASC']);
-        $portfolios = $this->portfolioRepo->findBy([], ['type' => 'DESC', 'list_order' => 'ASC']);
-        $aptitudes = $this->aptRepo->findAll();
-        $skills = $this->skillRepo->findBy([], ['level' => 'DESC']);
-        $softs = $this->softRepo->findAll();
-        $interests = $this->interestRepo->findBy([], ['list_order' => 'ASC']);
+        $experiences = $expRepo->findBy([], ['list_order' => 'ASC']);
+        $contacts = $contactRepo->findBy([], ['contactOrder' => 'ASC']);
+        $trainings = $trainingRepo->findBy([], ['list_order' => 'ASC']);
+        $portfolios = $portfolioRepo->findBy([], ['type' => 'DESC', 'list_order' => 'ASC']);
+        $aptitudes = $aptRepo->findAll();
+        $skills = $skillRepo->findBy([], ['level' => 'DESC']);
+        $softs = $softRepo->findAll();
+        $interests = $interestRepo->findBy([], ['list_order' => 'ASC']);
 
         $contact = new Contact();
         $portfolio = new Portfolio();
@@ -78,8 +68,8 @@ class AdminController extends AbstractController
         $form_contact->handleRequest($request);
 
         if($form_contact->isSubmitted() && $form_contact->isValid()) {
-            $this->dm->persist($contact);
-            $this->dm->flush();
+            $em->persist($contact);
+            $em->flush();
 
             $this->addFlash('success', 'Contact added');
 
@@ -126,8 +116,8 @@ class AdminController extends AbstractController
                 $portfolio->setImage($filename);
             }
 
-            $this->dm->persist($portfolio);
-            $this->dm->flush();
+            $em->persist($portfolio);
+            $em->flush();
 
             $this->addFlash('success', 'Portfolio added');
 
@@ -140,8 +130,8 @@ class AdminController extends AbstractController
         $form_aptitude->handleRequest($request);
 
         if($form_aptitude->isSubmitted() && $form_aptitude->isValid()) {
-            $this->dm->persist($aptitude);
-            $this->dm->flush();
+            $em->persist($aptitude);
+            $em->flush();
 
             $this->addFlash('success', 'Aptitude added');
 
@@ -154,8 +144,8 @@ class AdminController extends AbstractController
         $form_skill->handleRequest($request);
 
         if($form_skill->isSubmitted() && $form_skill->isValid()) {
-            $this->dm->persist($skill);
-            $this->dm->flush();
+            $em->persist($skill);
+            $em->flush();
 
             $this->addFlash('success', 'Skill added');
 
@@ -168,8 +158,8 @@ class AdminController extends AbstractController
         $form_soft->handleRequest($request);
 
         if($form_soft->isSubmitted() && $form_soft->isValid()) {
-            $this->dm->persist($soft);
-            $this->dm->flush();
+            $em->persist($soft);
+            $em->flush();
 
             $this->addFlash('success', 'Soft skill added');
 
@@ -182,8 +172,8 @@ class AdminController extends AbstractController
         $form_interest->handleRequest($request);
 
         if($form_interest->isSubmitted() && $form_interest->isValid()) {
-            $this->dm->persist($interest);
-            $this->dm->flush();
+            $em->persist($interest);
+            $em->flush();
 
             $this->addFlash('success', 'Interest added');
 
