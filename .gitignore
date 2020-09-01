@@ -30,3 +30,5 @@
 
 /.vscode/
 /node_modules/*
+/config/jwt/*
+!/config/jwt/.keep
