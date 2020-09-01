@@ -12,7 +12,6 @@
             </v-form>
         </v-card-text>
         <v-card-actions>
-            <v-card-text class="caption"><nuxt-link to="/signup">Create an account</nuxt-link></v-card-text>
             <v-spacer />
             <v-btn form="signinForm" type="submit" color="primary" :disabled="$v.$invalid || disabled" :loading="formLoading">Login</v-btn>
         </v-card-actions>
@@ -26,7 +25,9 @@ import {
   minLength
 } from 'vuelidate/lib/validators'
 export default {
+  name: 'Signin',
   layout: 'auth',
+
   data() {
     return {
       username: '',
@@ -35,6 +36,7 @@ export default {
       disabled: false
     }
   },
+
   computed: {
     usernameErrors () {
       const errors = []
@@ -52,6 +54,7 @@ export default {
       return errors
     }
   },
+
   validations: {
     username: {
       required,
@@ -63,6 +66,7 @@ export default {
       minLength: minLength(6)
     }
   },
+
   methods: {
     onSubmit() {
       this.$v.$touch()
@@ -80,18 +84,8 @@ export default {
       this.$store.dispatch('LOGIN', formData).then(() => {
         this.formLoading = false
         this.disabled = false
-        this.$store.dispatch('SET_LOADING_STATE', {
-          loading: true,
-          type: 'card-heading, list-item@6, text'
-        })
       })
     }
   },
-  async mounted() {
-    this.$store.dispatch('SET_LOADING_STATE', {
-      loading: false,
-      type: ''
-    })
-  }
 }
 </script>

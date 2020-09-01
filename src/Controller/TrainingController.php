@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Training;
+use App\Document\Training;
 use App\Form\TrainingType;
-use App\Repository\TrainingRepository;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,10 +14,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class TrainingController extends AbstractController
 {
+    private $trainingRepo;
+    private $dm;
+
+    public function __construct(DocumentManager $dm)
+    {
+        $this->dm = $dm;
+        $this->trainingRepo = $dm->getRepository(Training::class);
+    }
+
     /**
      * @Route("/", name="list")
      */
-    public function index(TrainingRepository $trainingRepo, Request $request)
+    public function index(Request $request)
     {
         $trainings = $trainingRepo->findAll();
 
@@ -27,9 +36,9 @@ class TrainingController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($training);
-            $em->flush();
+            $this->dm = $this->getDoctrine()->getManager();
+            $this->dm->persist($training);
+            $this->dm->flush();
 
             $this->addFlash('success', 'Training ajoutée');
 
@@ -52,9 +61,9 @@ class TrainingController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($training);
-            $em->flush();
+            $this->dm = $this->getDoctrine()->getManager();
+            $this->dm->persist($training);
+            $this->dm->flush();
 
             $this->addFlash('success', 'Training mis à jour');
 
@@ -74,9 +83,9 @@ class TrainingController extends AbstractController
     {
         if(!$training) throw $this->createNotFoundException('Expérience introuvable');
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($training);
-        $em->flush();
+        $this->dm = $this->getDoctrine()->getManager();
+        $this->dm->remove($training);
+        $this->dm->flush();
 
         $this->addFlash('success', 'Training supprimée');
 

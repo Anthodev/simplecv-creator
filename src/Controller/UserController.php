@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/user")
+ * @Route("/api/user")
  * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
  * @package App\Controller
  */
@@ -27,12 +27,12 @@ class UserController extends AbstractController
     private $dm;
     private $serializer;
 
-    public function __construct(DocumentManager $dm)
+    public function __construct(DocumentManager $dm, SerializerInterface $serializer)
     {
         $this->dm = $dm;
         $this->userRepository = $dm->getRepository(User::class);
         $this->roleRepository = $dm->getRepository(Role::class);
-        // $this->serializer = $serializer;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -44,7 +44,6 @@ class UserController extends AbstractController
     public function new(Request $request)
     {
         $username = '';
-        $email = '';
         $password = '';
         $roleUser = '';
 
@@ -61,6 +60,7 @@ class UserController extends AbstractController
         $role = $this->getUserRole($roleUser);
 
         $user = new User();
+        $user->setUsername($username);
         $user->setPlainPassword($password);
 
         $user->setRole($role);
@@ -77,12 +77,25 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/countUsers", methods={"GET"})
+     * @Route("/count", methods={"GET"})
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      */
     public function getUsersCount()
     {
-        return new JsonResponse(count($this->userRepository->findAll()), 200);
+        $usercount = 0;
+
+        $usercount = count($this->userRepository->findAll());
+        // dd($this->roleRepository);
+        // dump($usercount);
+
+        $serializedResponse = $this->serializer->serialize($usercount, 'json');
+
+        $response = new Response($serializedResponse);
+        $response->setStatusCode(Response::HTTP_OK);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+        // return new JsonResponse($usercount, 200);
     }
 
     /**
@@ -142,7 +155,7 @@ class UserController extends AbstractController
         // $response = new Response();
 
         // $serializedUser = $this->serializer->serialize($user, 'json');
-        $serializedUser = $this->get('jms_serializer')->serialize($user, 'json');
+        $serializedUser = $this->serializer->serialize($user, 'json');
 
         $response = new Response($serializedUser);
         $response->setStatusCode(Response::HTTP_OK);

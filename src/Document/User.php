@@ -2,12 +2,17 @@
 
 namespace App\Document;
 
+use JMS\Serializer\Annotation as Serializer;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @MongoDB\Document
+ * @UniqueEntity("username")
+ * @MongoDB\HasLifecycleCallbacks()
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @MongoDB\Id
@@ -173,6 +178,11 @@ class User
         $this->role = $role;
 
         return $this;
+    }
+
+    public function getRoles()
+    {
+        return [$this->getRole()->getCode()];
     }
 
     /**

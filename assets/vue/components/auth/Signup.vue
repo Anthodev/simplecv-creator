@@ -16,7 +16,7 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-card-text class="caption"><nuxt-link to="/signin">Login to your account</nuxt-link></v-card-text>
+      <v-card-text class="caption"><router-link :to="{ name: 'Auth' }">Login to your account</router-link></v-card-text>
       <v-spacer></v-spacer>
       <v-btn form="signupForm" type="submit" color="primary" :loading="loading" :disabled="$v.$invalid">Create an account</v-btn>
     </v-card-actions>
@@ -27,7 +27,9 @@
 import { required, alphaNum, email, minLength, sameAs } from 'vuelidate/lib/validators'
 
 export default {
+  name: 'Signup',
   layout: 'auth',
+
   data() {
     return {
       username: '',
@@ -45,6 +47,7 @@ export default {
       !this.$v.username.minLength && errors.push('The username must be 4 characters minimum.')
       return errors
     },
+
     passwordErrors() {
         const errors = []
       if (!this.$v.password.$dirty) return errors
@@ -52,6 +55,7 @@ export default {
       !this.$v.password.minLength && errors.push('Password must be 8 characters minimum.')
       return errors
     },
+
     passwordConfirmErrors() {
       const errors = []
       if (!this.$v.passwordConfirm.$dirty) return errors
@@ -59,19 +63,24 @@ export default {
       !this.$v.passwordConfirm.sameAsPassword && errors.push('This field must be the same as the password')
         return errors
     },
+
     passwordLengthProgress() {
       return Math.min(100, this.password.length * 12.5)
     },
+
     passwordConfirmLengthProgress() {
       return Math.min(100, this.passwordConfirm.length * 12.5)
     },
+
     colorPassword() {
       return ['error', 'warning', 'success'][Math.floor(this.passwordLengthProgress / 40)]
     },
+
     colorPasswordConfirm() {
       return ['error', 'warning', 'success'][Math.floor(this.passwordConfirmLengthProgress / 40)]
     },
   },
+
   validations: {
     username: {
       required,
@@ -87,6 +96,7 @@ export default {
       sameAsPassword: sameAs('password')
     }
   },
+
   methods: {
     onSubmit() {
       this.$v.$touch()
@@ -103,13 +113,6 @@ export default {
         role: 'User'
       }
       this.$store.dispatch('SIGNUP', formData).then(() => {
-        this.$store.dispatch('SET_LOADING_STATE', {
-          loadingState: {
-            loading: true,
-            type: "card-heading, list-item@6, text"
-          }
-        })
-        
         this.loading = !this.loading
       })
     }
