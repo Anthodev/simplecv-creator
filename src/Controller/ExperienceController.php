@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Document\Experience;
+use App\Entity\Experience;
 use App\Form\ExperienceType;
-use Doctrine\ODM\MongoDB\DocumentManager;
+use App\Repository\ExperienceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,18 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class ExperienceController extends AbstractController
 {
-    private $expRepo;
-    private $dm;
-
-    public function __construct(DocumentManager $dm)
-    {
-        $this->dm = $dm;
-        $this->expRepo = $dm->getRepository(Experience::class);
-    }
     /**
      * @Route("/", name="list", methods={"GET", "POST"})
      */
-    public function index(Request $request)
+    public function index(ExperienceRepository $expRepo, Request $request)
     {
         $experiences = $expRepo->findAll();
 
@@ -35,9 +27,9 @@ class ExperienceController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $this->dm = $this->getDoctrine()->getManager();
-            $this->dm->persist($experience);
-            $this->dm->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($experience);
+            $em->flush();
 
             $this->addFlash('success', 'Experience ajoutée');
 
@@ -60,9 +52,9 @@ class ExperienceController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $this->dm = $this->getDoctrine()->getManager();
-            $this->dm->persist($experience);
-            $this->dm->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($experience);
+            $em->flush();
 
             $this->addFlash('success', 'Experience mis à jour');
 
@@ -82,9 +74,9 @@ class ExperienceController extends AbstractController
     {
         if(!$experience) throw $this->createNotFoundException('Expérience introuvable');
 
-        $this->dm = $this->getDoctrine()->getManager();
-        $this->dm->remove($experience);
-        $this->dm->flush();
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($experience);
+        $em->flush();
 
         $this->addFlash('success', 'Experience supprimée');
 
