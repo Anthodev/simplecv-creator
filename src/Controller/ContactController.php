@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Contact;
+use App\Document\Contact;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,10 +15,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class ContactController extends AbstractController
 {
+    private $contactRepo;
+    private $dm;
+
+    public function __construct(DocumentManager $dm)
+    {
+        $this->dm = $dm;
+        $this->contactRepo = $dm->getRepository(Contact::class);
+    }
     /**
      * @Route("/", name="list")
      */
-    public function index(ContactRepository $contactRepo, Request $request)
+    public function index(Request $request)
     {
         $contacts = $contactRepo->findAll();
 
@@ -27,9 +36,9 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($contact);
-            $em->flush();
+            $this->dm = $this->getDoctrine()->getManager();
+            $this->dm->persist($contact);
+            $this->dm->flush();
 
             $this->addFlash('success', 'Contact ajouté');
 
@@ -52,9 +61,9 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($contact);
-            $em->flush();
+            $this->dm = $this->getDoctrine()->getManager();
+            $this->dm->persist($contact);
+            $this->dm->flush();
 
             $this->addFlash('success', 'Contact mis à jour');
 
@@ -74,9 +83,9 @@ class ContactController extends AbstractController
     {
         if(!$contact) throw $this->createNotFoundException('Contact introuvable');
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($contact);
-        $em->flush();
+        $this->dm = $this->getDoctrine()->getManager();
+        $this->dm->remove($contact);
+        $this->dm->flush();
 
         $this->addFlash('success', 'Contact supprimée');
 

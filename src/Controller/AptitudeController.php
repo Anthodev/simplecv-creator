@@ -2,9 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Aptitude;
-use App\Form\AptitudeType;
-use App\Repository\AptitudeRepository;
+use App\Document\Aptitude;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,12 +13,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class AptitudeController extends AbstractController
 {
+    private $aptitudeRepo;
+    private $dm;
+
+    public function __construct(DocumentManager $dm)
+    {
+        $this->dm = $dm;
+        $this->aptitudeRepo = $dm->getRepository(Aptitude::class);
+    }
     /**
      * @Route("/", name="list")
      */
-    public function index(AptitudeRepository $aptitudeRepo, Request $request)
+    public function index(Request $request)
     {
-        $aptitudes = $aptitudeRepo->findAll();
+        $aptitudes = $this->aptitudeRepo->findAll();
 
         $aptitude = new Aptitude();
 
@@ -27,9 +34,9 @@ class AptitudeController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($aptitude);
-            $em->flush();
+            $this->dm = $this->getDoctrine()->getManager();
+            $this->dm->persist($aptitude);
+            $this->dm->flush();
 
             $this->addFlash('success', 'Aptitude ajoutée');
 
@@ -53,9 +60,9 @@ class AptitudeController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($aptitude);
-            $em->flush();
+            $this->dm = $this->getDoctrine()->getManager();
+            $this->dm->persist($aptitude);
+            $this->dm->flush();
 
             $this->addFlash('success', 'Aptitude mis à jour');
 
@@ -74,9 +81,9 @@ class AptitudeController extends AbstractController
     {
         if(!$aptitude) throw $this->createNotFoundException('Expérience introuvable');
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($aptitude);
-        $em->flush();
+        $this->dm = $this->getDoctrine()->getManager();
+        $this->dm->remove($aptitude);
+        $this->dm->flush();
 
         $this->addFlash('success', 'Aptitude supprimée');
 

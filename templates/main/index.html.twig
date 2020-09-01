@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+{# <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"> #}
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    {% include 'main/_header.html.twig' %}
+{# <div class="container"> #}
+    {# {% include 'main/_header.html.twig' %} #}
 
-    <main>
+    {# <main>
         <section class="resume">
 
             {% include 'main/_experiences.html.twig' %}
@@ -59,10 +59,12 @@
         <div>
             <a href="{{ path('home_pdf') }}" rel="noopener noreferrer">View the print version</a>
         </div>
-    </footer>
-</div>
+    </footer> #}
+    <div id="app"></div>
+{# </div> #}
 {% endblock %}
 
 {% block javascript %}
-<script src="{{ asset('assets/js/app.js') }}"></script>
+{# <script src="{{ asset('assets/js/app.js') }}"></script> #}
+{# <script src="{{ asset('assets/vue/index.js') }}"></script> #}
 {% endblock %}

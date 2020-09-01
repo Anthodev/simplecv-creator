@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Soft;
+use App\Document\Soft;
 use App\Form\SoftType;
-use App\Repository\SoftRepository;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,10 +14,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class SoftController extends AbstractController
 {
+    private $softRepo;
+    private $dm;
+
+    public function __construct(DocumentManager $dm)
+    {
+        $this->dm = $dm;
+        $this->softRepo = $dm->getRepository(Soft::class);
+    }
     /**
      * @Route("/", name="list")
      */
-    public function index(SoftRepository $softRepo, Request $request)
+    public function index(Request $request)
     {
         $softs = $softRepo->findAll();
 
@@ -27,9 +35,9 @@ class SoftController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($soft);
-            $em->flush();
+            $this->dm = $this->getDoctrine()->getManager();
+            $this->dm->persist($soft);
+            $this->dm->flush();
 
             $this->addFlash('success', 'Soft ajoutée');
 
@@ -53,9 +61,9 @@ class SoftController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($soft);
-            $em->flush();
+            $this->dm = $this->getDoctrine()->getManager();
+            $this->dm->persist($soft);
+            $this->dm->flush();
 
             $this->addFlash('success', 'Soft mis à jour');
 
@@ -74,9 +82,9 @@ class SoftController extends AbstractController
     {
         if(!$soft) throw $this->createNotFoundException('Expérience introuvable');
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($soft);
-        $em->flush();
+        $this->dm = $this->getDoctrine()->getManager();
+        $this->dm->remove($soft);
+        $this->dm->flush();
 
         $this->addFlash('success', 'Soft supprimée');
 
