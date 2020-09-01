@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Interest;
+use App\Document\Interest;
 use App\Form\InterestType;
-use App\Repository\InterestRepository;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,10 +14,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class InterestController extends AbstractController
 {
+    private $interestRepo;
+    private $dm;
+
+    public function __construct(DocumentManager $dm)
+    {
+        $this->dm = $dm;
+        $this->interestRepo = $dm->getRepository(Interest::class);
+    }
     /**
      * @Route("/", name="home")
      */
-    public function index(InterestRepository $interestRepo, Request $request)
+    public function index(Request $request)
     {
         $interests = $interestRepo->findAll();
 
@@ -27,9 +35,9 @@ class InterestController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($interest);
-            $em->flush();
+            $this->dm = $this->getDoctrine()->getManager();
+            $this->dm->persist($interest);
+            $this->dm->flush();
 
             $this->addFlash('success', 'Interest ajoutée');
 
@@ -52,9 +60,9 @@ class InterestController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($interest);
-            $em->flush();
+            $this->dm = $this->getDoctrine()->getManager();
+            $this->dm->persist($interest);
+            $this->dm->flush();
 
             $this->addFlash('success', 'Interest mis à jour');
 
@@ -74,9 +82,9 @@ class InterestController extends AbstractController
     {
         if(!$interest) throw $this->createNotFoundException('Expérience introuvable');
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($interest);
-        $em->flush();
+        $this->dm = $this->getDoctrine()->getManager();
+        $this->dm->remove($interest);
+        $this->dm->flush();
 
         $this->addFlash('success', 'Interest supprimée');
 

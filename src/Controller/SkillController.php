@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Skill;
+use App\Document\Skill;
 use App\Form\SkillType;
-use App\Repository\SkillRepository;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,10 +14,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class SkillController extends AbstractController
 {
+    private $skillRepo;
+    private $dm;
+
+    public function __construct(DocumentManager $dm)
+    {
+        $this->dm = $dm;
+        $this->skillRepo = $dm->getRepository(Skill::class);
+    }
     /**
      * @Route("/", name="list")
      */
-    public function index(SkillRepository $skillRepo, Request $request)
+    public function index(Request $request)
     {
         $skills = $skillRepo->findAll();
 
@@ -27,9 +35,9 @@ class SkillController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($skill);
-            $em->flush();
+            $this->dm = $this->getDoctrine()->getManager();
+            $this->dm->persist($skill);
+            $this->dm->flush();
 
             $this->addFlash('success', 'Skill ajoutée');
 
@@ -52,9 +60,9 @@ class SkillController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($skill);
-            $em->flush();
+            $this->dm = $this->getDoctrine()->getManager();
+            $this->dm->persist($skill);
+            $this->dm->flush();
 
             $this->addFlash('success', 'Skill mis à jour');
 
@@ -73,9 +81,9 @@ class SkillController extends AbstractController
     {
         if(!$skill) throw $this->createNotFoundException('Expérience introuvable');
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($skill);
-        $em->flush();
+        $this->dm = $this->getDoctrine()->getManager();
+        $this->dm->remove($skill);
+        $this->dm->flush();
 
         $this->addFlash('success', 'Skill supprimée');
 
