@@ -1,3 +1,5 @@
+import Axios from "axios"
+
 export default function auth({ store, redirect }) {
     console.log('middleware')
     

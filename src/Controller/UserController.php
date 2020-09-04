@@ -7,6 +7,7 @@ use App\Document\Role;
 use App\Document\User;
 use JMS\Serializer\SerializerInterface;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -71,6 +72,43 @@ class UserController extends AbstractController
             $this->dm->flush();
 
             return new JsonResponse($user, 200);
+        } catch (Exception $e) {
+            return new JsonResponse(\json_encode($e), 403);
+        }
+    }
+
+    /**
+     * @Route("/set", methods={"POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     */
+    public function set(Request $request){
+        $user = $this->getUser();
+
+        $name = '';
+        $title = '';
+
+        $data = $request->getContent();
+
+        if (!empty($data)) {
+            $decodedData = \json_decode($data, true);
+
+            $name = $decodedData['name'];
+            $title = $decodedData['title'];
+        }
+
+        $user->setName($name);
+        $user->setTitle($title);
+
+        try {
+            $this->dm->flush();
+
+            $serializedUser = $this->serializer->serialize($user, 'json');
+
+            $response = new Response($serializedUser);
+            $response->setStatusCode(Response::HTTP_OK);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
         } catch (Exception $e) {
             return new JsonResponse(\json_encode($e), 403);
         }

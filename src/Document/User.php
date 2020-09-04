@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @MongoDB\Document
  * @UniqueEntity("username")
  * @MongoDB\HasLifecycleCallbacks()
+ * @Serializer\ExclusionPolicy("all")
  */
 class User implements UserInterface, \Serializable
 {
@@ -22,12 +23,14 @@ class User implements UserInterface, \Serializable
 
     /**
      * @MongoDB\Field(type="string")
+     * @Serializer\Expose
      * @var mixed
      */
     protected $name;
 
     /**
      * @MongoDB\Field(type="string")
+     * @Serializer\Expose
      * @var mixed
      */
     protected $username;
@@ -46,18 +49,21 @@ class User implements UserInterface, \Serializable
 
     /**
      * @MongoDB\Field(type="string")
+     * @Serializer\Expose
      * @var mixed
      */
     protected $title;
 
     /**
      * @MongoDB\Field(type="string")
+     * @Serializer\Expose
      * @var mixed
      */
     protected $photo;
 
     /**
      * @MongoDB\ReferenceOne(targetDocument=App\Document\Role::class)
+     * @Serializer\Expose
      * @var mixed
      */
     protected $role;

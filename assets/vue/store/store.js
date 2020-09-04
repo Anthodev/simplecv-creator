@@ -8,9 +8,21 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cvData: null,
+    cvData: {
+      info: {},
+      contacts: {},
+      experiences: {},
+      trainings: {},
+      portfolio: {},
+      aptitudes: {},
+      skills: {},
+      softSkills: {},
+      interests: {},
+      languages: {}
+    },
     authentificated: false,
     usercount: null,
+    userToken: null
   },
 
   mutations: {
@@ -19,12 +31,20 @@ export default new Vuex.Store({
     },
 
     SET_AUTHENTIFICATED(state, payload) {
-      state.authentificated = payload.authentificated
+      state.authentificated = payload
     },
 
     SET_USERCOUNT(state, payload) {
       state.usercount = payload
     },
+
+    SET_USERTOKEN(state, payload) {
+      state.userToken = payload
+    },
+
+    SET_USERINFO(state, payload) {
+      state.cvData.info = payload
+    }
   },
 
   actions: {
@@ -51,7 +71,14 @@ export default new Vuex.Store({
       console.info(res)
       
       commit("SET_AUTHENTIFICATED", true)
+      commit("SET_USERTOKEN", res.data.token)
       localStorage.setItem("userToken", res.data.token)
+
+      axios.interceptors.request.use(config => {
+        config.headers.Authorization = `Bearer ${res.data.token}`
+
+        return config
+      })
 
       router.push("/admin")
     },
@@ -62,8 +89,17 @@ export default new Vuex.Store({
       localStorage.removeItem('userToken')
 
       commit("SET_AUTHENTIFICATED", false)
+      commit("SET_USERTOKEN", null)
 
-      router.push('/')
+      axios.interceptors.request.use(config => {
+        config.headers.Authorization = `Bearer `
+
+        return config
+      })
+
+      router.push('/auth').catch(error => {
+        if (error.name !== 'NavigationDuplicated' && !error.message.includes('Avoided redundant navigation to current location')) console.error(error)
+      })
     },
 
     async FETCH_CV_DATA({ commit }) {
@@ -71,10 +107,29 @@ export default new Vuex.Store({
         .get("/get/data")
         .then((res) => {
           commit("SET_CV_DATA", {
-            cvData: res,
+            cvData: res.data,
           });
 
           return res;
+        })
+        .catch((error) => console.error(error))
+    },
+
+    async SET_USERINFO({ commit }, formData) {
+      return await axios
+        .post("/api/user/set", {
+          name: formData.name,
+          title: formData.title
+        })
+        .then((res) => {
+          let info = {
+            name: res.data.name,
+            title: res.data.title
+          }
+
+          commit("SET_USERINFO", info)
+
+          return res
         })
         .catch((error) => console.error(error))
     },
@@ -85,7 +140,7 @@ export default new Vuex.Store({
         .then((res) => {
           commit('SET_USERCOUNT', res.data)
 
-          return res
+          return res.data
         })
         .catch((error) => console.error(error))
     }
@@ -104,8 +159,8 @@ export default new Vuex.Store({
       return state.usercount;
     },
 
-    userToken() {
-      return localStorage.getItem("userToken")
+    userToken(state) {
+      return state.userToken
     }
   },
 });

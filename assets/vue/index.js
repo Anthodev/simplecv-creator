@@ -10,14 +10,20 @@ Vue.use(Vuelidate)
 
 axios.defaults.baseURL = `https://` + window.location.hostname
 
-const token = store.getters.userToken
+// const token = store.getters.userToken
 
-if (token) axios.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${token}`
+// axios.interceptors.request.use(config => {
+//   if (token) config.headers.Authorization = `Bearer ${token}`
 
-  return config
+//   return config
+// })
+
+axios.interceptors.response.use(res => {
+  return res
 }, error => {
-  return Promise.reject(error)
+  if (error.response.status === 401) {
+    store.dispatch('LOGOUT')
+  } else return Promise.reject(error)
 })
 
 new Vue({

@@ -21,7 +21,7 @@
       </v-toolbar>
 
       <v-tabs-items v-model="tab">
-        <app-admin-information />
+        <app-admin-information :cvDataInfo="cvData.info" />
         <app-admin-contacts />
         <app-admin-experiences />
         <app-admin-trainings />
@@ -47,6 +47,12 @@ export default {
     }
   },
 
+  computed: {
+    cvData() {
+      return this.$store.getters.cvData
+    }
+  },
+
   components: {
     appAdminInformation: () => import('../components/admin/Information'),
     appAdminContacts: () => import('../components/admin/Contact'),
@@ -58,6 +64,10 @@ export default {
     appAdminSoftSkills: () => import('../components/admin/SoftSkill'),
     appAdminInterests: () => import('../components/admin/Interest'),
     appAdminLanguages: () => import('../components/admin/Language'),
+  },
+
+  created() {
+    console.info(this.cvData)
   }
 }
 </script>

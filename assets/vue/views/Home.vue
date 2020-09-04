@@ -51,6 +51,18 @@
 export default {
   name: "Home",
 
+  methods: {
+    getData() {
+      this.$store.dispatch("FETCH_CV_DATA")
+    }
+  },
+
+  computed: {
+    cvData() {
+      return this.$store.getters.cvData
+    }
+  },
+
   components: {
     appContact: () => import('../components/Contact'),
     appExperience: () => import('../components/Experience'),
@@ -62,8 +74,12 @@ export default {
     appSoftSkill: () => import('../components/SoftSkill'),
     appInterest: () => import('../components/Interest'),
     appExtra: () => import('../components/Extra'),
+  },
+
+  created: function() {
+    this.getData()
   }
-};
+}
 </script>
 
 <style lang="sass">
