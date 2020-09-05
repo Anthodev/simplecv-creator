@@ -13,10 +13,11 @@ export default new Vuex.Store({
       contacts: {},
       experiences: {},
       trainings: {},
-      portfolio: {},
+      portfolios_pro: {},
+      portfolios_perso: {},
       aptitudes: {},
       skills: {},
-      softSkills: {},
+      softs: {},
       interests: {},
       languages: {}
     },
@@ -27,7 +28,7 @@ export default new Vuex.Store({
 
   mutations: {
     SET_CV_DATA(state, payload) {
-      state.cvData = payload.cvData;
+      state.cvData = payload;
     },
 
     SET_AUTHENTIFICATED(state, payload) {
@@ -103,12 +104,17 @@ export default new Vuex.Store({
     },
 
     async FETCH_CV_DATA({ commit }) {
+      const cvData = localStorage.getItem("cvData")
+
+      if (cvData) commit("SET_CV_DATA", JSON.parse(cvData))
+
       return await axios
-        .get("/get/data")
+        .get("/api/data/get")
         .then((res) => {
-          commit("SET_CV_DATA", {
-            cvData: res.data,
-          });
+          commit("SET_CV_DATA", res.data);
+
+          localStorage.removeItem("cvData")
+          localStorage.setItem("cvData", JSON.stringify(res.data))
 
           return res;
         })

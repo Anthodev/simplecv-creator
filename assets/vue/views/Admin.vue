@@ -67,7 +67,7 @@ export default {
   },
 
   created() {
-    console.info(this.cvData)
+    this.$store.dispatch('FETCH_CV_DATA')
   }
 }
 </script>

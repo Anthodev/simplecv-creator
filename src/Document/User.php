@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class User implements UserInterface, \Serializable
 {
     /**
-     * @MongoDB\Id
+     * @MongoDB\Id(strategy="INCREMENT")
      * @var mixed
      */
     protected $id;

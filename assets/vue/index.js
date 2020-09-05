@@ -5,18 +5,12 @@ import axios from 'axios'
 import store from './store/store'
 import vuetify from './plugins/vuetify'
 import Vuelidate from 'vuelidate'
+import ckeditor from '@ckeditor/ckeditor5-vue'
 
 Vue.use(Vuelidate)
+Vue.use(ckeditor)
 
 axios.defaults.baseURL = `https://` + window.location.hostname
-
-// const token = store.getters.userToken
-
-// axios.interceptors.request.use(config => {
-//   if (token) config.headers.Authorization = `Bearer ${token}`
-
-//   return config
-// })
 
 axios.interceptors.response.use(res => {
   return res
@@ -32,6 +26,7 @@ new Vue({
   store,
   vuetify,
   Vuelidate,
+  ckeditor,
   render: h => h(App),
   components: { App },
   template: "<App/>",

@@ -10,7 +10,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class Experience
 {
     /**
-     * @MongoDB\Id
+     * @MongoDB\Id(strategy="INCREMENT")
      * @var mixed
      */
     protected $id;

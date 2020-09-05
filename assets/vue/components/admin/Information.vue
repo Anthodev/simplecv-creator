@@ -71,9 +71,5 @@ export default {
   components: {
     appSnackbar: Snackbar
   },
-
-  created() {
-    console.info(this.info)
-  }
 }
 </script>

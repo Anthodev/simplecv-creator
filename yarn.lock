@@ -828,6 +828,16 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@ckeditor/ckeditor5-build-classic@^22.0.0":
+  version "22.0.0"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-build-classic/-/ckeditor5-build-classic-22.0.0.tgz#24e4a32a4d68211c58b4ea49e794217bd61bf0b7"
+  integrity sha512-Vcy7vqSDv1xH6ACi2RW25+wIEEKrzEYb+dpgL/yTfhqv0wlswl4tn1VOfEbzGNrgQCio3djxkF813be29IfmWA==
+
+"@ckeditor/ckeditor5-vue@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-vue/-/ckeditor5-vue-1.0.2.tgz#e9fa282ec44356ca2240d7f7a5031d9b1df675d0"
+  integrity sha512-rKQCNtYb8T2pjv6f+ZSrKGe+UUrgnABUfyNv8pzUOCDz5Eg8FUopIqkAQBr6iVmaP3MfUQKlPQ760G9jtlP47Q==
+
 "@symfony/webpack-encore@^0.30.0":
   version "0.30.2"
   resolved "https://registry.yarnpkg.com/@symfony/webpack-encore/-/webpack-encore-0.30.2.tgz#8f9e871f2ec9ac43bad93e835d447670b6650de3"
