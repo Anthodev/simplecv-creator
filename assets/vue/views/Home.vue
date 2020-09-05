@@ -2,12 +2,16 @@
   <v-row align="top" justify="center">
     <v-col cols="9">
       <v-row>
-        <v-col cols="12">
+        <v-col cols="12" v-if="Object.keys(cvData.info).length !== 0">
+          <p class="text-h3">{{ cvData.info.name }}</p>
+          <p class="text-h4">{{ cvData.info.title }}</p>
+        </v-col>
+        <v-col cols="12" v-else>
           <p class="text-h3">Nom</p>
           <p class="text-h4">Title</p>
         </v-col>
         <v-col cols="12">
-          <app-contact />
+          <app-contact :cvDataContacts="cvData.contacts" />
         </v-col>
       </v-row>
 

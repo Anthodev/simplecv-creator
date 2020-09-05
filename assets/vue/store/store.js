@@ -68,8 +68,6 @@ export default new Vuex.Store({
         username: authData.username,
         password: authData.password,
       })
-
-      console.info(res)
       
       commit("SET_AUTHENTIFICATED", true)
       commit("SET_USERTOKEN", res.data.token)
