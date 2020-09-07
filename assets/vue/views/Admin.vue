@@ -22,7 +22,7 @@
 
       <v-tabs-items v-model="tab">
         <app-admin-information :cvDataInfo="cvData.info" />
-        <app-admin-contacts />
+        <app-admin-contacts :cvDataContacts="cvData.contacts" />
         <app-admin-experiences />
         <app-admin-trainings />
         <app-admin-portfolio />

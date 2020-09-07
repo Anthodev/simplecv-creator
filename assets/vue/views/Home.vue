@@ -11,7 +11,7 @@
           <p class="text-h4">Title</p>
         </v-col>
         <v-col cols="12">
-          <app-contact :cvDataContacts="cvData.contacts" />
+          <app-contact :cvDataContacts="cvData.contacts" v-if="Object.keys(cvData.contacts).length > 0" />
         </v-col>
       </v-row>
 

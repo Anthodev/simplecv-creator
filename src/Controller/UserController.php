@@ -81,7 +81,8 @@ class UserController extends AbstractController
      * @Route("/set", methods={"POST"})
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
-    public function set(Request $request){
+    public function set(Request $request)
+    {
         $user = $this->getUser();
 
         $name = '';

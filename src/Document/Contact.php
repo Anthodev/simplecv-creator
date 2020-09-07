@@ -2,39 +2,47 @@
 
 namespace App\Document;
 
+use JMS\Serializer\Annotation as Serializer;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * @MongoDB\Document
+ * @MongoDB\HasLifecycleCallbacks()
+ * @Serializer\ExclusionPolicy("all")
  */
 class Contact
 {
     /**
      * @MongoDB\Id(strategy="INCREMENT")
+     * @Serializer\Expose
      * @var mixed
      */
     protected $id;
 
     /**
      * @MongoDB\Field(type="string")
+     * @Serializer\Expose
      * @var mixed
      */
     protected $name;
 
     /**
      * @MongoDB\Field(type="string")
+     * @Serializer\Expose
      * @var mixed
      */
     protected $link;
 
     /**
      * @MongoDB\Field(type="string")
+     * @Serializer\Expose
      * @var mixed
      */
     protected $icon;
 
     /**
      * @MongoDB\Field(type="int")
+     * @Serializer\Expose
      * @var mixed
      */
     protected $contactOrder;

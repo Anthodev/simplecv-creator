@@ -17,6 +17,7 @@ class User implements UserInterface, \Serializable
 {
     /**
      * @MongoDB\Id(strategy="INCREMENT")
+     * @Serializer\Expose
      * @var mixed
      */
     protected $id;

@@ -45,6 +45,10 @@ export default new Vuex.Store({
 
     SET_USERINFO(state, payload) {
       state.cvData.info = payload
+    },
+
+    SET_CONTACTS(state, payload) {
+      state.cvData.contacts = payload
     }
   },
 
@@ -119,6 +123,17 @@ export default new Vuex.Store({
         .catch((error) => console.error(error))
     },
 
+    async FETCH_USERCOUNT({ commit }) {
+      return await axios
+        .get("/api/user/count")
+        .then((res) => {
+          commit('SET_USERCOUNT', res.data)
+
+          return res.data
+        })
+        .catch((error) => console.error(error))
+    },
+
     async SET_USERINFO({ commit }, formData) {
       return await axios
         .post("/api/user/set", {
@@ -138,16 +153,21 @@ export default new Vuex.Store({
         .catch((error) => console.error(error))
     },
 
-    async FETCH_USERCOUNT({ commit }) {
+    async ADD_CONTACT({ commit }, formData) {
       return await axios
-        .get("/api/user/count")
+        .post("/api/contact/add", {
+          name: formData.name,
+          link: formData.link,
+          icon: formData.icon,
+          order: formData.order
+        })
         .then((res) => {
-          commit('SET_USERCOUNT', res.data)
+          commit("SET_CONTACTS", res.data)
 
-          return res.data
+          return res
         })
         .catch((error) => console.error(error))
-    }
+    },
   },
 
   getters: {

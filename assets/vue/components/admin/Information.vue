@@ -36,16 +36,6 @@ export default {
     }
   },
 
-  // computed: {
-  //   name() {
-  //     return this.info.name
-  //   },
-
-  //   title() {
-  //     return this.info.title
-  //   }
-  // },
-
   methods: {
     onSubmit() {
       this.loading = !this.loading
