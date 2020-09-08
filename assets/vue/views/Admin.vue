@@ -1,6 +1,9 @@
 <template>
   <v-row align="top" justify="center">
-    <v-col cols="12">
+    <v-col cols="12" sm="8" md="6" class="text-center" v-if="cvData === null || cvData === undefined">
+      <v-progress-circular indeterminate color="amber" />
+    </v-col>
+    <v-col cols="12" v-else>
       <v-toolbar class="rounded-t-lg" flat>
         <v-toolbar-title>Admin CV</v-toolbar-title>
 
@@ -50,6 +53,13 @@ export default {
   computed: {
     cvData() {
       return this.$store.getters.cvData
+    }
+  },
+
+  watch: {
+    cvData: {
+      handler(val) {},
+      deep: true
     }
   },
 

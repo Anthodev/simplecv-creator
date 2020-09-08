@@ -36,6 +36,12 @@ export default {
     }
   },
 
+  watch: {
+    cvDataInfo(newValue, oldValue) {
+      oldValue = newValue
+    }
+  },
+
   methods: {
     onSubmit() {
       this.loading = !this.loading

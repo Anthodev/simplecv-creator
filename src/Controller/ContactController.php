@@ -77,6 +77,54 @@ class ContactController extends AbstractController
     }
 
     /**
+     * @Route("/edit", methods={"POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     */
+    public function edit(Request $request)
+    {
+        $id = null;
+        $name = '';
+        $link = '';
+        $icon = '';
+        $order = '';
+
+        $data = $request->getContent();
+
+        if (!empty($data)) {
+            $decodedData = \json_decode($data, true);
+
+            $id = $decodedData['id'];
+            $name = $decodedData['name'];
+            $link = $decodedData['link'];
+            $icon = $decodedData['icon'];
+            $order = $decodedData['order'];
+
+            $contact = $this->contactRepo->find($id);
+
+            $contact->setName($name);
+            $contact->setLink($link);
+            $contact->setIcon($icon);
+            $contact->setContactOrder($order);
+
+            try {
+                $this->dm->flush();
+
+                $contacts = $this->contactRepo->findAll();
+
+                $serializedContacts = $this->serializer->serialize($contacts, 'json');
+
+                $response = new Response($serializedContacts);
+                $response->setStatusCode(Response::HTTP_OK);
+                $response->headers->set('Content-Type', 'application/json');
+
+                return $response;
+            } catch (Exception $e) {
+                return new JsonResponse(\json_encode($e), 500);
+            }
+        } else return new JsonResponse("No data sent.", 417);
+    }
+
+    /**
      * @Route("/{id}", name="show", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function show(Contact $contact, Request $request)
@@ -103,18 +151,36 @@ class ContactController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="delete", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/delete", name="delete", methods={"POST"})
      */
-    public function delete(Contact $contact)
+    public function delete(Request $request)
     {
-        if(!$contact) throw $this->createNotFoundException('Contact introuvable');
+        $id = null;
 
-        $this->dm = $this->getDoctrine()->getManager();
-        $this->dm->remove($contact);
-        $this->dm->flush();
+        $data = $request->getContent();
 
-        $this->addFlash('success', 'Contact supprimée');
+        if (!empty($data)) {
+            $decodedData = \json_decode($data, true);
 
-        return $this->redirectToRoute('admin_home');
+            $id = $decodedData['id'];
+            $contact = $this->contactRepo->find($id);
+
+            try {
+                $this->dm->remove($contact);
+                $this->dm->flush();
+
+                $contacts = $this->contactRepo->findAll();
+
+                $serializedContacts = $this->serializer->serialize($contacts, 'json');
+
+                $response = new Response($serializedContacts);
+                $response->setStatusCode(Response::HTTP_OK);
+                $response->headers->set('Content-Type', 'application/json');
+
+                return $response;
+            } catch (Exception $e) {
+                return new JsonResponse(\json_encode($e), 500);
+            }
+        }
     }
 }

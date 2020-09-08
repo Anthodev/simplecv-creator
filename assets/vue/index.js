@@ -12,6 +12,15 @@ Vue.use(ckeditor)
 
 axios.defaults.baseURL = `https://` + window.location.hostname
 
+axios.interceptors.request.use(config => {
+  const token = store.getters.userToken
+
+  if (token) config.headers.Authorization = 'Bearer ' + token
+  else config.headers.Authorization = 'Bearer '
+
+  return config
+})
+
 axios.interceptors.response.use(res => {
   return res
 }, error => {

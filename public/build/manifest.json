@@ -13,6 +13,7 @@
   "build/5.js": "/build/5.js",
   "build/6.css": "/build/6.css",
   "build/6.js": "/build/6.js",
+  "build/7.css": "/build/7.css",
   "build/7.js": "/build/7.js",
   "build/8.js": "/build/8.js",
   "build/9.js": "/build/9.js",
@@ -33,5 +34,7 @@
   "build/app.js": "/build/app.js",
   "build/runtime.js": "/build/runtime.js",
   "build/vendors~app.css": "/build/vendors~app.css",
-  "build/vendors~app.js": "/build/vendors~app.js"
+  "build/vendors~app.js": "/build/vendors~app.js",
+  "build/23.js": "/build/23.js",
+  "build/23.css": "/build/23.css"
 }

@@ -108,7 +108,7 @@ export default new Vuex.Store({
     async FETCH_CV_DATA({ commit }) {
       const cvData = localStorage.getItem("cvData")
 
-      if (cvData) commit("SET_CV_DATA", JSON.parse(cvData))
+      if (cvData && cvData != undefined) commit("SET_CV_DATA", JSON.parse(cvData))
 
       return await axios
         .get("/api/data/get")
@@ -134,6 +134,11 @@ export default new Vuex.Store({
         .catch((error) => console.error(error))
     },
 
+    UPDATE_DATA({ getters }) {
+      localStorage.removeItem("cvData")
+      localStorage.setItem("cvData", JSON.stringify(getters.cvData))
+    },
+
     async SET_USERINFO({ commit }, formData) {
       return await axios
         .post("/api/user/set", {
@@ -153,7 +158,7 @@ export default new Vuex.Store({
         .catch((error) => console.error(error))
     },
 
-    async ADD_CONTACT({ commit }, formData) {
+    async ADD_CONTACT({ commit, dispatch }, formData) {
       return await axios
         .post("/api/contact/add", {
           name: formData.name,
@@ -163,6 +168,37 @@ export default new Vuex.Store({
         })
         .then((res) => {
           commit("SET_CONTACTS", res.data)
+          dispatch("UPDATE_DATA")
+
+          return res
+        })
+        .catch((error) => console.error(error))
+    },
+
+    async EDIT_CONTACT({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/contact/edit", {
+          id: formData.id,
+          name: formData.name,
+          link: formData.link,
+          icon: formData.icon,
+          order: formData.order
+        })
+        .then((res) => {
+          commit("SET_CONTACTS", res.data)
+          dispatch("UPDATE_DATA")
+
+          return res
+        })
+        .catch((error) => console.error(error))
+    },
+
+    async DELETE_CONTACT({ commit, dispatch }, id) {
+      return await axios
+        .post("/api/contact/delete", { id: id })
+        .then((res) => {
+          commit("SET_CONTACTS", res.data)
+          dispatch("UPDATE_DATA")
 
           return res
         })
