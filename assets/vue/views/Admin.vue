@@ -56,13 +56,6 @@ export default {
     }
   },
 
-  watch: {
-    cvData: {
-      handler(val) {},
-      deep: true
-    }
-  },
-
   components: {
     appAdminInformation: () => import('../components/admin/Information'),
     appAdminContacts: () => import('../components/admin/Contact'),

@@ -86,6 +86,10 @@ export default new Vuex.Store({
       router.push("/admin")
     },
 
+    SET_AUTHENTIFICATED({ commit }, authState) {
+      commit("SET_AUTHENTIFICATED", authState)
+    },
+
     LOGOUT({
       commit
     }) {

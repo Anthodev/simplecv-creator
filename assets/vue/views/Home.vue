@@ -61,7 +61,7 @@ export default {
     }
   },
 
-  watch: {
+  computed: {
     cvData() {
       return this.$store.getters.cvData
     }
