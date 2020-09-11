@@ -49,7 +49,11 @@ export default new Vuex.Store({
 
     SET_CONTACTS(state, payload) {
       state.cvData.contacts = payload
-    }
+    },
+
+    SET_EXPERIENCES(state, payload) {
+      state.cvData.experiences = payload
+    },
   },
 
   actions: {
