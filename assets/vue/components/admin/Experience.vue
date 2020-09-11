@@ -31,6 +31,41 @@
         </v-form>
       </v-card-text>
     </v-card>
+
+    <v-card v-if="Object.keys(cvDataExperiences).length > 0">
+      <v-card-text>
+        <div class="text-h5 text-uppercase">Experiences list</div>
+        <v-divider />
+        <v-card v-for="(experience) in experiences" :key="experience.id">
+          <v-text-field v-model="experience.title" placeholder="Title" filled></v-text-field>
+          <v-text-field v-model="experience.company" placeholder="Company" filled></v-text-field>
+          <v-text-field v-model="experience.company_link" placeholder="Company link" type="url" filled></v-text-field>
+          <v-text-field v-model="experience.location" placeholder="Location" filled></v-text-field>
+          <editor
+            color="black"
+            v-model="experience.description"
+            apiKey='mvh61fdjdui6dvdxz5q0ylb2e69bvuuzfbv5ewrbjtwtwooq'
+            :init="{
+              selector: 'v-textarea',
+              menubar: false,
+              plugins: [
+                'advlist autolink lists link image charmap',
+                'preview anchor media',
+                'paste code help wordcount'
+              ],
+              toolbar: 'formatselect | bold italic | bullist numlist'
+            }"
+            :init-value='experience.description' />
+          <v-text-field v-model="experience.date_start" class="mt-7" label="Date start" placeholder="jj/mm/aaaa" type="date" filled></v-text-field>
+          <v-text-field v-model="experience.date_end" label="Date end" placeholder="jj/mm/aaaa" type="date" filled></v-text-field>
+          <v-text-field v-model="experience.list_order" placeholder="List Order" type="number" filled></v-text-field>
+          <v-col cols="12" md="2">
+            <v-btn @click="loader='loading'; loadingIndex = experience.id; loadingEdit=experience.id; onEdit(experience)" color="amber" :loading="loading && loadingEdit == experience.id">Edit</v-btn>
+            <v-btn @click="loader='loading'; loadingIndex = experience.id; loadingDelete=experience.id; onDelete(experience)" color="red" :loading="loading && loadingDelete == experience.id">Delete</v-btn>
+          </v-col>
+        </v-card>
+      </v-card-text>
+    </v-card>
   </v-tab-item>
 </template>
 
@@ -110,15 +145,18 @@ export default {
       })
     },
 
-    onEdit(contact) {
+    onEdit(experience) {
       this.loading = !this.loading
 
       const formData = {
-        id: contact.id,
-        name: contact.name,
-        link: contact.link,
-        icon: contact.icon,
-        order: contact.order,
+        title: experience.title,
+        company: experience.company,
+        link: experience.company_link,
+        location: experience.location,
+        description: experience.description,
+        date_start: experience.date_start,
+        date_end: experience.date_end,
+        order: experience.list_order,
       }
 
       this.$store.dispatch('EDIT_CONTACT', formData).then(() => {
@@ -133,10 +171,10 @@ export default {
       })
     },
 
-    onDelete(contact) {
+    onDelete(experience) {
       this.loadingDelete = !this.loading
 
-      this.$store.dispatch('DELETE_CONTACT', contact.id).then(() => {
+      this.$store.dispatch('DELETE_CONTACT', experience.id).then(() => {
         this.snackbar.message = "The entry has been deleted."
         this.snackbar.state = true
       }).catch((error) => {

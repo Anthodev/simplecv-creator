@@ -25,7 +25,7 @@
             <v-col cols="12" md="3"><v-text-field placeholder="Name" :value="contact.name" v-model="contact.name" filled>{{ contact.name }}</v-text-field></v-col>
             <v-col cols="12" md="3"><v-text-field placeholder="Link" :value="contact.link" v-model="contact.link" filled>{{ contact.link }}</v-text-field></v-col>
             <v-col cols="12" md="2"><v-text-field placeholder="Icon" :value="contact.icon" v-model="contact.icon" filled>{{ contact.icon }}</v-text-field></v-col>
-            <v-col cols="12" md="2"><v-text-field placeholder="Order" :value="contact.order" type="number" v-model="contact.order" filled>{{ contact.order }}</v-text-field></v-col>
+            <v-col cols="12" md="2"><v-text-field placeholder="Order" :value="contact.list_order" type="number" v-model="contact.list_order" filled>{{ contact.list_order }}</v-text-field></v-col>
             <v-col cols="12" md="2">
                 <v-btn @click="loader='loading'; loadingIndex = contact.id; loadingEdit=contact.id; onEdit(contact)" color="amber" :loading="loading && loadingEdit == contact.id">Edit</v-btn>
                 <v-btn @click="loader='loading'; loadingIndex = contact.id; loadingDelete=contact.id; onDelete(contact)" color="red" :loading="loading && loadingDelete == contact.id">Delete</v-btn>
@@ -106,7 +106,7 @@ export default {
         id: contact.id,
         name: contact.name,
         link: contact.link,
-        icon: contact.icon,
+        icon: contact.list_order,
         order: contact.order,
       }
 
