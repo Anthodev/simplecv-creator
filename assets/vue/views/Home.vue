@@ -10,15 +10,15 @@
           <p class="text-h3">Nom</p>
           <p class="text-h4">Title</p>
         </v-col>
-        <v-col cols="12">
-          <app-contact :cvDataContacts="cvData.contacts" v-if="Object.keys(cvData.contacts).length > 0" />
+        <v-col cols="12" v-if="Object.keys(cvData.contacts).length > 0">
+          <app-contact :cvDataContacts="cvData.contacts" />
         </v-col>
       </v-row>
 
       <v-row>
-        <v-col cols="12">
+        <v-col cols="12" v-if="Object.keys(cvData.experiences).length > 0">
           <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Expériences</div>
-          <app-experience />
+          <app-experience :cvDataExperiences="cvData.experiences" />
         </v-col>
 
         <v-col cols="12">
