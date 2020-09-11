@@ -32,6 +32,7 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 /public/uploads/
+!/public/uploads/.keep
 !/public/uploads/photo/.keep
 !/public/uploads/portfolio/.keep
 

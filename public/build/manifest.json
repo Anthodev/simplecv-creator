@@ -30,11 +30,10 @@
   "build/20.js": "/build/20.js",
   "build/21.js": "/build/21.js",
   "build/22.js": "/build/22.js",
+  "build/23.js": "/build/23.js",
   "build/app.css": "/build/app.css",
   "build/app.js": "/build/app.js",
   "build/runtime.js": "/build/runtime.js",
   "build/vendors~app.css": "/build/vendors~app.css",
-  "build/vendors~app.js": "/build/vendors~app.js",
-  "build/8.css": "/build/8.css",
-  "build/23.js": "/build/23.js"
+  "build/vendors~app.js": "/build/vendors~app.js"
 }

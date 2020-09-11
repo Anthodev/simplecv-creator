@@ -74,3 +74,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.ck-editor {
+  color: #1e1e1e;
+}
+</style>

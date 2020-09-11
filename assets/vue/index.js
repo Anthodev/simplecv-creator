@@ -5,10 +5,8 @@ import axios from 'axios'
 import store from './store/store'
 import vuetify from './plugins/vuetify'
 import Vuelidate from 'vuelidate'
-import ckeditor from '@ckeditor/ckeditor5-vue'
 
 Vue.use(Vuelidate)
-Vue.use(ckeditor)
 
 axios.defaults.baseURL = `https://` + window.location.hostname
 
@@ -35,7 +33,6 @@ new Vue({
   store,
   vuetify,
   Vuelidate,
-  ckeditor,
   render: h => h(App),
   components: { App },
   template: "<App/>",
