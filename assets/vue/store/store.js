@@ -70,6 +70,10 @@ export default new Vuex.Store({
     SET_SOFTS(state, payload) {
       state.cvData.softs = payload;
     },
+
+    SET_INTERESTS(state, payload) {
+      state.cvData.interests = payload;
+    },
   },
 
   actions: {
@@ -289,6 +293,22 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async ADD_INTEREST({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/interest/add", {
+          name: formData.name,
+          icon: formData.icon,
+          order: formData.order,
+        })
+        .then((res) => {
+          commit("SET_INTERESTS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async EDIT_CONTACT({ commit, dispatch }, formData) {
       return await axios
         .post("/api/contact/edit", {
@@ -397,6 +417,23 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async EDIT_INTEREST({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/interest/edit", {
+          id: formData.id,
+          name: formData.name,
+          icon: formData.icon,
+          order: formData.order,
+        })
+        .then((res) => {
+          commit("SET_INTERESTS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async DELETE_CONTACT({ commit, dispatch }, id) {
       return await axios
         .post("/api/contact/delete", { id: id })
@@ -462,6 +499,18 @@ export default new Vuex.Store({
         .post("/api/soft/delete", { id: id })
         .then((res) => {
           commit("SET_SOFTS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
+    async DELETE_INTEREST({ commit, dispatch }, id) {
+      return await axios
+        .post("/api/interest/delete", { id: id })
+        .then((res) => {
+          commit("SET_INTERESTS", res.data);
           dispatch("UPDATE_DATA");
 
           return res;

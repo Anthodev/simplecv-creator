@@ -6,9 +6,8 @@
           <div class="text-h5 text-uppercase">New Interest</div>
           <v-divider />
           <v-row>
-            <v-col cols="12" md="6"><v-text-field placeholder="Name" v-model="name" filled></v-text-field></v-col>
+            <v-col cols="12" md="8"><v-text-field placeholder="Name" v-model="name" filled></v-text-field></v-col>
             <v-col cols="12" md="2"><v-text-field placeholder="Icon" v-model="icon" filled></v-text-field></v-col>
-            <v-col cols="12" md="2"><v-text-field placeholder="Interest Order" type="number" v-model="order" filled></v-text-field></v-col>
             <v-col cols="12" md="2"><v-btn form="interestForm" type="submit" color="primary" @click="loader = 'loading'; loadingIndex = -1" :loading="loading && loadingIndex == -1">Add</v-btn></v-col>
           </v-row>
         </v-form>
@@ -21,9 +20,8 @@
         <v-divider />
         <v-card v-for="(interest) in interests" :key="interest.id">
           <v-row>
-            <v-col cols="12" md="6"><v-text-field placeholder="Name" :value="interest.name" v-model="interest.name" filled>{{ interest.name }}</v-text-field></v-col>
+            <v-col cols="12" md="8"><v-text-field placeholder="Name" :value="interest.name" v-model="interest.name" filled>{{ interest.name }}</v-text-field></v-col>
             <v-col cols="12" md="2"><v-text-field placeholder="Icon" :value="interest.icon" v-model="interest.icon" filled>{{ interest.icon }}</v-text-field></v-col>
-            <v-col cols="12" md="2"><v-text-field placeholder="Order" :value="interest.list_order" type="number" v-model="interest.list_order" filled>{{ interest.list_order }}</v-text-field></v-col>
             <v-col cols="12" md="2">
                 <v-btn @click="loader='loading'; loadingIndex = interest.id; loadingEdit=interest.id; onEdit(interest)" color="amber" :loading="loading && loadingEdit == interest.id">Edit</v-btn>
                 <v-btn @click="loader='loading'; loadingIndex = interest.id; loadingDelete=interest.id; onDelete(interest)" color="red" :loading="loading && loadingDelete == interest.id">Delete</v-btn>
@@ -46,7 +44,6 @@ export default {
       interests: this.cvDataInterests,
       name: '',
       icon: '',
-      order: 0,
       loading: false,
       loader: null,
       loadingIndex: -1,
@@ -75,7 +72,6 @@ export default {
       const formData = {
         name: this.name,
         icon: this.icon,
-        order: this.order,
       }
 
       this.$store.dispatch('ADD_INTEREST', formData).then(() => {
@@ -85,7 +81,6 @@ export default {
 
         this.name = ''
         this.icon = ''
-        this.order = ''
       }).catch((error) => {
         console.error(error)
         this.loading = false
@@ -100,8 +95,6 @@ export default {
       const formData = {
         id: interest.id,
         name: interest.name,
-        icon: interest.list_order,
-        order: interest.order,
       }
 
       this.$store.dispatch('EDIT_INTEREST', formData).then(() => {

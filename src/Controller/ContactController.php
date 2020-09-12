@@ -126,6 +126,7 @@ class ContactController extends AbstractController
 
     /**
      * @Route("/delete", name="delete", methods={"POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function delete(Request $request)
     {
