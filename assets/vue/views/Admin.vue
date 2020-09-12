@@ -18,6 +18,7 @@
             <v-tab href="#tab-skills">Skills</v-tab>
             <v-tab href="#tab-soft-skills">Soft skills</v-tab>
             <v-tab href="#tab-interests">Interests</v-tab>
+            <v-tab href="#tab-extras">Extras</v-tab>
             <v-tab href="#tab-languages">Languages</v-tab>
           </v-tabs>
         </template>
@@ -33,6 +34,7 @@
         <app-admin-skills :cvDataSkills="cvData.skills" />
         <app-admin-soft-skills :cvDataSoftSkills="cvData.softs" />
         <app-admin-interests :cvDataInterests="cvData.interests" />
+        <app-admin-extras :cvDataExtras="cvData.extras" />
         <app-admin-languages />
       </v-tabs-items>
     </v-col>
@@ -66,6 +68,7 @@ export default {
     appAdminSkills: () => import('../components/admin/Skill'),
     appAdminSoftSkills: () => import('../components/admin/SoftSkill'),
     appAdminInterests: () => import('../components/admin/Interest'),
+    appAdminExtras: () => import('../components/admin/Extra'),
     appAdminLanguages: () => import('../components/admin/Language'),
   },
 

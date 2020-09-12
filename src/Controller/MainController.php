@@ -13,6 +13,7 @@ use App\Document\Language;
 use App\Document\Training;
 use App\Document\Portfolio;
 use App\Document\Experience;
+use App\Document\Extra;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +34,7 @@ class MainController extends AbstractController
     private $skillRepo;
     private $softRepo;
     private $interestRepo;
+    private $extraRepo;
     private $languageRepo;
     private $dm;
     private $serializer;
@@ -49,6 +51,7 @@ class MainController extends AbstractController
         $this->skillRepo = $dm->getRepository(Skill::class);
         $this->softRepo = $dm->getRepository(Soft::class);
         $this->interestRepo = $dm->getRepository(Interest::class);
+        $this->extraRepo = $dm->getRepository(Extra::class);
         $this->languageRepo = $dm->getRepository(Language::class);
         $this->serializer = $serializer;
     }
@@ -82,6 +85,7 @@ class MainController extends AbstractController
         $cvData['portfolios_pro'] = $this->portfolioRepo->findBy(['type' => 'pro'], ['list_order' => 'ASC']);
         $cvData['portfolios_perso'] = $this->portfolioRepo->findBy(['type' => 'perso'], ['list_order' => 'ASC']);
         $cvData['softs'] = $this->softRepo->findAll();
+        $cvData['extras'] = $this->extraRepo->findAll();
         $cvData['languages'] = $this->languageRepo->findAll();
 
         try {
