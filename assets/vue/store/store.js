@@ -62,6 +62,10 @@ export default new Vuex.Store({
     SET_SKILLS(state, payload) {
       state.cvData.skills = payload;
     },
+
+    SET_APTITUDES(state, payload) {
+      state.cvData.aptitudes = payload;
+    },
   },
 
   actions: {
@@ -253,6 +257,20 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async ADD_APTITUDE({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/aptitude/add", {
+          name: formData.name,
+        })
+        .then((res) => {
+          commit("SET_APTITUDES", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async EDIT_CONTACT({ commit, dispatch }, formData) {
       return await axios
         .post("/api/contact/edit", {
@@ -331,6 +349,21 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async EDIT_APTITUDE({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/aptitude/edit", {
+          id: formData.id,
+          name: formData.name,
+        })
+        .then((res) => {
+          commit("SET_APTITUDES", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async DELETE_CONTACT({ commit, dispatch }, id) {
       return await axios
         .post("/api/contact/delete", { id: id })
@@ -372,6 +405,18 @@ export default new Vuex.Store({
         .post("/api/skill/delete", { id: id })
         .then((res) => {
           commit("SET_SKILLS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
+    async DELETE_APTITUDE({ commit, dispatch }, id) {
+      return await axios
+        .post("/api/aptitude/delete", { id: id })
+        .then((res) => {
+          commit("SET_APTITUDES", res.data);
           dispatch("UPDATE_DATA");
 
           return res;

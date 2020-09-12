@@ -6,8 +6,8 @@
       <v-row justify="space-around">
         <v-col cols="12">
           <v-chip-group column>
-            <v-chip color="amber" outlined v-for="tag in tags" :key="tag">
-              {{ tag }}
+            <v-chip color="amber" outlined v-for="aptitude in aptitudes" :key="aptitude.id">
+              {{ aptitude.name }}
             </v-chip>
           </v-chip-group>
         </v-col>
@@ -18,18 +18,20 @@
 
 <script>
 export default {
+  props: ['cvDataAptitudes'],
+
   data () {
     return {
-      tags: [
-        'First',
-        'Second',
-        'Third',
-        'Fourth',
-        'Fifth',
-        'Sixth',
-        'Seventh',
-        'Eighteeth',
-      ],
+      aptitudes: this.cvDataAptitudes,
+    }
+  },
+
+  watch: {
+    cvDataAptitudes: {
+      handler(val) {
+        this.aptitudes = val
+      },
+      deep: true
     }
   },
 }
