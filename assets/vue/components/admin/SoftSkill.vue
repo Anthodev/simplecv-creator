@@ -15,7 +15,7 @@
 
     <v-card v-if="Object.keys(cvDataSoftSkills).length > 0">
       <v-card-text>
-        <div class="text-h5 text-uppercase">SoftSkills list</div>
+        <div class="text-h5 text-uppercase">Soft-Skills list</div>
         <v-divider />
         <v-card v-for="(softSkill) in softSkills" :key="softSkill.id">
           <v-row>

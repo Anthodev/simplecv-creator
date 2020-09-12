@@ -66,6 +66,10 @@ export default new Vuex.Store({
     SET_APTITUDES(state, payload) {
       state.cvData.aptitudes = payload;
     },
+
+    SET_SOFTS(state, payload) {
+      state.cvData.softs = payload;
+    },
   },
 
   actions: {
@@ -271,6 +275,20 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async ADD_SOFTSKILL({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/soft/add", {
+          name: formData.name,
+        })
+        .then((res) => {
+          commit("SET_SOFTS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async EDIT_CONTACT({ commit, dispatch }, formData) {
       return await axios
         .post("/api/contact/edit", {
@@ -364,6 +382,21 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async EDIT_SOFT({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/soft/edit", {
+          id: formData.id,
+          name: formData.name,
+        })
+        .then((res) => {
+          commit("SET_SOFTS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async DELETE_CONTACT({ commit, dispatch }, id) {
       return await axios
         .post("/api/contact/delete", { id: id })
@@ -417,6 +450,18 @@ export default new Vuex.Store({
         .post("/api/aptitude/delete", { id: id })
         .then((res) => {
           commit("SET_APTITUDES", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
+    async DELETE_SOFT({ commit, dispatch }, id) {
+      return await axios
+        .post("/api/soft/delete", { id: id })
+        .then((res) => {
+          commit("SET_SOFTS", res.data);
           dispatch("UPDATE_DATA");
 
           return res;
