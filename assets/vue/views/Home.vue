@@ -42,7 +42,7 @@
         <v-img src="https://www.citationbonheur.fr/wp-content/uploads/2017/08/placeholder-1024x1024.png" />
       </v-col>
 
-      <app-language />
+      <app-language v-if="Object.keys(cvData.skills).length > 0" :cvDataSkills="cvData.skills" />
       <app-skill />
       <app-soft-skill />
       <app-interest />

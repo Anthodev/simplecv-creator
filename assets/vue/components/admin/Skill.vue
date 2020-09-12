@@ -26,8 +26,8 @@
         <v-divider />
         <v-card v-for="(skill) in skills" :key="skill.id">
           <v-row>
-            <v-col cols="12" md="6"><v-text-field v-model="skill.name" placeholder="Name" filled></v-text-field></v-col>
-            <v-col cols="12" md="4">Level: <v-rating
+            <v-col cols="12" md="7"><v-text-field v-model="skill.name" placeholder="Name" filled></v-text-field></v-col>
+            <v-col cols="12" md="3">Level: <v-rating
               v-model="skill.level"
               empty-icon="mdi-checkbox-blank-circle-outline"
               full-icon="mdi-checkbox-blank-circle"
