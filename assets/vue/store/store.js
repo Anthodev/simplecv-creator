@@ -19,6 +19,7 @@ export default new Vuex.Store({
       skills: {},
       softs: {},
       interests: {},
+      extras: {},
       languages: {},
     },
     authentificated: false,

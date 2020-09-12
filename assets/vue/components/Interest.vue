@@ -3,9 +3,9 @@
     <v-col cols="12">
       <div class="text-h4 font-weight-bold text-uppercase section-title mb-2">Intérêts</div>
 
-      <v-row v-for="interest in interests" :key="interest">
+      <v-row v-for="interest in interests" :key="interest.id">
         <v-col cols="12">
-          <v-icon class="mr-2">mdi-account</v-icon> {{ interest }}
+          <v-icon class="mr-2">mdi-{{ interest.icon }}</v-icon> {{ interest.name }}
         </v-col>
       </v-row>
     </v-col>
@@ -14,15 +14,20 @@
 
 <script>
 export default {
+  props: ['cvDataInterests'],
+
   data () {
     return {
-      interests: [
-        'First',
-        'Second',
-        'Third',
-        'Fourth',
-        'Fifth',
-      ],
+      interests: this.cvDataInterests,
+    }
+  },
+
+  watch: {
+    cvDataInterests: {
+      handler(val) {
+        this.interests = val
+      },
+      deep: true
     }
   },
 }

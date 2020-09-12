@@ -45,7 +45,7 @@
       <app-language v-if="Object.keys(cvData.skills).length > 0" :cvDataSkills="cvData.skills" />
       <app-skill v-if="Object.keys(cvData.aptitudes).length > 0" :cvDataAptitudes="cvData.aptitudes" />
       <app-soft-skill v-if="Object.keys(cvData.softs).length > 0" :cvDataSoftSkills="cvData.softs" />
-      <app-interest />
+      <app-interest v-if="Object.keys(cvData.interests).length > 0" :cvDataInterests="cvData.interests" />
       <app-extra />
     </v-col>
   </v-row>
