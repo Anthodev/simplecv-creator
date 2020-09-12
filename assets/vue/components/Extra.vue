@@ -4,7 +4,7 @@
       <div class="text-h4 font-weight-bold text-uppercase section-title mb-2">Particularités</div>
 
       <v-row justify="space-around">
-        <v-btn class="mb-2" color="amber" outlined v-for="extra in extras" :key="extra">{{ extra }}</v-btn>
+        <v-btn class="mb-2" color="amber" :href="extra.link" target="_blank" outlined v-for="extra in extras" :key="extra.id">{{ extra.name }}</v-btn>
       </v-row>
     </v-col>
   </v-row>
@@ -12,15 +12,20 @@
 
 <script>
 export default {
+  props: ['cvDataExtras'],
+
   data () {
     return {
-      extras: [
-        'First',
-        'Second',
-        'Third',
-        'Fourth',
-        'Fifth',
-      ],
+      extras: this.cvDataExtras,
+    }
+  },
+
+  watch: {
+    cvDataExtras: {
+      handler(val) {
+        this.extras = val
+      },
+      deep: true
     }
   },
 }
