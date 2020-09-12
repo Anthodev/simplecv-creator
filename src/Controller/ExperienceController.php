@@ -116,18 +116,96 @@ class ExperienceController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="delete", methods={"GET", "POST"}, requirements={"id"="\d+"})
+     * @Route("/edit", methods={"POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
-    public function delete(Experience $experience)
+    public function edit(Request $request)
     {
-        if(!$experience) throw $this->createNotFoundException('Expérience introuvable');
+        $id = null;
+        $title = '';
+        $company = '';
+        $link = '';
+        $location = '';
+        $description = '';
+        $date_start = '';
+        $date_end = '';
+        $order = 0;
 
-        $this->dm = $this->getDoctrine()->getManager();
-        $this->dm->remove($experience);
-        $this->dm->flush();
+        $data = $request->getContent();
 
-        $this->addFlash('success', 'Experience supprimée');
+        if (!empty($data)) {
+            $decodedData = \json_decode($data, true);
 
-        return $this->redirectToRoute('admin_experiences_home');
+            $id = $decodedData['id'];
+            $title = $decodedData['title'];
+            $company = $decodedData['company'];
+            $link = $decodedData['link'];
+            $location = $decodedData['location'];
+            $description = $decodedData['description'];
+            $date_start = $decodedData['date_start'];
+            $date_end = $decodedData['date_end'];
+            $order = $decodedData['order'];
+
+            $experience = $this->expRepo->find($id);
+
+            $experience->setTitle($title);
+            $experience->setCompany($company);
+            $experience->setCompanyLink($link);
+            $experience->setLocation($location);
+            $experience->setDescription($description);
+            $experience->setDate_start($date_start);
+            $experience->setDate_end($date_end);
+            $experience->setList_order($order);
+
+            try {
+                $this->dm->flush();
+
+                $experiences = $this->expRepo->findAll();
+
+                $serializedExperiences = $this->serializer->serialize($experiences, 'json');
+
+                $response = new Response($serializedExperiences);
+                $response->setStatusCode(Response::HTTP_OK);
+                $response->headers->set('Content-Type', 'application/json');
+
+                return $response;
+            } catch (Exception $e) {
+                return new JsonResponse(\json_encode($e), 500);
+            }
+        } else return new JsonResponse("No data sent.", 417);
+    }
+
+    /**
+     * @Route("/delete", name="delete", methods={"POST"})
+     */
+    public function delete(Request $request)
+    {
+        $id = null;
+
+        $data = $request->getContent();
+
+        if (!empty($data)) {
+            $decodedData = \json_decode($data, true);
+
+            $id = $decodedData['id'];
+            $experience = $this->expRepo->find($id);
+
+            try {
+                $this->dm->remove($experience);
+                $this->dm->flush();
+
+                $experiences = $this->expRepo->findAll();
+
+                $serializedExperiences = $this->serializer->serialize($experiences, 'json');
+
+                $response = new Response($serializedExperiences);
+                $response->setStatusCode(Response::HTTP_OK);
+                $response->headers->set('Content-Type', 'application/json');
+
+                return $response;
+            } catch (Exception $e) {
+                return new JsonResponse(\json_encode($e), 500);
+            }
+        }
     }
 }
