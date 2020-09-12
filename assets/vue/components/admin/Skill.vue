@@ -2,28 +2,32 @@
   <v-tab-item value="tab-skills">
     <v-card flat>
       <v-card-text>
-        <v-row>
-          <v-col cols="12" md="7"><v-text-field v-model="name" placeholder="Name" filled></v-text-field></v-col>
-          <v-col cols="12" md="3">Level: <v-rating
-            v-model="level"
-            empty-icon="mdi-checkbox-blank-circle-outline"
-            full-icon="mdi-checkbox-blank-circle"
-            color="amber"
-            background-color="white"
-          /></v-col>
-          <v-col cols="12" md="2"><v-btn form="contactForm" type="submit" color="primary" @click="loader = 'loading'; loadingIndex = -1" :loading="loading && loadingIndex == -1">Add</v-btn></v-col>
-        </v-row>
+        <v-form id="skillForm" @keyup.native.enter="onSubmit" @submit.prevent="onSubmit">
+          <div class="text-h5 text-uppercase">New Skill</div>
+          <v-divider />
+          <v-row>
+            <v-col cols="12" md="7"><v-text-field v-model="name" placeholder="Name" filled></v-text-field></v-col>
+            <v-col cols="12" md="3">Level: <v-rating
+              v-model="level"
+              empty-icon="mdi-checkbox-blank-circle-outline"
+              full-icon="mdi-checkbox-blank-circle"
+              color="amber"
+              background-color="white"
+            /></v-col>
+            <v-col cols="12" md="2"><v-btn form="skillForm" type="submit" color="primary" @click="loader = 'loading'; loadingIndex = -1" :loading="loading && loadingIndex == -1">Add</v-btn></v-col>
+          </v-row>
+        </v-form>
       </v-card-text>
     </v-card>
 
     <v-card v-if="Object.keys(cvDataSkills).length > 0">
       <v-card-text>
-        <div class="text-h5 text-uppercase">Contacts list</div>
+        <div class="text-h5 text-uppercase">Skills list</div>
         <v-divider />
         <v-card v-for="(skill) in skills" :key="skill.id">
           <v-row>
             <v-col cols="12" md="6"><v-text-field v-model="skill.name" placeholder="Name" filled></v-text-field></v-col>
-            <v-col cols="12" md="4">Level: <v-level
+            <v-col cols="12" md="4">Level: <v-rating
               v-model="skill.level"
               empty-icon="mdi-checkbox-blank-circle-outline"
               full-icon="mdi-checkbox-blank-circle"
@@ -82,7 +86,7 @@ export default {
         level: this.level,
       }
 
-      this.$store.dispatch('ADD_CONTACT', formData).then(() => {
+      this.$store.dispatch('ADD_SKILL', formData).then(() => {
         this.loading = false
         this.snackbar.message = "The changes have been saved."
         this.snackbar.state = true
@@ -106,7 +110,7 @@ export default {
         level: skill.level,
       }
 
-      this.$store.dispatch('EDIT_CONTACT', formData).then(() => {
+      this.$store.dispatch('EDIT_SKILL', formData).then(() => {
         this.snackbar.message = "The changes have been saved."
         this.snackbar.state = true
       }).catch((error) => {
@@ -121,7 +125,7 @@ export default {
     onDelete(skill) {
       this.loadingDelete = !this.loading
 
-      this.$store.dispatch('DELETE_CONTACT', skill.id).then(() => {
+      this.$store.dispatch('DELETE_SKILL', skill.id).then(() => {
         this.snackbar.message = "The entry has been deleted."
         this.snackbar.state = true
       }).catch((error) => {
