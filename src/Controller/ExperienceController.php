@@ -29,32 +29,6 @@ class ExperienceController extends AbstractController
         $this->expRepo = $dm->getRepository(Experience::class);
         $this->serializer = $serializer;
     }
-    /**
-     * @Route("/", name="list", methods={"GET", "POST"})
-     */
-    public function index(Request $request)
-    {
-        $experiences = $this->expRepo->findAll();
-
-        $experience = new Experience();
-
-        $form = $this->createForm(ExperienceType::class, $experience);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $this->dm = $this->getDoctrine()->getManager();
-            $this->dm->persist($experience);
-            $this->dm->flush();
-
-            $this->addFlash('success', 'Experience ajoutée');
-
-            return $this->redirectToRoute('admin_experiences_list');
-        }
-
-        return $this->render('admin/experience/index.html.twig', [
-            'experiences' => $experiences,
-        ]);
-    }
 
     /**
      * @Route("/add", methods={"POST"})
@@ -177,6 +151,7 @@ class ExperienceController extends AbstractController
 
     /**
      * @Route("/delete", name="delete", methods={"POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function delete(Request $request)
     {

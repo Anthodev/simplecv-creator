@@ -54,6 +54,10 @@ export default new Vuex.Store({
     SET_EXPERIENCES(state, payload) {
       state.cvData.experiences = payload
     },
+
+    SET_TRAININGS(state, payload) {
+      state.cvData.trainings = payload
+    },
   },
 
   actions: {
@@ -204,6 +208,27 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async ADD_TRAINING({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/training/add", {
+          title: formData.title,
+          training: formData.training,
+          link: formData.link,
+          location: formData.location,
+          description: formData.description,
+          date_start: formData.date_start,
+          date_end: formData.date_end,
+          order: formData.order,
+        })
+        .then((res) => {
+          commit("SET_TRAININGS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async EDIT_CONTACT({ commit, dispatch }, formData) {
       return await axios
         .post("/api/contact/edit", {
@@ -244,6 +269,28 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async EDIT_TRAINING({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/training/edit", {
+          id: formData.id,
+          title: formData.title,
+          training: formData.training,
+          link: formData.link,
+          location: formData.location,
+          description: formData.description,
+          date_start: formData.date_start,
+          date_end: formData.date_end,
+          order: formData.order,
+        })
+        .then((res) => {
+          commit("SET_TRAININGS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async DELETE_CONTACT({ commit, dispatch }, id) {
       return await axios
         .post("/api/contact/delete", { id: id })
@@ -261,6 +308,18 @@ export default new Vuex.Store({
         .post("/api/experience/delete", { id: id })
         .then((res) => {
           commit("SET_EXPERIENCES", res.data)
+          dispatch("UPDATE_DATA")
+
+          return res
+        })
+        .catch((error) => console.error(error))
+    },
+
+    async DELETE_TRAINING({ commit, dispatch }, id) {
+      return await axios
+        .post("/api/training/delete", { id: id })
+        .then((res) => {
+          commit("SET_TRAININGS", res.data)
           dispatch("UPDATE_DATA")
 
           return res

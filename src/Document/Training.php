@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * @MongoDB\Document
+ * @MongoDB\HasLifecycleCallbacks()
  */
 class Training
 {
@@ -49,13 +50,13 @@ class Training
      * @MongoDB\Field(type="string")
      * @var mixed
      */
-    protected $company;
+    protected $training;
 
     /**
      * @MongoDB\Field(type="string")
      * @var mixed
      */
-    protected $companyLink;
+    protected $trainingLink;
 
     /**
      * @MongoDB\Field(type="int")
@@ -206,49 +207,49 @@ class Training
     }
 
     /**
-     * Get the value of company
+     * Get the value of training
      *
      * @return  mixed
      */
-    public function getCompany(): ?string
+    public function getTraining(): ?string
     {
-        return $this->company;
+        return $this->training;
     }
 
     /**
-     * Set the value of company
+     * Set the value of training
      *
-     * @param  mixed  $company
+     * @param  mixed  $training
      *
      * @return  self
      */
-    public function setCompany($company)
+    public function setTraining($training)
     {
-        $this->company = $company;
+        $this->training = $training;
 
         return $this;
     }
 
     /**
-     * Get the value of companyLink
+     * Get the value of trainingLink
      *
      * @return  mixed
      */
-    public function getCompanyLink(): ?string
+    public function getTrainingLink(): ?string
     {
-        return $this->companyLink;
+        return $this->trainingLink;
     }
 
     /**
-     * Set the value of companyLink
+     * Set the value of trainingLink
      *
-     * @param  mixed  $companyLink
+     * @param  mixed  $trainingLink
      *
      * @return  self
      */
-    public function setCompanyLink($companyLink)
+    public function setTrainingLink($trainingLink)
     {
-        $this->companyLink = $companyLink;
+        $this->trainingLink = $trainingLink;
 
         return $this;
     }
