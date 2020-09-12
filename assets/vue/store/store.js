@@ -75,6 +75,10 @@ export default new Vuex.Store({
     SET_INTERESTS(state, payload) {
       state.cvData.interests = payload;
     },
+
+    SET_EXTRAS(state, payload) {
+      state.cvData.extras = payload;
+    },
   },
 
   actions: {
@@ -310,6 +314,21 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async ADD_EXTRA({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/extra/add", {
+          name: formData.name,
+          link: formData.link,
+        })
+        .then((res) => {
+          commit("SET_EXTRAS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async EDIT_CONTACT({ commit, dispatch }, formData) {
       return await axios
         .post("/api/contact/edit", {
@@ -435,6 +454,22 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async EDIT_EXTRA({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/extra/edit", {
+          id: formData.id,
+          name: formData.name,
+          link: formData.link,
+        })
+        .then((res) => {
+          commit("SET_EXTRAS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async DELETE_CONTACT({ commit, dispatch }, id) {
       return await axios
         .post("/api/contact/delete", { id: id })
@@ -512,6 +547,18 @@ export default new Vuex.Store({
         .post("/api/interest/delete", { id: id })
         .then((res) => {
           commit("SET_INTERESTS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
+    async DELETE_EXTRA({ commit, dispatch }, id) {
+      return await axios
+        .post("/api/extra/delete", { id: id })
+        .then((res) => {
+          commit("SET_EXTRAS", res.data);
           dispatch("UPDATE_DATA");
 
           return res;
