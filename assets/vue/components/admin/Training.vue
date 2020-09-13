@@ -10,10 +10,10 @@
           <v-text-field v-model="link" placeholder="Training link" type="url" filled></v-text-field>
           <v-text-field v-model="location" placeholder="Location" filled></v-text-field>
           <editor
-            id="description"
+            id="description_training"
             color="black"
             v-model="description"
-            apiKey='mvh61fdjdui6dvdxz5q0ylb2e69bvuuzfbv5ewrbjtwtwooq'
+            :apiKey='tiny_mce_api'
             :init="{
               selector: 'v-textarea',
               menubar: false,
@@ -47,7 +47,7 @@
               <editor
                 color="black"
                 v-model="formTraining.description"
-                apiKey='mvh61fdjdui6dvdxz5q0ylb2e69bvuuzfbv5ewrbjtwtwooq'
+                :apiKey='tiny_mce_api'
                 :init="{
                   selector: 'v-textarea',
                   menubar: false,
@@ -103,6 +103,7 @@ export default {
       loadingIndex: -1,
       loadingEdit: -1,
       loadingDelete: -1,
+      tiny_mce_api: process.env.VUE_APP_TINYMCE_API,
       snackbar: {
         state: false,
         message: ''

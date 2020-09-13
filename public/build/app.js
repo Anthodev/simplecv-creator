@@ -2118,37 +2118,37 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     appAdminInformation: function appAdminInformation() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../components/admin/Information */ "./assets/vue/components/admin/Information.vue"));
+      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../components/admin/Information */ "./assets/vue/components/admin/Information.vue"));
     },
     appAdminContacts: function appAdminContacts() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ../components/admin/Contact */ "./assets/vue/components/admin/Contact.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ../components/admin/Contact */ "./assets/vue/components/admin/Contact.vue"));
     },
     appAdminExperiences: function appAdminExperiences() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(13), __webpack_require__.e(10), __webpack_require__.e(24)]).then(__webpack_require__.bind(null, /*! ../components/admin/Experience */ "./assets/vue/components/admin/Experience.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ../components/admin/Experience */ "./assets/vue/components/admin/Experience.vue"));
     },
     appAdminTrainings: function appAdminTrainings() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(13), __webpack_require__.e(10), __webpack_require__.e(25)]).then(__webpack_require__.bind(null, /*! ../components/admin/Training */ "./assets/vue/components/admin/Training.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(16)]).then(__webpack_require__.bind(null, /*! ../components/admin/Training */ "./assets/vue/components/admin/Training.vue"));
     },
     appAdminPortfolio: function appAdminPortfolio() {
-      return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(22)]).then(__webpack_require__.bind(null, /*! ../components/admin/Portfolio */ "./assets/vue/components/admin/Portfolio.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(25)]).then(__webpack_require__.bind(null, /*! ../components/admin/Portfolio */ "./assets/vue/components/admin/Portfolio.vue"));
     },
     appAdminAptitudes: function appAdminAptitudes() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ../components/admin/Aptitude */ "./assets/vue/components/admin/Aptitude.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, /*! ../components/admin/Aptitude */ "./assets/vue/components/admin/Aptitude.vue"));
     },
     appAdminSkills: function appAdminSkills() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, /*! ../components/admin/Skill */ "./assets/vue/components/admin/Skill.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../components/admin/Skill */ "./assets/vue/components/admin/Skill.vue"));
     },
     appAdminSoftSkills: function appAdminSoftSkills() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! ../components/admin/SoftSkill */ "./assets/vue/components/admin/SoftSkill.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(15)]).then(__webpack_require__.bind(null, /*! ../components/admin/SoftSkill */ "./assets/vue/components/admin/SoftSkill.vue"));
     },
     appAdminInterests: function appAdminInterests() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(20)]).then(__webpack_require__.bind(null, /*! ../components/admin/Interest */ "./assets/vue/components/admin/Interest.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, /*! ../components/admin/Interest */ "./assets/vue/components/admin/Interest.vue"));
     },
     appAdminExtras: function appAdminExtras() {
-      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(23)]).then(__webpack_require__.bind(null, /*! ../components/admin/Extra */ "./assets/vue/components/admin/Extra.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ../components/admin/Extra */ "./assets/vue/components/admin/Extra.vue"));
     },
     appAdminLanguages: function appAdminLanguages() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../components/admin/Language */ "./assets/vue/components/admin/Language.vue"));
+      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../components/admin/Language */ "./assets/vue/components/admin/Language.vue"));
     }
   },
   created: function created() {
@@ -2295,34 +2295,34 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     appContact: function appContact() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../components/Contact */ "./assets/vue/components/Contact.vue"));
+      return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../components/Contact */ "./assets/vue/components/Contact.vue"));
     },
     appExperience: function appExperience() {
-      return Promise.all(/*! import() */[__webpack_require__.e(13), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ../components/Experience */ "./assets/vue/components/Experience.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! ../components/Experience */ "./assets/vue/components/Experience.vue"));
     },
     appPortfolioPro: function appPortfolioPro() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../components/PortfolioPro */ "./assets/vue/components/PortfolioPro.vue"));
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../components/PortfolioPro */ "./assets/vue/components/PortfolioPro.vue"));
     },
     appPortfolioPerso: function appPortfolioPerso() {
-      return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../components/PortfolioPerso */ "./assets/vue/components/PortfolioPerso.vue"));
+      return __webpack_require__.e(/*! import() */ 24).then(__webpack_require__.bind(null, /*! ../components/PortfolioPerso */ "./assets/vue/components/PortfolioPerso.vue"));
     },
     appTraining: function appTraining() {
-      return Promise.all(/*! import() */[__webpack_require__.e(13), __webpack_require__.e(26)]).then(__webpack_require__.bind(null, /*! ../components/Training */ "./assets/vue/components/Training.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(23)]).then(__webpack_require__.bind(null, /*! ../components/Training */ "./assets/vue/components/Training.vue"));
     },
     appLanguage: function appLanguage() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../components/Language */ "./assets/vue/components/Language.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../components/Language */ "./assets/vue/components/Language.vue"));
     },
     appSkill: function appSkill() {
-      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(16)]).then(__webpack_require__.bind(null, /*! ../components/Skill */ "./assets/vue/components/Skill.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! ../components/Skill */ "./assets/vue/components/Skill.vue"));
     },
     appSoftSkill: function appSoftSkill() {
-      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! ../components/SoftSkill */ "./assets/vue/components/SoftSkill.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(22)]).then(__webpack_require__.bind(null, /*! ../components/SoftSkill */ "./assets/vue/components/SoftSkill.vue"));
     },
     appInterest: function appInterest() {
-      return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../components/Interest */ "./assets/vue/components/Interest.vue"));
+      return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ../components/Interest */ "./assets/vue/components/Interest.vue"));
     },
     appExtra: function appExtra() {
-      return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../components/Extra */ "./assets/vue/components/Extra.vue"));
+      return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ../components/Extra */ "./assets/vue/components/Extra.vue"));
     }
   },
   created: function created() {
