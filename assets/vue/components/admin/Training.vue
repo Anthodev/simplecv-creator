@@ -22,7 +22,7 @@
                 'preview anchor media',
                 'paste code help wordcount'
               ],
-              toolbar: 'formatselect | bold italic | bullist numlist'
+              toolbar: 'formatselect | bold italic | bullist numlist | code'
             }" />
           <v-text-field v-model="date_start" class="mt-7" label="Date start" placeholder="jj/mm/aaaa" type="date" filled></v-text-field>
           <v-text-field v-model="date_end" label="Date end" placeholder="jj/mm/aaaa" type="date" filled></v-text-field>
@@ -56,7 +56,7 @@
                     'preview anchor media',
                     'paste code help wordcount'
                   ],
-                  toolbar: 'formatselect | bold italic | bullist numlist'
+                  toolbar: 'formatselect | bold italic | bullist numlist | code'
                 }"
                 :init-value='formTraining.description'
               />
