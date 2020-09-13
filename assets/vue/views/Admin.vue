@@ -35,7 +35,7 @@
         <app-admin-soft-skills :cvDataSoftSkills="cvData.softs" />
         <app-admin-interests :cvDataInterests="cvData.interests" />
         <app-admin-extras :cvDataExtras="cvData.extras" />
-        <app-admin-languages />
+        <app-admin-languages :cvDataLanguages="cvData.languages" />
       </v-tabs-items>
     </v-col>
   </v-row>
