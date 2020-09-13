@@ -42,9 +42,10 @@
         <v-img src="https://www.citationbonheur.fr/wp-content/uploads/2017/08/placeholder-1024x1024.png" />
       </v-col>
 
-      <app-language v-if="Object.keys(cvData.skills).length > 0" :cvDataSkills="cvData.skills" />
-      <app-skill v-if="Object.keys(cvData.aptitudes).length > 0" :cvDataAptitudes="cvData.aptitudes" />
+      <app-skill v-if="Object.keys(cvData.skills).length > 0" :cvDataSkills="cvData.skills" />
+      <app-aptitude v-if="Object.keys(cvData.aptitudes).length > 0" :cvDataAptitudes="cvData.aptitudes" />
       <app-soft-skill v-if="Object.keys(cvData.softs).length > 0" :cvDataSoftSkills="cvData.softs" />
+      <app-language v-if="Object.keys(cvData.languages).length > 0" :cvDataLanguages="cvData.languages" />
       <app-interest v-if="Object.keys(cvData.interests).length > 0" :cvDataInterests="cvData.interests" />
       <app-extra v-if="Object.keys(cvData.extras).length > 0" :cvDataExtras="cvData.extras" />
     </v-col>
@@ -78,6 +79,7 @@ export default {
     appSoftSkill: () => import('../components/SoftSkill'),
     appInterest: () => import('../components/Interest'),
     appExtra: () => import('../components/Extra'),
+    appAptitude: () => import('../components/Aptitude'),
   },
 
   created: function() {

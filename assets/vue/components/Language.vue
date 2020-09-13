@@ -1,19 +1,13 @@
 <template>
   <v-row class="mb-2">
     <v-col cols="12">
-      <div class="text-h4 font-weight-bold text-uppercase section-title mb-2">Compétences</div>
+      <div class="text-h4 font-weight-bold text-uppercase section-title mb-2">Langues</div>
 
-      <v-row v-for="(skill) in skills" :key="skill.id">
+      <v-row v-for="(language) in languages" :key="language.id">
         <v-col cols="12">
-          <div class="text-h6 font-weight-bold text-uppercase mb-2">{{ skill.name }}</div>
-          <v-rating
-            v-model="skill.level"
-            empty-icon="mdi-checkbox-blank-circle-outline"
-            full-icon="mdi-checkbox-blank-circle"
-            color="amber"
-            background-color="white"
-            readonly
-          />
+          <div class="text-h6 font-weight-bold text-uppercase">{{ language.name }}</div>
+          <div class="text-overline text-text-uppercase mb-6">Niveau : <v-btn color="amber" small outlined>{{ language.level }}</v-btn></div>
+          <v-divider/>
         </v-col>
       </v-row>
     </v-col>
@@ -22,18 +16,18 @@
 
 <script>
 export default {
-  props: ['cvDataSkills'],
+  props: ['cvDataLanguages'],
 
   data () {
     return {
-      skills: this.cvDataSkills,
+      languages: this.cvDataLanguages,
     }
   },
 
   watch: {
-    cvDataSkills: {
+    cvDataLanguages: {
       handler(val) {
-        this.skills = val
+        this.languages = val
       },
       deep: true
     }

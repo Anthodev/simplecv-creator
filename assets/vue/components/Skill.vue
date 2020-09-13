@@ -1,15 +1,19 @@
 <template>
   <v-row class="mb-2">
     <v-col cols="12">
-      <div class="text-h4 font-weight-bold text-uppercase section-title mb-2">Technologies</div>
-        
-      <v-row justify="space-around">
+      <div class="text-h4 font-weight-bold text-uppercase section-title mb-2">Compétences</div>
+
+      <v-row v-for="(skill) in skills" :key="skill.id">
         <v-col cols="12">
-          <v-chip-group column>
-            <v-chip color="amber" outlined v-for="aptitude in aptitudes" :key="aptitude.id">
-              {{ aptitude.name }}
-            </v-chip>
-          </v-chip-group>
+          <div class="text-h6 font-weight-bold text-uppercase mb-2">{{ skill.name }}</div>
+          <v-rating
+            v-model="skill.level"
+            empty-icon="mdi-checkbox-blank-circle-outline"
+            full-icon="mdi-checkbox-blank-circle"
+            color="amber"
+            background-color="white"
+            readonly
+          />
         </v-col>
       </v-row>
     </v-col>
@@ -18,18 +22,18 @@
 
 <script>
 export default {
-  props: ['cvDataAptitudes'],
+  props: ['cvDataSkills'],
 
   data () {
     return {
-      aptitudes: this.cvDataAptitudes,
+      skills: this.cvDataSkills,
     }
   },
 
   watch: {
-    cvDataAptitudes: {
+    cvDataSkills: {
       handler(val) {
-        this.aptitudes = val
+        this.skills = val
       },
       deep: true
     }
