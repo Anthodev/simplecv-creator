@@ -29,7 +29,7 @@
         <app-admin-contacts :cvDataContacts="cvData.contacts" />
         <app-admin-experiences :cvDataExperiences="cvData.experiences" />
         <app-admin-trainings :cvDataTrainings="cvData.trainings" />
-        <app-admin-portfolio />
+        <app-admin-portfolio :cvDataPortfolios="cvData.portfolios" />
         <app-admin-aptitudes :cvDataAptitudes="cvData.aptitudes" />
         <app-admin-skills :cvDataSkills="cvData.skills" />
         <app-admin-soft-skills :cvDataSoftSkills="cvData.softs" />

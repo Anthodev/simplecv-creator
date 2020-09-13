@@ -42,5 +42,9 @@
   "build/vendors~app.js": "/build/vendors~app.js",
   "build/26.js": "/build/26.js",
   "build/27.js": "/build/27.js",
-  "build/23.css": "/build/23.css"
+  "build/23.css": "/build/23.css",
+  "build/25.css": "/build/25.css",
+  "build/28.js": "/build/28.js",
+  "build/29.js": "/build/29.js",
+  "build/30.js": "/build/30.js"
 }

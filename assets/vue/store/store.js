@@ -13,6 +13,7 @@ export default new Vuex.Store({
       contacts: {},
       experiences: {},
       trainings: {},
+      portfolios: {},
       portfolios_pro: {},
       portfolios_perso: {},
       aptitudes: {},

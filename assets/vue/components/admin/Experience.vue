@@ -78,7 +78,6 @@
   </v-tab-item>
 </template>
 
-
 <script>
 import Snackbar from '../misc/Snackbar'
 import TinyMCE from '@tinymce/tinymce-vue'
