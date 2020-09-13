@@ -79,6 +79,10 @@ export default new Vuex.Store({
     SET_EXTRAS(state, payload) {
       state.cvData.extras = payload;
     },
+
+    SET_LANGUAGES(state, payload) {
+      state.cvData.languages = payload;
+    },
   },
 
   actions: {
@@ -329,6 +333,21 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async ADD_LANGUAGE({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/language/add", {
+          name: formData.name,
+          level: formData.level,
+        })
+        .then((res) => {
+          commit("SET_LANGUAGES", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async EDIT_CONTACT({ commit, dispatch }, formData) {
       return await axios
         .post("/api/contact/edit", {
@@ -470,6 +489,22 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async EDIT_LANGUAGE({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/language/edit", {
+          id: formData.id,
+          name: formData.name,
+          level: formData.level,
+        })
+        .then((res) => {
+          commit("SET_LANGUAGES", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async DELETE_CONTACT({ commit, dispatch }, id) {
       return await axios
         .post("/api/contact/delete", { id: id })
@@ -559,6 +594,18 @@ export default new Vuex.Store({
         .post("/api/extra/delete", { id: id })
         .then((res) => {
           commit("SET_EXTRAS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
+    async DELETE_LANGUAGE({ commit, dispatch }, id) {
+      return await axios
+        .post("/api/language/delete", { id: id })
+        .then((res) => {
+          commit("SET_LANGUAGES", res.data);
           dispatch("UPDATE_DATA");
 
           return res;
