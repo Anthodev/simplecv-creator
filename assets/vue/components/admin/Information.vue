@@ -16,7 +16,7 @@
               <v-file-input label="Image (jpg,png,jpeg)" accept="image/*" @change="handleFile" show-size filled></v-file-input>
             </v-col>
             <v-col cols="4" v-if="info.photo">
-              <v-img :src="info.photo" height="auto" max-height="192" contain />
+              <v-img :src="'/uploads/images/' + info.photo" height="auto" max-height="192" contain />
             </v-col>
           </v-row>
           <v-btn form="infoForm" type="submit" color="primary" :loading="loading">Submit</v-btn>
