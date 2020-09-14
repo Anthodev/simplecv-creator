@@ -106,10 +106,7 @@ export default new Vuex.Store({
     },
 
     async LOGIN({ commit }, authData) {
-      const res = await axios.post("/api/auth/login_check", {
-        username: authData.username,
-        password: authData.password,
-      });
+      const res = await axios.post("/api/auth/login_check", authData);
 
       commit("SET_AUTHENTIFICATED", true);
       commit("SET_USERTOKEN", res.data.token);
@@ -188,10 +185,7 @@ export default new Vuex.Store({
 
     async SET_USERINFO({ commit }, formData) {
       return await axios
-        .post("/api/user/set", {
-          name: formData.name,
-          title: formData.title,
-        })
+        .post("/api/user/set", formData)
         .then((res) => {
           let info = {
             name: res.data.name,
@@ -207,12 +201,7 @@ export default new Vuex.Store({
 
     async ADD_CONTACT({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/contact/add", {
-          name: formData.name,
-          link: formData.link,
-          icon: formData.icon,
-          order: formData.order,
-        })
+        .post("/api/contact/add", formData)
         .then((res) => {
           commit("SET_CONTACTS", res.data);
           dispatch("UPDATE_DATA");
@@ -224,16 +213,7 @@ export default new Vuex.Store({
 
     async ADD_EXPERIENCE({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/experience/add", {
-          title: formData.title,
-          company: formData.company,
-          link: formData.link,
-          location: formData.location,
-          description: formData.description,
-          date_start: formData.date_start,
-          date_end: formData.date_end,
-          order: formData.order,
-        })
+        .post("/api/experience/add", formData)
         .then((res) => {
           commit("SET_EXPERIENCES", res.data);
           dispatch("UPDATE_DATA");
@@ -245,16 +225,7 @@ export default new Vuex.Store({
 
     async ADD_TRAINING({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/training/add", {
-          title: formData.title,
-          training: formData.training,
-          link: formData.link,
-          location: formData.location,
-          description: formData.description,
-          date_start: formData.date_start,
-          date_end: formData.date_end,
-          order: formData.order,
-        })
+        .post("/api/training/add", formData)
         .then((res) => {
           commit("SET_TRAININGS", res.data);
           dispatch("UPDATE_DATA");
@@ -278,10 +249,7 @@ export default new Vuex.Store({
 
     async ADD_SKILL({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/skill/add", {
-          name: formData.name,
-          level: formData.level,
-        })
+        .post("/api/skill/add", formData)
         .then((res) => {
           commit("SET_SKILLS", res.data);
           dispatch("UPDATE_DATA");
@@ -293,9 +261,7 @@ export default new Vuex.Store({
 
     async ADD_APTITUDE({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/aptitude/add", {
-          name: formData.name,
-        })
+        .post("/api/aptitude/add", formData)
         .then((res) => {
           commit("SET_APTITUDES", res.data);
           dispatch("UPDATE_DATA");
@@ -307,9 +273,7 @@ export default new Vuex.Store({
 
     async ADD_SOFTSKILL({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/soft/add", {
-          name: formData.name,
-        })
+        .post("/api/soft/add", formData)
         .then((res) => {
           commit("SET_SOFTS", res.data);
           dispatch("UPDATE_DATA");
@@ -321,11 +285,7 @@ export default new Vuex.Store({
 
     async ADD_INTEREST({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/interest/add", {
-          name: formData.name,
-          icon: formData.icon,
-          order: formData.order,
-        })
+        .post("/api/interest/add", formData)
         .then((res) => {
           commit("SET_INTERESTS", res.data);
           dispatch("UPDATE_DATA");
@@ -337,10 +297,7 @@ export default new Vuex.Store({
 
     async ADD_EXTRA({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/extra/add", {
-          name: formData.name,
-          link: formData.link,
-        })
+        .post("/api/extra/add", formData)
         .then((res) => {
           commit("SET_EXTRAS", res.data);
           dispatch("UPDATE_DATA");
@@ -352,10 +309,7 @@ export default new Vuex.Store({
 
     async ADD_LANGUAGE({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/language/add", {
-          name: formData.name,
-          level: formData.level,
-        })
+        .post("/api/language/add", formData)
         .then((res) => {
           commit("SET_LANGUAGES", res.data);
           dispatch("UPDATE_DATA");
@@ -367,13 +321,7 @@ export default new Vuex.Store({
 
     async EDIT_CONTACT({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/contact/edit", {
-          id: formData.id,
-          name: formData.name,
-          link: formData.link,
-          icon: formData.icon,
-          order: formData.order,
-        })
+        .post("/api/contact/edit", formData)
         .then((res) => {
           commit("SET_CONTACTS", res.data);
           dispatch("UPDATE_DATA");
@@ -385,17 +333,7 @@ export default new Vuex.Store({
 
     async EDIT_EXPERIENCE({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/experience/edit", {
-          id: formData.id,
-          title: formData.title,
-          company: formData.company,
-          link: formData.link,
-          location: formData.location,
-          description: formData.description,
-          date_start: formData.date_start,
-          date_end: formData.date_end,
-          order: formData.order,
-        })
+        .post("/api/experience/edit", formData)
         .then((res) => {
           commit("SET_EXPERIENCES", res.data);
           dispatch("UPDATE_DATA");
@@ -407,17 +345,7 @@ export default new Vuex.Store({
 
     async EDIT_TRAINING({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/training/edit", {
-          id: formData.id,
-          title: formData.title,
-          training: formData.training,
-          link: formData.link,
-          location: formData.location,
-          description: formData.description,
-          date_start: formData.date_start,
-          date_end: formData.date_end,
-          order: formData.order,
-        })
+        .post("/api/training/edit", formData)
         .then((res) => {
           commit("SET_TRAININGS", res.data);
           dispatch("UPDATE_DATA");
@@ -441,11 +369,7 @@ export default new Vuex.Store({
 
     async EDIT_SKILL({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/skill/edit", {
-          id: formData.id,
-          name: formData.name,
-          level: formData.level,
-        })
+        .post("/api/skill/edit", formData)
         .then((res) => {
           commit("SET_SKILLS", res.data);
           dispatch("UPDATE_DATA");
@@ -457,10 +381,7 @@ export default new Vuex.Store({
 
     async EDIT_APTITUDE({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/aptitude/edit", {
-          id: formData.id,
-          name: formData.name,
-        })
+        .post("/api/aptitude/edit", formData)
         .then((res) => {
           commit("SET_APTITUDES", res.data);
           dispatch("UPDATE_DATA");
@@ -472,10 +393,7 @@ export default new Vuex.Store({
 
     async EDIT_SOFT({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/soft/edit", {
-          id: formData.id,
-          name: formData.name,
-        })
+        .post("/api/soft/edit", formData)
         .then((res) => {
           commit("SET_SOFTS", res.data);
           dispatch("UPDATE_DATA");
@@ -487,12 +405,7 @@ export default new Vuex.Store({
 
     async EDIT_INTEREST({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/interest/edit", {
-          id: formData.id,
-          name: formData.name,
-          icon: formData.icon,
-          order: formData.order,
-        })
+        .post("/api/interest/edit", formData)
         .then((res) => {
           commit("SET_INTERESTS", res.data);
           dispatch("UPDATE_DATA");
@@ -504,11 +417,7 @@ export default new Vuex.Store({
 
     async EDIT_EXTRA({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/extra/edit", {
-          id: formData.id,
-          name: formData.name,
-          link: formData.link,
-        })
+        .post("/api/extra/edit", formData)
         .then((res) => {
           commit("SET_EXTRAS", res.data);
           dispatch("UPDATE_DATA");
@@ -520,11 +429,7 @@ export default new Vuex.Store({
 
     async EDIT_LANGUAGE({ commit, dispatch }, formData) {
       return await axios
-        .post("/api/language/edit", {
-          id: formData.id,
-          name: formData.name,
-          level: formData.level,
-        })
+        .post("/api/language/edit", formData)
         .then((res) => {
           commit("SET_LANGUAGES", res.data);
           dispatch("UPDATE_DATA");

@@ -38,8 +38,8 @@
       </v-row>
     </v-col>
     <v-col cols="3">
-      <v-col cols="12" class="mb-3">
-        <v-img src="https://www.citationbonheur.fr/wp-content/uploads/2017/08/placeholder-1024x1024.png" />
+      <v-col cols="12" class="mb-3 mx-auto text-center justify-center" v-if="cvData.info.photo">
+        <v-img :src="'/uploads/images/' + cvData.info.photo" height="auto" max-height="192" contain />
       </v-col>
 
       <app-skill v-if="Object.keys(cvData.skills).length > 0" :cvDataSkills="cvData.skills" />

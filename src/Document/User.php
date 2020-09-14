@@ -156,7 +156,7 @@ class User implements UserInterface, \Serializable
      *
      * @return  self
      */ 
-    public function setPhoto($photo): self
+    public function setPhoto($photo)
     {
         $this->photo = $photo;
 
