@@ -1,6 +1,6 @@
 <template>
-  <v-row align="top" justify="center">
-    <v-col cols="9">
+  <div class="mx-auto d-flex flex-wrap">
+    <v-col cols="12" sm="12" md="9" lg="9" xl="9">
       <v-row>
         <v-col cols="12" v-if="Object.keys(cvData.info).length !== 0">
           <p class="text-h3">{{ cvData.info.name }}</p>
@@ -37,7 +37,7 @@
         </v-col>
       </v-row>
     </v-col>
-    <v-col cols="3">
+    <v-col cols="12" sm="12" md="3" lg="3" xl="3">
       <v-col cols="12" class="mb-3 mx-auto text-center justify-center" v-if="cvData.info.photo">
         <v-img :src="'/uploads/images/' + cvData.info.photo" height="auto" max-height="256" contain />
       </v-col>
@@ -49,7 +49,7 @@
       <app-interest v-if="Object.keys(cvData.interests).length > 0" :cvDataInterests="cvData.interests" />
       <app-extra v-if="Object.keys(cvData.extras).length > 0" :cvDataExtras="cvData.extras" />
     </v-col>
-  </v-row>
+  </div>
 </template>
 
 <script>
@@ -95,10 +95,6 @@ export default {
 </script>
 
 <style lang="sass">
-.section-title {
-  border-bottom: 1px solid gold;
-}
-
 a {
   color: #B48A1A !important;
 }
@@ -106,5 +102,9 @@ a {
 a:hover {
   color: #BDBEC4 !important;
   text-decoration: none !important;
+}
+
+.section-title {
+  border-bottom: 1px solid gold;
 }
 </style>
