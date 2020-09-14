@@ -39,7 +39,7 @@
     </v-col>
     <v-col cols="3">
       <v-col cols="12" class="mb-3 mx-auto text-center justify-center" v-if="cvData.info.photo">
-        <v-img :src="'/uploads/images/' + cvData.info.photo" height="auto" max-height="192" contain />
+        <v-img :src="'/uploads/images/' + cvData.info.photo" height="auto" max-height="256" contain />
       </v-col>
 
       <app-skill v-if="Object.keys(cvData.skills).length > 0" :cvDataSkills="cvData.skills" />
