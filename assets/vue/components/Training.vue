@@ -2,7 +2,7 @@
   <v-row>
     <v-card min-width="99%" class="mx-auto mb-2" elevation="8" v-for="training in trainings" :key="training.id">
         <v-card-title class="text-h5 font-weight-bold text-uppercase">{{ training.title }}</v-card-title>
-        <v-card-subtitle class="text-h6 text-uppercase font-weight-bold text-decoration-none"><a :href="training.training_link" target="_blank" rel="noopener noreferrer">{{ training.training }}</a></v-card-subtitle>
+        <v-card-subtitle class="text-school text-h6 text-uppercase font-weight-bold text-decoration-none"><a :href="training.training_link" target="_blank" rel="noopener noreferrer">{{ training.training }}</a></v-card-subtitle>
         <v-card-subtitle><span class="mr-2"><v-icon>mdi-calendar-month</v-icon> {{ formatDate(training.date_start) }} - {{ formatDate(training.date_end) }}</span> - <v-icon>mdi-map-marker</v-icon> {{ training.location }}</v-card-subtitle>
 
         <v-card-text v-html="training.description"/>
@@ -47,6 +47,10 @@ a {
 a:hover {
   color: #BDBEC4 !important;
   text-decoration: none !important;
+}
+
+.text-school {
+  color: #B48A1A !important;
 }
 
 .v-application a {
