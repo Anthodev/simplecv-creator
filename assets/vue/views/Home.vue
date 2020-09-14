@@ -58,7 +58,9 @@ export default {
 
   methods: {
     getData() {
-      this.$store.dispatch("FETCH_CV_DATA")
+      this.$store.dispatch("FETCH_CV_DATA").then(() => {
+        document.title = 'CV de ' + this.cvData.info.name
+      })
     }
   },
 
@@ -84,6 +86,10 @@ export default {
 
   created: function() {
     this.getData()
+  },
+
+  mounted: function() {
+    if (this.cvData.info?.name != '') document.title = 'CV de ' + this.cvData.info.name
   }
 }
 </script>
@@ -91,5 +97,14 @@ export default {
 <style lang="sass">
 .section-title {
   border-bottom: 1px solid gold;
+}
+
+a {
+  color: #B48A1A !important;
+}
+
+a:hover {
+  color: #BDBEC4 !important;
+  text-decoration: none !important;
 }
 </style>

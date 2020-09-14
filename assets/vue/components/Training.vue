@@ -43,25 +43,7 @@ export default {
 </script>
 
 <style scoped>
-a {
-  color: #B48A1A !important;
-}
-
-a:hover {
-  color: #BDBEC4 !important;
-  text-decoration: none !important;
-}
-
 .text-school {
   color: #B48A1A !important;
-}
-
-.v-application a {
-  color: #B48A1A;
-}
-
-.v-application a:hover {
-  color: #BDBEC4;
-  text-decoration: none;
 }
 </style>
