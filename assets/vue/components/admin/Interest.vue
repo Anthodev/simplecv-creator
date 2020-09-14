@@ -95,6 +95,7 @@ export default {
       const formData = {
         id: interest.id,
         name: interest.name,
+        icon: interest.icon,
       }
 
       this.$store.dispatch('EDIT_INTEREST', formData).then(() => {
