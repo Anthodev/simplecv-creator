@@ -19,9 +19,9 @@
                 plugins: [
                   'advlist autolink lists link image charmap',
                   'preview anchor media',
-                  'paste code help wordcount'
+                  'paste media code help wordcount'
                 ],
-                toolbar: 'formatselect | bold italic | bullist numlist | code'
+                toolbar: 'formatselect aligncenter | bold italic | bullist numlist | media code'
               }" />
           <v-select
             v-model="type"
@@ -58,9 +58,9 @@
                     plugins: [
                       'advlist autolink lists link image charmap',
                       'preview anchor media',
-                      'paste code help wordcount'
+                      'paste media code help wordcount'
                     ],
-                    toolbar: 'formatselect | bold italic | bullist numlist | code'
+                    toolbar: 'formatselect aligncenter | bold italic | bullist numlist | media code'
                   }" />
               <v-select
                 v-model="portfolio.type"
@@ -129,7 +129,11 @@ export default {
       this.loading = !this.loading
 
       let formData = new FormData()
-      formData.append("image", this.image, this.image.name)
+
+      if(this.image != null || this.image != '') {
+        if(this.image?.name != null) formData.append("image", this.image, this.image.name)
+      }
+
       formData.append("name", this.name)
       formData.append("caption", this.caption)
       formData.append("description", this.description)
@@ -159,7 +163,11 @@ export default {
       this.loading = !this.loading
 
       let formData = new FormData()
-      formData.append("image", this.image, this.image.name)
+
+      if(this.image != null || this.image != '') {
+        if(this.image?.name != null) formData.append("image", this.image, this.image.name)
+      }
+      
       formData.append("id", portfolio.id)
       formData.append("name", portfolio.name)
       formData.append("caption", portfolio.caption)

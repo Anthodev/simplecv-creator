@@ -21,14 +21,14 @@
           <app-experience :cvDataExperiences="cvData.experiences" />
         </v-col>
 
-        <v-col cols="12">
+        <v-col cols="12" v-if="Object.keys(cvData.portfolios_pro).length > 0">
           <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Portfolio professionnel</div>
-          <app-portfolio-pro />
+          <app-portfolio-pro :cvDataPortfolios="cvData.portfolios_pro" />
         </v-col>
 
-        <v-col cols="12">
+        <v-col cols="12" v-if="Object.keys(cvData.portfolios_perso).length > 0">
           <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Portfolio personnel</div>
-          <app-portfolio-perso />
+          <app-portfolio-perso :cvDataPortfolios="cvData.portfolios_perso" />
         </v-col>
 
         <v-col cols="12" v-if="Object.keys(cvData.trainings).length > 0">

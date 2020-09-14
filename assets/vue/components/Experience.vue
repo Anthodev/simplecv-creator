@@ -23,7 +23,7 @@ export default {
   },
 
   watch: {
-    cvDataContacts: {
+    cvDataExperiences: {
       handler(val) {
         this.experiences = val
       },

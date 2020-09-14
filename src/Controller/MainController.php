@@ -83,8 +83,8 @@ class MainController extends AbstractController
         $cvData['interests'] = $this->interestRepo->findBy([], ['list_order' => 'ASC']);
         $cvData['contacts'] = $this->contactRepo->findAll();
         $cvData['portfolios'] = $this->portfolioRepo->findBy([], ['list_order' => 'ASC']);
-        $cvData['portfolios_pro'] = $this->portfolioRepo->findBy(['type' => 'pro'], ['list_order' => 'ASC']);
-        $cvData['portfolios_perso'] = $this->portfolioRepo->findBy(['type' => 'perso'], ['list_order' => 'ASC']);
+        $cvData['portfolios_pro'] = $this->portfolioRepo->findBy(['type' => 'Professional'], ['list_order' => 'ASC']);
+        $cvData['portfolios_perso'] = $this->portfolioRepo->findBy(['type' => 'Personal'], ['list_order' => 'ASC']);
         $cvData['softs'] = $this->softRepo->findAll();
         $cvData['extras'] = $this->extraRepo->findAll();
         $cvData['languages'] = $this->languageRepo->findAll();
