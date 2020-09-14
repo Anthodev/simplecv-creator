@@ -85,6 +85,10 @@ export default {
         this.formLoading = false
         this.disabled = false
       })
+      .catch((error) => {
+        this.formLoading = false
+        this.disabled = false
+      })
     }
   },
 }

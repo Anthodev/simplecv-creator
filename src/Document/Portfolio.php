@@ -10,7 +10,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class Portfolio
 {
     /**
-     * @MongoDB\Id
+     * @MongoDB\Id(strategy="INCREMENT")
      * @var mixed
      */
     protected $id;
@@ -20,6 +20,12 @@ class Portfolio
      * @var mixed
      */
     protected $image;
+
+    /**
+     * @MongoDB\Field(type="string")
+     * @var mixed
+     */
+    protected $name;
 
     /**
      * @MongoDB\Field(type="string")
@@ -65,6 +71,30 @@ class Portfolio
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * Get the value of name
+     *
+     * @return  mixed
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set the value of name
+     *
+     * @param  mixed  $name
+     *
+     * @return  self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     /**

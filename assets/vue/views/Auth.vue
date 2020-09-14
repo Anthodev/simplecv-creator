@@ -37,7 +37,6 @@ export default {
 
   methods: {
     fetchData() {
-      console.log('check data')
       this.$store.dispatch('FETCH_USERCOUNT')
     }
   },

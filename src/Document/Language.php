@@ -6,11 +6,12 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * @MongoDB\Document
+ * @MongoDB\HasLifecycleCallbacks()
  */
 class Language
 {
     /**
-     * @MongoDB\Id
+     * @MongoDB\Id(strategy="INCREMENT")
      * @var mixed
      */
     protected $id;
@@ -22,7 +23,7 @@ class Language
     protected $name;
 
     /**
-     * @MongoDB\Field(type="int")
+     * @MongoDB\Field(type="string")
      * @var mixed
      */
     protected $level;

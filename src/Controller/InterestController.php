@@ -2,92 +2,148 @@
 
 namespace App\Controller;
 
+use Exception;
 use App\Document\Interest;
-use App\Form\InterestType;
+use JMS\Serializer\SerializerInterface;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/admin-cv/interests", name="admin_interests_")
+ * @Route("/api/interest", name="admin_interests_")
  */
 class InterestController extends AbstractController
 {
     private $interestRepo;
     private $dm;
+    private $serializer;
 
-    public function __construct(DocumentManager $dm)
+    public function __construct(DocumentManager $dm, SerializerInterface $serializer)
     {
         $this->dm = $dm;
         $this->interestRepo = $dm->getRepository(Interest::class);
+        $this->serializer = $serializer;
     }
+
     /**
-     * @Route("/", name="home")
+     * @Route("/add", methods={"POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
-    public function index(Request $request)
+    public function add(Request $request)
     {
-        $interests = $interestRepo->findAll();
+        $name = '';
+        $icon = '';
 
-        $interest = new Interest();
+        $data = $request->getContent();
 
-        $form = $this->createForm(InterestType::class, $interest);
-        $form->handleRequest($request);
+        if (!empty($data)) {
+            $decodedData = \json_decode($data, true);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $this->dm = $this->getDoctrine()->getManager();
-            $this->dm->persist($interest);
-            $this->dm->flush();
+            $name = $decodedData['name'];
+            $icon = $decodedData['icon'];
 
-            $this->addFlash('success', 'Interest ajoutée');
+            $interest = new Interest();
 
-            return $this->redirectToRoute('admin_interests_home');
+            $interest->setName($name);
+            $interest->setIcon($icon);
+
+            try {
+                $this->dm->persist($interest);
+                $this->dm->flush();
+
+                $interests = $this->interestRepo->findAll();
+
+                $serializedInterests = $this->serializer->serialize($interests, 'json');
+
+                $response = new Response($serializedInterests);
+                $response->setStatusCode(Response::HTTP_OK);
+                $response->headers->set('Content-Type', 'application/json');
+
+                return $response;
+            } catch (Exception $e) {
+                return new JsonResponse(\json_encode($e), 500);
+            }
+        } else return new JsonResponse("No data sent.", 417);
+    }
+
+    /**
+     * @Route("/edit", methods={"POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     */
+    public function edit(Request $request)
+    {
+        $id = null;
+        $name = '';
+        $icon = '';
+
+        $data = $request->getContent();
+
+        if (!empty($data)) {
+            $decodedData = \json_decode($data, true);
+
+            $id = $decodedData['id'];
+            $name = $decodedData['name'];
+            $icon = $decodedData['icon'];
+
+            $interest = $this->interestRepo->find($id);
+
+            $interest->setName($name);
+            $interest->setIcon($icon);
+
+            try {
+                $this->dm->flush();
+
+                $interests = $this->interestRepo->findAll();
+
+                $serializedInterests = $this->serializer->serialize($interests, 'json');
+
+                $response = new Response($serializedInterests);
+                $response->setStatusCode(Response::HTTP_OK);
+                $response->headers->set('Content-Type', 'application/json');
+
+                return $response;
+            } catch (Exception $e) {
+                return new JsonResponse(\json_encode($e), 500);
+            }
+        } else return new JsonResponse("No data sent.", 417);
+    }
+
+    /**
+     * @Route("/delete", name="delete", methods={"POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     */
+    public function delete(Request $request)
+    {
+        $id = null;
+
+        $data = $request->getContent();
+
+        if (!empty($data)) {
+            $decodedData = \json_decode($data, true);
+
+            $id = $decodedData['id'];
+            $interest = $this->interestRepo->find($id);
+
+            try {
+                $this->dm->remove($interest);
+                $this->dm->flush();
+
+                $interests = $this->interestRepo->findAll();
+
+                $serializedInterests = $this->serializer->serialize($interests, 'json');
+
+                $response = new Response($serializedInterests);
+                $response->setStatusCode(Response::HTTP_OK);
+                $response->headers->set('Content-Type', 'application/json');
+
+                return $response;
+            } catch (Exception $e) {
+                return new JsonResponse(\json_encode($e), 500);
+            }
         }
-
-        return $this->render('admin/interest/index.html.twig', [
-            'interests' => $interests,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="show", methods={"GET", "POST"}, requirements={"id"="\d+"})
-     */
-    public function show(Interest $interest, Request $request)
-    {
-        if(!$interest) throw $this->createNotFoundException('Expérience introuvable');
-
-        $form = $this->createForm(InterestType::class, $interest);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $this->dm = $this->getDoctrine()->getManager();
-            $this->dm->persist($interest);
-            $this->dm->flush();
-
-            $this->addFlash('success', 'Interest mis à jour');
-
-            return $this->redirectToRoute('admin_home');
-        }
-
-        return $this->render('admin/interest/index.html.twig', [
-            'interest' => $interest,
-            'form_interest' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/delete", name="delete", methods={"GET", "POST"}, requirements={"id"="\d+"})
-     */
-    public function delete(Interest $interest)
-    {
-        if(!$interest) throw $this->createNotFoundException('Expérience introuvable');
-
-        $this->dm = $this->getDoctrine()->getManager();
-        $this->dm->remove($interest);
-        $this->dm->flush();
-
-        $this->addFlash('success', 'Interest supprimée');
-
-        return $this->redirectToRoute('admin_interests_home');
     }
 }

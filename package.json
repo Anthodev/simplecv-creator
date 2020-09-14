@@ -22,7 +22,10 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-upload": "^22.0.0",
+        "@tinymce/tinymce-vue": "^3.2.2",
         "axios": "^0.19.2",
+        "date-fns": "^2.16.1",
         "vue-router": "^3.3.4",
         "vuelidate": "^0.7.5",
         "vuetify": "^2.3.1",
