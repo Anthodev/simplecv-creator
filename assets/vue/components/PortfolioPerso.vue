@@ -1,6 +1,6 @@
 <template>
     <v-row>
-      <v-card class="mb-2" elevation="8" v-for="portfolio in portfolios" :key="portfolio.id">
+      <v-card width="99%" class="mb-2" elevation="8" v-for="portfolio in portfolios" :key="portfolio.id">
           <v-card-title class="text-h5 font-weight-bold text-uppercase">{{ portfolio.name }}</v-card-title>
 
           <v-card-text v-html="portfolio.description" />

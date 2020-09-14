@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-card min-width="99%" class="mx-auto mb-2" elevation="8" v-for="experience in experiences" :key="experience.id">
+    <v-card width="99%" class="mx-auto mb-2" elevation="8" v-for="experience in experiences" :key="experience.id">
         <v-card-title class="text-h5 font-weight-bold text-uppercase">{{ experience.title }}</v-card-title>
         <v-card-subtitle class="text-h6 text-uppercase font-weight-bold text-decoration-none"><a :href="experience.company_link" target="_blank" rel="noopener noreferrer">{{ experience.company }}</a></v-card-subtitle>
         <v-card-subtitle><span class="mr-2"><v-icon>mdi-calendar-month</v-icon> {{ formatDate(experience.date_start) }} - {{ formatDate(experience.date_end) }}</span> - <v-icon>mdi-map-marker</v-icon> {{ experience.location }}</v-card-subtitle>
