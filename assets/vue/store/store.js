@@ -61,6 +61,10 @@ export default new Vuex.Store({
       state.cvData.trainings = payload;
     },
 
+    SET_PORTFOLIOS(state, payload) {
+      state.cvData.portfolios = payload;
+    },
+
     SET_SKILLS(state, payload) {
       state.cvData.skills = payload;
     },
@@ -260,6 +264,18 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async ADD_PORTFOLIO({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/portfolio/add", formData)
+        .then((res) => {
+          commit("SET_PORTFOLIOS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async ADD_SKILL({ commit, dispatch }, formData) {
       return await axios
         .post("/api/skill/add", {
@@ -411,6 +427,18 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
+    async EDIT_PORTFOLIO({ commit, dispatch }, formData) {
+      return await axios
+        .post("/api/portfolio/edit", formData)
+        .then((res) => {
+          commit("SET_PORTFOLIOS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
     async EDIT_SKILL({ commit, dispatch }, formData) {
       return await axios
         .post("/api/skill/edit", {
@@ -535,6 +563,18 @@ export default new Vuex.Store({
         .post("/api/training/delete", { id: id })
         .then((res) => {
           commit("SET_TRAININGS", res.data);
+          dispatch("UPDATE_DATA");
+
+          return res;
+        })
+        .catch((error) => console.error(error));
+    },
+
+    async DELETE_PORTFOLIO({ commit, dispatch }, id) {
+      return await axios
+        .post("/api/portfolio/delete", { id: id })
+        .then((res) => {
+          commit("SET_PORTFOLIOS", res.data);
           dispatch("UPDATE_DATA");
 
           return res;

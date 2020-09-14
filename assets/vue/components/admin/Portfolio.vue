@@ -2,11 +2,11 @@
   <v-tab-item value="tab-portfolio">
     <v-card flat>
       <v-card-text>
-        <v-form id="portfolioForm" @submit.prevent="onSubmit">
+        <v-form id="portfolioForm" encType='multipart/form-data'>
           <div class="text-h5 text-uppercase">New Portfolio</div>
           <v-divider />
           <v-text-field v-model="name" placeholder="Name" filled></v-text-field>
-          <v-file-input v-model="image" label="Image (jpg,png,jpeg)" filled></v-file-input>
+          <v-file-input label="Image (jpg,png,jpeg)" accept="image/*" @change="handleFile" show-size filled></v-file-input>
           <v-text-field v-model="caption" placeholder="Caption" filled></v-text-field>
           <editor
               id="description_portfolio"
@@ -31,7 +31,7 @@
             filled
           ></v-select>
           <v-text-field v-model="order" placeholder="List Order" type="number" filled></v-text-field>
-          <v-col cols="12" md="2"><v-btn form="portfolioForm" type="submit" color="primary" @click="loader = 'loading'; loadingIndex = -1" :loading="loading && loadingIndex == -1">Add</v-btn></v-col>
+          <v-col cols="12" md="2"><v-btn form="portfolioForm" color="primary" @click="loader = 'loading'; loadingIndex = -1; onSubmit()" :loading="loading && loadingIndex == -1">Add</v-btn></v-col>
         </v-form>
       </v-card-text>
     </v-card>
@@ -45,7 +45,8 @@
             <v-expansion-panel-header>{{ portfolio.name }}</v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-text-field v-model="portfolio.name" placeholder="Name" filled></v-text-field>
-              <v-file-input v-model="portfolio.image" label="Image (jpg,png,jpeg)" filled></v-file-input>
+              <v-img :src="'/uploads/images/'+portfolio.image" width="100%" aspect-ratio="1.7778" class="mb-7"/>
+              <v-file-input label="Image (jpg,png,jpeg)" accept="image/*" @change="handleFile" show-size filled></v-file-input>
               <v-text-field v-model="portfolio.caption" placeholder="Caption" filled></v-text-field>
               <editor
                   color="black"
@@ -68,7 +69,7 @@
                 single-line
                 filled
               ></v-select>
-              <v-text-field v-model="portfolio.order" placeholder="List Order" type="number" filled></v-text-field>
+              <v-text-field v-model="portfolio.list_order" placeholder="List Order" type="number" filled></v-text-field>
               <v-col cols="12" md="2">
                 <v-btn @click="loader='loading'; loadingIndex = portfolio.id; loadingEdit=portfolio.id; onEdit(portfolio)" color="amber" :loading="loading && loadingEdit == portfolio.id">Edit</v-btn>
                 <v-btn @click="loader='loading'; loadingIndex = portfolio.id; loadingDelete=portfolio.id; onDelete(portfolio)" color="red" :loading="loading && loadingDelete == portfolio.id">Delete</v-btn>
@@ -84,7 +85,6 @@
 <script>
 import Snackbar from '../misc/Snackbar'
 import TinyMCE from '@tinymce/tinymce-vue'
-import { format, parseISO } from 'date-fns'
 
 export default {
   props: ['cvDataPortfolios'],
@@ -93,7 +93,7 @@ export default {
     return {
       portfolios: this.cvDataPortfolios,
       name: '',
-      image: '',
+      image: null,
       caption: '',
       description: '',
       type: '',
@@ -121,20 +121,20 @@ export default {
   },
 
   methods: {
-    formatExpDate(date) {
-      return format(parseISO(date), 'yyyy-MM-dd')
+    handleFile(files) {
+      this.image = files
     },
 
     onSubmit() {
       this.loading = !this.loading
 
-      const formData = new FormData();
-      formData.append('name', this.name)
-      formData.append('image', this.image)
-      formData.append('caption', this.caption)
-      formData.append('description', this.description)
-      formData.append('type', this.type)
-      formData.append('order', this.order)
+      let formData = new FormData()
+      formData.append("image", this.image, this.image.name)
+      formData.append("name", this.name)
+      formData.append("caption", this.caption)
+      formData.append("description", this.description)
+      formData.append("type", this.type)
+      formData.append("order", this.order)
 
       this.$store.dispatch('ADD_PORTFOLIO', formData).then(() => {
         this.loading = false
@@ -158,15 +158,14 @@ export default {
     onEdit(portfolio) {
       this.loading = !this.loading
 
-      const formData = {
-        id: portfolio.id,
-        name: portfolio.name,
-        image: portfolio.image,
-        caption: portfolio.caption,
-        description: portfolio.description,
-        type: portfolio.type,
-        order: portfolio.list_order,
-      }
+      let formData = new FormData()
+      formData.append("image", this.image, this.image.name)
+      formData.append("id", portfolio.id)
+      formData.append("name", portfolio.name)
+      formData.append("caption", portfolio.caption)
+      formData.append("description", portfolio.description)
+      formData.append("type", portfolio.type)
+      formData.append("list_order", portfolio.list_order)
 
       this.$store.dispatch('EDIT_PORTFOLIO', formData).then(() => {
         this.snackbar.message = "The changes have been saved."

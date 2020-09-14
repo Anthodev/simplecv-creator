@@ -37,8 +37,8 @@ yarn-error.log
 
 /public/uploads/
 !/public/uploads/.keep
-!/public/uploads/photo/.keep
-!/public/uploads/portfolio/.keep
+!/public/uploads/images/.keep
+!/public/uploads/files/.keep
 
 /.vscode/
 /config/jwt/*
