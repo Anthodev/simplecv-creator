@@ -88,6 +88,7 @@ class UserController extends AbstractController
 
         $name = '';
         $title = '';
+        $presentation = '';
         $image = '';
 
         $data = $request->getContent();
@@ -95,6 +96,7 @@ class UserController extends AbstractController
         if (isset($data)) {
             $name = $request->get('name');
             $title = $request->get('title');
+            $presentation = $request->get('presentation');
             $image = $request->files->get('image');
         }
 
@@ -102,6 +104,7 @@ class UserController extends AbstractController
 
         $user->setName($name);
         $user->setTitle($title);
+        $user->setPresentation($presentation);
 
         try {
             if (!empty($image) || !is_null($image)) {
@@ -126,7 +129,7 @@ class UserController extends AbstractController
             } else {
                 $user->setPhoto($oldImage);
             }
-            
+
             $this->dm->flush();
 
             $serializedUser = $this->serializer->serialize($user, 'json');

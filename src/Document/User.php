@@ -60,6 +60,13 @@ class User implements UserInterface, \Serializable
      * @Serializer\Expose
      * @var mixed
      */
+    protected $presentation;
+
+    /**
+     * @MongoDB\Field(type="string")
+     * @Serializer\Expose
+     * @var mixed
+     */
     protected $photo;
 
     /**
@@ -85,7 +92,7 @@ class User implements UserInterface, \Serializable
      * Get the value of id
      *
      * @return  mixed
-     */ 
+     */
     public function getId(): ?int
     {
         return $this->id;
@@ -95,7 +102,7 @@ class User implements UserInterface, \Serializable
      * Get the value of name
      *
      * @return  mixed
-     */ 
+     */
     public function getName(): ?string
     {
         return $this->name;
@@ -107,7 +114,7 @@ class User implements UserInterface, \Serializable
      * @param  mixed  $name
      *
      * @return  self
-     */ 
+     */
     public function setName($name): self
     {
         $this->name = $name;
@@ -119,7 +126,7 @@ class User implements UserInterface, \Serializable
      * Get the value of title
      *
      * @return  mixed
-     */ 
+     */
     public function getTitle(): ?string
     {
         return $this->title;
@@ -131,7 +138,7 @@ class User implements UserInterface, \Serializable
      * @param  mixed  $title
      *
      * @return  self
-     */ 
+     */
     public function setTitle($title): self
     {
         $this->title = $title;
@@ -140,10 +147,34 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * Get the value of presentation
+     *
+     * @return  mixed
+     */
+    public function getPresentation(): ?string
+    {
+        return $this->presentation;
+    }
+
+    /**
+     * Set the value of presentation
+     *
+     * @param  mixed  $presentation
+     *
+     * @return  self
+     */
+    public function setPresentation($presentation): self
+    {
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    /**
      * Get the value of photo
      *
      * @return  mixed
-     */ 
+     */
     public function getPhoto(): ?string
     {
         return $this->photo;
@@ -155,7 +186,7 @@ class User implements UserInterface, \Serializable
      * @param  mixed  $photo
      *
      * @return  self
-     */ 
+     */
     public function setPhoto($photo)
     {
         $this->photo = $photo;
@@ -167,7 +198,7 @@ class User implements UserInterface, \Serializable
      * Get the value of role
      *
      * @return  mixed
-     */ 
+     */
     public function getRole()
     {
         return $this->role;
@@ -179,7 +210,7 @@ class User implements UserInterface, \Serializable
      * @param  mixed  $role
      *
      * @return  self
-     */ 
+     */
     public function setRole($role)
     {
         $this->role = $role;
@@ -196,7 +227,7 @@ class User implements UserInterface, \Serializable
      * Get the value of createdAt
      *
      * @return  mixed
-     */ 
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
@@ -208,7 +239,7 @@ class User implements UserInterface, \Serializable
      * @param  mixed  $createdAt
      *
      * @return  self
-     */ 
+     */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
@@ -220,7 +251,7 @@ class User implements UserInterface, \Serializable
      * Get the value of updatedAt
      *
      * @return  mixed
-     */ 
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
@@ -232,7 +263,7 @@ class User implements UserInterface, \Serializable
      * @param  mixed  $updatedAt
      *
      * @return  self
-     */ 
+     */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
@@ -282,7 +313,7 @@ class User implements UserInterface, \Serializable
      * Get the value of plainPassword
      *
      * @return  mixed
-     */ 
+     */
     public function getPlainPassword()
     {
         return $this->plainPassword;
@@ -294,7 +325,7 @@ class User implements UserInterface, \Serializable
      * @param  mixed  $plainPassword
      *
      * @return  self
-     */ 
+     */
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
@@ -308,7 +339,7 @@ class User implements UserInterface, \Serializable
      * Get the value of password
      *
      * @return  mixed
-     */ 
+     */
     public function getPassword()
     {
         return $this->password;
@@ -320,7 +351,7 @@ class User implements UserInterface, \Serializable
      * @param  mixed  $password
      *
      * @return  self
-     */ 
+     */
     public function setPassword($password)
     {
         $this->password = $password;
@@ -332,7 +363,7 @@ class User implements UserInterface, \Serializable
      * Get the value of username
      *
      * @return  mixed
-     */ 
+     */
     public function getUsername()
     {
         return $this->username;
@@ -344,7 +375,7 @@ class User implements UserInterface, \Serializable
      * @param  mixed  $username
      *
      * @return  self
-     */ 
+     */
     public function setUsername($username)
     {
         $this->username = $username;

@@ -11,7 +11,24 @@
             <v-text-field id="name" name="name" placeholder="Name" v-model="info.name" filled></v-text-field>
             <v-text-field id="title" name="title" placeholder="Title" v-model="info.title" filled></v-text-field>
           </template>
-          <v-row>
+
+          <editor
+            id="presentation"
+            color="black"
+            v-model="info.presentation"
+            :apiKey='tiny_mce_api'
+            :init="{
+              selector: 'v-textarea',
+              menubar: false,
+              plugins: [
+                'advlist autolink lists link image charmap',
+                'preview anchor media',
+                'paste code help wordcount'
+              ],
+              toolbar: 'formatselect | bold italic | bullist numlist'
+            }" />
+
+          <v-row class="mt-3">
             <v-col cols="8">
               <v-file-input label="Image (jpg,png,jpeg)" accept="image/*" @change="handleFile" show-size filled></v-file-input>
             </v-col>
@@ -29,6 +46,7 @@
 
 <script>
 import Snackbar from '../misc/Snackbar'
+import TinyMCE from '@tinymce/tinymce-vue'
 
 export default {
   props: ['cvDataInfo'],
@@ -38,6 +56,7 @@ export default {
       info: this.cvDataInfo,
       image: null,
       loading: false,
+      tiny_mce_api: process.env.VUE_APP_TINYMCE_API,
       snackbar: {
         state: false,
         message: ''
@@ -67,6 +86,7 @@ export default {
 
       formData.append('name', this.info.name)
       formData.append('title', this.info.title)
+      formData.append('presentation', this.info.presentation)
 
       this.$store.dispatch('SET_USERINFO', formData).then(() => {
         this.loading = false
@@ -82,7 +102,8 @@ export default {
   },
 
   components: {
-    appSnackbar: Snackbar
+    appSnackbar: Snackbar,
+    editor: TinyMCE
   },
 }
 </script>

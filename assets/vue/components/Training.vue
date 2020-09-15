@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-card width="99%" class="mx-auto mb-2" elevation="8" v-for="training in trainings" :key="training.id">
+    <v-card min-width="99%" class="mx-auto mb-2" elevation="8" v-for="training in trainings" :key="training.id">
         <v-card-title class="text-h5 font-weight-bold text-uppercase">{{ training.title }}</v-card-title>
         <v-card-subtitle class="text-school text-h6 text-uppercase font-weight-bold text-decoration-none">
           <a :href="training.training_link" target="_blank" rel="noopener noreferrer" v-if="training.training_link !== ''">{{ training.training }}</a>
@@ -44,6 +44,6 @@ export default {
 
 <style scoped>
 .text-school {
-  color: #B48A1A !important;
+  color: #FFC107 !important;
 }
 </style>
