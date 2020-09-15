@@ -1,7 +1,7 @@
 <template>
     <v-card class="elevation-12">
         <v-toolbar color="indigo" dark flat>
-            <v-toolbar-title>KijiReader - Login</v-toolbar-title>
+            <v-toolbar-title>Simple CV - Login</v-toolbar-title>
             <v-spacer />
         </v-toolbar>
         <v-card-text>

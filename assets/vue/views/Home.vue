@@ -4,7 +4,11 @@
       <v-row>
         <v-col cols="12" v-if="Object.keys(cvData.info).length !== 0">
           <p class="text-h3">{{ cvData.info.name }}</p>
-          <p class="text-h4">{{ cvData.info.title }}</p>
+          <p class="text-h4 pb-2 section-title">{{ cvData.info.title }}</p>
+
+          <v-card width="100%" v-if="cvData.info.presentation && cvData.info.presentation != ''">
+            <v-card-text v-html="cvData.info.presentation"></v-card-text>
+          </v-card>
         </v-col>
         <v-col cols="12" v-else>
           <p class="text-h3">Nom</p>
@@ -32,7 +36,7 @@
         </v-col>
 
         <v-col cols="12" v-if="Object.keys(cvData.trainings).length > 0">
-          <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Formations</div>
+          <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Éducation &amp; Diplômes</div>
           <app-training :cvDataTrainings="cvData.trainings" />
         </v-col>
       </v-row>
@@ -96,7 +100,7 @@ export default {
 
 <style lang="sass">
 a {
-  color: #B48A1A !important;
+  color: #FFC107 !important;
 }
 
 a:hover {

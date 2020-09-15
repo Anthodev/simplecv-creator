@@ -190,6 +190,7 @@ export default new Vuex.Store({
           let info = {
             name: res.data.name,
             title: res.data.title,
+            presentation: res.data.presentation,
           };
 
           commit("SET_USERINFO", info);
