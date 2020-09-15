@@ -60,6 +60,13 @@ class User implements UserInterface, \Serializable
      * @Serializer\Expose
      * @var mixed
      */
+    protected $presentation;
+
+    /**
+     * @MongoDB\Field(type="string")
+     * @Serializer\Expose
+     * @var mixed
+     */
     protected $photo;
 
     /**
@@ -135,6 +142,30 @@ class User implements UserInterface, \Serializable
     public function setTitle($title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of presentation
+     *
+     * @return  mixed
+     */ 
+    public function getPresentation(): ?string
+    {
+        return $this->presentation;
+    }
+
+    /**
+     * Set the value of presentation
+     *
+     * @param  mixed  $presentation
+     *
+     * @return  self
+     */ 
+    public function setPresentation($presentation): self
+    {
+        $this->presentation = $presentation;
 
         return $this;
     }
