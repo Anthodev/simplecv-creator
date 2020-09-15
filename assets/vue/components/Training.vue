@@ -44,6 +44,6 @@ export default {
 
 <style scoped>
 .text-school {
-  color: #B48A1A !important;
+  color: #FFC107 !important;
 }
 </style>

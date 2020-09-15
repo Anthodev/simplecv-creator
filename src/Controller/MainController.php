@@ -102,40 +102,6 @@ class MainController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/pdf", name="home_pdf")
-     */
-    public function pdf()
-    {
-        $info = file_get_contents($this->getParameter('data_directory') . '/data.json');
-        $info = \json_decode($info);
-        
-        $experiences = $this->expRepo->findBy([], ['list_order' => 'ASC']);
-        $trainings = $this->trainingRepo->findBy([], ['list_order' => 'ASC']);
-        $skills = $this->skillRepo->findBy([], ['level' => 'DESC']);
-        $aptitudes = $this->aptRepo->findAll();
-        $interests = $this->interestRepo->findBy([], ['list_order' => 'ASC']);
-        $contacts = $this->contactRepo->findAll();
-        $portfolios_pro = $this->portfolioRepo->findBy(['type' => 'pro'], ['list_order' => 'ASC']);
-        $portfolios_perso = $this->portfolioRepo->findBy(['type' => 'perso'], ['list_order' => 'ASC']);
-        $softs = $this->softRepo->findAll();
-        $languages = $this->langRepo->findAll();
-        
-        return $this->render('main/pdf.html.twig', [
-            'info' => $info,
-            'experiences' => $experiences,
-            'trainings' => $trainings,
-            'skills' => $skills,
-            'aptitudes' => $aptitudes,
-            'interests' => $interests,
-            'contacts' => $contacts,
-            'portfolios_pro' => $portfolios_pro,
-            'portfolios_perso' => $portfolios_perso,
-            'softs' => $softs,
-            'languages' => $languages,
-        ]);
-    }
-
         /**
      * @Route("/logout", name="app_logout")
      */

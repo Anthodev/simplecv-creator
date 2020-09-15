@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use Exception;
 use App\Document\Experience;
-use App\Form\ExperienceType;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;

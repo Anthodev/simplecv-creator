@@ -5,7 +5,6 @@ namespace App\Controller;
 use Exception;
 use App\Document\Role;
 use App\Document\User;
-use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\Filesystem\Filesystem;
@@ -130,7 +129,7 @@ class UserController extends AbstractController
             } else {
                 $user->setPhoto($oldImage);
             }
-            
+
             $this->dm->flush();
 
             $serializedUser = $this->serializer->serialize($user, 'json');
