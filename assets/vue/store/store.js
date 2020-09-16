@@ -392,7 +392,7 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
-    async EDIT_SOFT({ commit, dispatch }, formData) {
+    async EDIT_SOFTSKILL({ commit, dispatch }, formData) {
       return await axios
         .post("/api/soft/edit", formData)
         .then((res) => {
@@ -512,7 +512,7 @@ export default new Vuex.Store({
         .catch((error) => console.error(error));
     },
 
-    async DELETE_SOFT({ commit, dispatch }, id) {
+    async DELETE_SOFTSKILL({ commit, dispatch }, id) {
       return await axios
         .post("/api/soft/delete", { id: id })
         .then((res) => {
