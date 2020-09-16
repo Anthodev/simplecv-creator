@@ -36,7 +36,7 @@
         </v-col>
 
         <v-col cols="12" v-if="Object.keys(cvData.trainings).length > 0">
-          <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Éducation &amp; Diplômes</div>
+          <div class="text-h3 font-weight-bold text-uppercase section-title mb-2">Formations</div>
           <app-training :cvDataTrainings="cvData.trainings" />
         </v-col>
       </v-row>
