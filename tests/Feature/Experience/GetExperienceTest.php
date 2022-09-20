@@ -8,17 +8,7 @@ use App\Models\Experience;
 use App\Models\User;
 
 beforeEach(function () {
-    $this->experience = Experience::factory()->create([
-        'title' => 'Test Experience',
-        'description' => 'Test Description',
-        'location' => 'Test Location',
-        'company' => 'Test Company',
-        'company_url' => 'https://test.com',
-        'start_date' => '2021-01-01',
-        'end_date' => '2021-01-02',
-        'display_order' => 1,
-        'experience_type_id' => 1,
-    ]);
+    $this->experience = Experience::factory()->create();
 });
 
 it('can return a list of experiences', function (): void {
