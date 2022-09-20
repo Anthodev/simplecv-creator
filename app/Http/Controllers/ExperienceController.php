@@ -47,17 +47,7 @@ class ExperienceController extends Controller
      */
     public function store(StoreExperienceRequest $request)
     {
-        Experience::create([
-            'title' => $request->request->get('title'),
-            'description' => $request->request->get('description'),
-            'location' => $request->request->get('location'),
-            'company' => $request->request->get('company'),
-            'company_url' => $request->request->get('company_url'),
-            'start_date' => $request->request->get('start_date'),
-            'end_date' => $request->request->get('end_date'),
-            'display_order' => $request->request->get('display_order'),
-            'experience_type_id' => $request->request->get('experience_type_id'),
-        ]);
+        Experience::create($request->validated());
 
         return redirect()->route('experiences.index')->with('message', 'Experience created successfully.');
     }

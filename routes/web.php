@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SkillController;
 use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,13 @@ Route::controller(ProjectController::class)->middleware(['auth', 'verified'])->g
     Route::post('projects/add', 'store')->name('projects.store');
     Route::patch('projects/{id}/update', 'update')->name('projects.update');
     Route::delete('projects/{id}/delete', 'destroy')->name('projects.delete');
+});
+
+Route::controller(SkillController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('skills', 'index')->name('skills.index');
+    Route::post('skills/add', 'store')->name('skills.store');
+    Route::patch('skills/{id}/update', 'update')->name('skills.update');
+    Route::delete('skills/{id}/delete', 'destroy')->name('skills.delete');
 });
 
 require __DIR__.'/auth.php';

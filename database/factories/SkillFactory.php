@@ -14,10 +14,14 @@ class SkillFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->words(2, true),
+            'icon' => $this->faker->imageUrl,
+            'url' => $this->faker->url,
+            'display_order' => $this->faker->numberBetween(0, 100),
+            'skill_type_id' => $this->faker->numberBetween(1, 3),
         ];
     }
 }

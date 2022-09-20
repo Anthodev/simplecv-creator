@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSkillRequest extends FormRequest
@@ -11,9 +12,9 @@ class UpdateSkillRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return \Auth::user()->id === User::first()->id;
     }
 
     /**
@@ -21,10 +22,14 @@ class UpdateSkillRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'icon' => 'nullable|string|max:255',
+            'url' => 'nullable|url',
+            'display_order' => ['required', 'integer'],
+            'skill_type_id' => ['required', 'integer'],
         ];
     }
 }
