@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\ProjectController;
 use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -30,9 +31,18 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('experiences', [ExperienceController::class, 'index'])->middleware(['auth', 'verified'])->name('experiences.index');
-Route::post('experiences/add', [ExperienceController::class, 'store'])->middleware(['auth', 'verified'])->name('experiences.store');
-Route::patch('experiences/{id}/update', [ExperienceController::class, 'update'])->middleware(['auth', 'verified'])->name('experiences.update');
-Route::delete('experiences/{id}/delete', [ExperienceController::class, 'destroy'])->middleware(['auth', 'verified'])->name('experiences.delete');
+Route::controller(ExperienceController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('experiences', 'index')->name('experiences.index');
+    Route::post('experiences/add', 'store')->name('experiences.store');
+    Route::patch('experiences/{id}/update', 'update')->name('experiences.update');
+    Route::delete('experiences/{id}/delete', 'destroy')->name('experiences.delete');
+});
+
+Route::controller(ProjectController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('projects', 'index')->name('projects.index');
+    Route::post('projects/add', 'store')->name('projects.store');
+    Route::patch('projects/{id}/update', 'update')->name('projects.update');
+    Route::delete('projects/{id}/delete', 'destroy')->name('projects.delete');
+});
 
 require __DIR__.'/auth.php';

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\ProjectStatusCodeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,9 +29,5 @@ class Project extends Model
         'image',
         'status',
         'display_order',
-    ];
-
-    protected $casts = [
-        'status' => ProjectStatusCodeEnum::class,
     ];
 }

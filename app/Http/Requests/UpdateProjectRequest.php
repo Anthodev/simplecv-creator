@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProjectRequest extends FormRequest
@@ -13,7 +16,7 @@ class UpdateProjectRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return \Auth::user()->id === User::first()->id;
     }
 
     /**
@@ -21,10 +24,16 @@ class UpdateProjectRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'url' => 'nullable|url',
+            'repo_url' => 'nullable|url',
+            'image' => 'nullable|string|max:255',
+            'status' => ['required', 'integer'],
+            'display_order' => ['required', 'integer'],
         ];
     }
 }

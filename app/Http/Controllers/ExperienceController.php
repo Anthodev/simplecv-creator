@@ -10,7 +10,6 @@ use App\Models\Experience;
 use App\Models\ExperienceType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
-use function inertia;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 
@@ -28,8 +27,6 @@ class ExperienceController extends Controller
             'experiences' => $experiences,
             'experienceTypes' => $experienceTypes,
         ]);
-
-//        return inertia('Experience', [compact('experiences'), compact('experienceTypes')]);
     }
 
     /**
