@@ -5,23 +5,31 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSkillRequest;
 use App\Http\Requests\UpdateSkillRequest;
 use App\Models\Skill;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 
 class SkillController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function index()
+    public function index(): InertiaResponse|RedirectResponse
     {
-        //
+        $skills = Skill::all()->sortBy('display_order');
+
+        return Inertia::render('Skill', [
+            'skills' => $skills,
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -31,19 +39,20 @@ class SkillController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreSkillRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreSkillRequest  $request
      */
-    public function store(StoreSkillRequest $request)
+    public function store(StoreSkillRequest $request): Response|RedirectResponse
     {
-        //
+        Skill::create($request->validated());
+
+        return redirect()->route('skills.index')->with('message', 'Skill created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Skill  $skill
-     * @return \Illuminate\Http\Response
+     * @param  Skill  $skill
+     * @return Response
      */
     public function show(Skill $skill)
     {
@@ -53,8 +62,8 @@ class SkillController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Skill  $skill
-     * @return \Illuminate\Http\Response
+     * @param  Skill  $skill
+     * @return Response
      */
     public function edit(Skill $skill)
     {
@@ -64,23 +73,27 @@ class SkillController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateSkillRequest  $request
-     * @param  \App\Models\Skill  $skill
-     * @return \Illuminate\Http\Response
+     * @param  UpdateSkillRequest  $request
+     * @param  Skill  $skill
      */
-    public function update(UpdateSkillRequest $request, Skill $skill)
+    public function update(UpdateSkillRequest $request): Response|RedirectResponse
     {
-        //
+        $skill = Skill::find($request->request->get('id'));
+        $skill->update($request->validated());
+
+        return redirect()->route('skills.index')->with('message', 'Skill updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Skill  $skill
-     * @return \Illuminate\Http\Response
+     * @param  Skill  $skill
      */
-    public function destroy(Skill $skill)
+    public function destroy(int $id): Response|RedirectResponse
     {
-        //
+        $skill = Skill::find($id);
+        $skill->delete();
+
+        return redirect()->route('skills.index')->with('message', 'Skill deleted successfully.');
     }
 }

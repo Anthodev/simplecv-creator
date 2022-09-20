@@ -18,4 +18,12 @@ use Illuminate\Database\Eloquent\Model;
 class Skill extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'icon',
+        'url',
+        'display_order',
+        'skill_type_id',
+    ];
 }
