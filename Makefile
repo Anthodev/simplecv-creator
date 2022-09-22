@@ -6,11 +6,6 @@ group := $(shell id -g)
 DOCKER := sail
 DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker-compose
 DOCKER_TEST := APP_ENV=testing
-ifeq ($(isContainerRunning), 1)
-	DOCKER := @docker exec -t -u $(user):$(group) $(containerName) php
-	DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker-compose
-	DOCKER_TEST := @docker exec -t -u $(user):$(group) $(containerName) APP_ENV=testing php
-endif
 
 CONSOLE := $(DOCKER)
 CONSOLE_MEMORY := $(DOCKER) php -d memory_limit=256M
@@ -18,8 +13,13 @@ CONSOLE_TEST := $(DOCKER_TEST)
 COMPOSER = $(DOCKER) composer
 SAIL = vendor/bin/sail
 
-## —— App ————————————————————————————————————————————————————————————————
+ifeq ($(isContainerRunning), 1)
+	DOCKER := @docker exec -t -u $(user):$(group) $(containerName) php
+	DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker-compose
+	DOCKER_TEST := @docker exec -t -u $(user):$(group) $(containerName) APP_ENV=testing php
+endif
 
+## —— App ————————————————————————————————————————————————————————————————
 build-docker:
 	$(DOCKER_COMPOSE) pull --ignore-pull-failures
 	$(DOCKER_COMPOSE) build --no-cache
