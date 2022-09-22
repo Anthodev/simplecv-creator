@@ -1,6 +1,6 @@
 <script setup>
 import 'tw-elements';
-import FormUpdateExperience from '@/Components/Forms/FormUpdateExperience.vue';
+import FormUpdateExperience from '@/Components/Experience/Forms/FormUpdateExperience.vue';
 
 defineProps({
     experiences: {
