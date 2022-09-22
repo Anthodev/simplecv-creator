@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSkillRequest;
 use App\Http\Requests\UpdateSkillRequest;
 use App\Models\Skill;
+use App\Models\SkillType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Inertia\Inertia;
@@ -20,9 +21,11 @@ class SkillController extends Controller
     public function index(): InertiaResponse|RedirectResponse
     {
         $skills = Skill::all()->sortBy('display_order');
+        $skillTypes = SkillType::all();
 
         return Inertia::render('Skill', [
             'skills' => $skills,
+            'skillTypes' => $skillTypes,
         ]);
     }
 
