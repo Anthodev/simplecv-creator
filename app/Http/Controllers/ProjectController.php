@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProjectStatusCodeEnum;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
@@ -21,8 +22,11 @@ class ProjectController extends Controller
     {
         $projects = Project::all()->sortBy('display_order');
 
+        $projectStatuses = ProjectStatusCodeEnum::toSimpleArray();
+
         return Inertia::render('Project', [
             'projects' => $projects,
+            'projectStatuses' => $projectStatuses,
         ]);
     }
 
