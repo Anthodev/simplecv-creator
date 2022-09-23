@@ -32,7 +32,7 @@ class Controller extends BaseController
         $skills = Skill::all()->sortBy('display_order');
         $skillTypes = SkillType::all();
 
-        return Inertia::render('Welcome', [
+        return Inertia::render('Cv', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register') && User::count() === 0,
             'experiences' => $experiences,
