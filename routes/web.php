@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -19,6 +20,8 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [Controller::class, 'home'])->name('home');
+
+Route::patch('users/{id}/update', [UserController::class, 'update'])->name('users.update');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

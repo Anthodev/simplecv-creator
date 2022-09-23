@@ -3,13 +3,13 @@ isContainerRunning := $(shell docker info > /dev/null 2>&1 && docker ps | grep $
 user := $(shell id -u)
 group := $(shell id -g)
 
-DOCKER := sail
+DOCKER :=
 DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker-compose
 DOCKER_TEST := APP_ENV=testing
 
-CONSOLE := $(DOCKER)
+CONSOLE := $(DOCKER) php
 CONSOLE_MEMORY := $(DOCKER) php -d memory_limit=256M
-CONSOLE_TEST := $(DOCKER_TEST)
+CONSOLE_TEST := $(DOCKER_TEST) php
 COMPOSER = $(DOCKER) composer
 SAIL = vendor/bin/sail
 
@@ -69,7 +69,7 @@ cc-test: ## Apply cache clear
 doctrine-validate:
 	$(CONSOLE) doctrine:schema:validate --skip-sync $c
 
-reset-database: drop-database database migrate load-fixtures ## Reset database with migration
+reset-database: migrate ## Reset database with migration
 
 database: ## Create database if no exists
 	$(CONSOLE) migrate:status
@@ -78,26 +78,26 @@ drop-database: ## Drop the database
 	$(CONSOLE) doctrine:database:drop --force --if-exists
 
 migration: ## Apply doctrine migration
-	$(CONSOLE) make:migration
+	$(CONSOLE) artisan make:migration $c
 
 migrate: ## Apply doctrine migrate
-	$(CONSOLE) doctrine:migration:migrate -n --all-or-nothing
+	$(CONSOLE) artisan migrate:fresh
 
 generate-jwt: ## Generate private and public keys
 	$(CONSOLE) lexik:jwt:generate-keypair --overwrite -q $c
 
 ## —— Integration ✅ ——————————————————————————————————————————————————————
-load-fixtures: drop-database database migrate ## Load fixtures
-	$(CONSOLE) app:load-fixtures
+load-fixtures: migrate ## Load fixtures
+	$(CONSOLE) artisan db:seed --class=ExperienceTypeSeeder
+	$(CONSOLE) artisan db:seed --class=SkillTypeSeeder
 
 ## —— Tests ✅ ————————————————————————————————————————————————————————————
 test-database: ### load database schema
-	$(CONSOLE_TEST) artisan migrate
-	$(CONSOLE_TEST) artisan db:seed --class=ExperienceTypeSeeder
-	$(CONSOLE_TEST) artisan db:seed --class=SkillTypeSeeder
+	$(CONSOLE_TEST) artisan migrate:fresh --seed
 
 test-load-fixtures: test-database ## load database schema & fixtures
-	$(CONSOLE_TEST) app:load-test-fixtures
+	$(CONSOLE_TEST) artisan db:seed --class=ExperienceTypeSeeder
+	$(CONSOLE_TEST) artisan db:seed --class=SkillTypeSeeder
 
 pest:
 	$(SAIL) bin pest
