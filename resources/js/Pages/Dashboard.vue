@@ -48,7 +48,7 @@ const submit = () => {
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="px-6 pb-4 bg-white border-b border-gray-200">
-                        <form @submit.prevent="submit" @change="onChange">
+                        <form @submit.prevent="submit">
                             <div class="pt-3">
                                 <InputLabel for="display_name" value="Nom affiché sur le CV" />
                                 <TextInput id="display_name" type="text" class="mt-1 block w-full" v-model="form.display_name" required />

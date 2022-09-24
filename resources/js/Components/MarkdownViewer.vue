@@ -1,16 +1,17 @@
-<script setup lang="ts">
-import Editor from '@toast-ui/editor';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import {onMounted, ref} from "vue";
+<script setup>
+import 'tw-elements';
+import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+import {onMounted} from "vue";
 
-let props = defineProps(['modelValue']);
-
-const input = ref(null);
-const emit = defineEmits(['update:modelValue']);
+const props = defineProps({
+    id: String,
+    data: String,
+})
 
 onMounted(() => {
-    const e = new Editor({
-        el: input.value,
+    const viewer = new Viewer({
+        el: document.getElementById(props.id),
         customHTMLRenderer: {
             htmlBlock: {
                 iframe(node) {
@@ -29,21 +30,26 @@ onMounted(() => {
                 },
             },
         },
-        initialValue: props.modelValue,
-        options: {
-            usageStatistics: false,
-        },
-        height: '500px',
-        initialEditType: 'markdown',
-        previewStyle: 'vertical',
-        theme: 'dark',
-        events: {
-            change: () => emit('update:modelValue', e.getMarkdown()),
-        },
+        height: 'auto',
+        language: 'fr-FR',
+        initialValue: props.data,
     });
 });
 </script>
 
 <template>
-    <div class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" ref="input" />
+    <div :id="id" class="toastui-editor-contents mt-4 p-4 font-sans text-white dark:text-white"/>
 </template>
+
+<style>
+    .toastui-editor-contents p {
+        font-family: 'Nunito', 'ui-sans-serif', monospace, 'Segoe UI';
+        color: white;
+        font-size: 1.1em;
+    }
+
+    .toastui-editor-contents iframe {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>

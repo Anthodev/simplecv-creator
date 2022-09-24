@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ExperienceTypeCodeEnum;
 use App\Enums\ProjectStatusCodeEnum;
 use App\Models\Experience;
 use App\Models\ExperienceType;
@@ -23,10 +24,13 @@ class Controller extends BaseController
 
     public function home(): InertiaResponse
     {
-        $experiences = Experience::all()->sortBy('display_order');
-        $experienceTypes = ExperienceType::all();
+        $experienceTypeJob = ExperienceType::where('code', ExperienceTypeCodeEnum::JOB->value)->first();
+        $experienceTypeEducation = ExperienceType::where('code', ExperienceTypeCodeEnum::EDUCATION->value)->first();
 
-        $projects = Project::all()->sortBy('display_order');
+        $jobs = Experience::where('experience_type_id', $experienceTypeJob->id)->get()->sortBy('display_order');
+        $educations = Experience::where('experience_type_id', $experienceTypeEducation->id)->get()->sortBy('display_order');
+
+        $projects = Project::all()->sortByDesc('status')->sortBy('display_order');
         $projectStatuses = ProjectStatusCodeEnum::toSimpleArray();
 
         $skills = Skill::all()->sortBy('display_order');
@@ -35,8 +39,8 @@ class Controller extends BaseController
         return Inertia::render('Cv', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register') && User::count() === 0,
-            'experiences' => $experiences,
-            'experienceTypes' => $experienceTypes,
+            'jobs' => $jobs,
+            'educations' => $educations,
             'projects' => $projects,
             'projectStatuses' => $projectStatuses,
             'skills' => $skills,

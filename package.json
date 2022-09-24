@@ -22,7 +22,9 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
+        "@heroicons/vue": "^2.0.11",
         "@toast-ui/editor": "^3.2.0",
+        "dayjs": "^1.11.5",
         "tw-elements": "^1.0.0-alpha12"
     }
 }

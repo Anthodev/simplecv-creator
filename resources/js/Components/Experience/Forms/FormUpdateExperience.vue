@@ -2,7 +2,7 @@
 import 'tw-elements';
 
 import TextInput from '@/Components/TextInput.vue';
-import TextAreaInput from '@/Components/TextAreaInput.vue';
+import MarkdownEditor from '@/Components/MarkdownEditor.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -71,7 +71,7 @@ const submit = () => {
         </div>
         <div class="pt-3">
             <InputLabel for="description" value="Description" />
-            <TextAreaInput id="description" type="textarea" rows="10" class="mt-1 block w-full" v-model="form.description" required />
+            <MarkdownEditor id="description" class="mt-1 block w-full" v-model="form.description" />
             <InputError :errors="form.errors.description" />
         </div>
         <div class="flex flex-row pt-3">
