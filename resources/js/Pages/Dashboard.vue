@@ -4,15 +4,17 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm, usePage } from '@inertiajs/inertia-vue3';
 
 import TextInput from '@/Components/TextInput.vue';
-import TextAreaInput from '@/Components/TextAreaInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import MarkdownEditor from '@/Components/MarkdownEditor.vue';
+
+const user = usePage().props.value.auth.user;
 
 const form = useForm({
     id: usePage().props.value.auth.user.id,
-    display_name: '',
-    description: '',
+    display_name: usePage().props.value.auth.user.display_name,
+    description: usePage().props.value.auth.user.description,
 });
 
 const submit = () => {
@@ -46,7 +48,7 @@ const submit = () => {
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="px-6 pb-4 bg-white border-b border-gray-200">
-                        <form @submit.prevent="submit">
+                        <form @submit.prevent="submit" @change="onChange">
                             <div class="pt-3">
                                 <InputLabel for="display_name" value="Nom affiché sur le CV" />
                                 <TextInput id="display_name" type="text" class="mt-1 block w-full" v-model="form.display_name" required />
@@ -54,7 +56,7 @@ const submit = () => {
                             </div>
                             <div class="pt-3">
                                 <InputLabel for="description" value="Description" />
-                                <TextAreaInput id="description" rows="10" type="text" class="mt-1 block w-full" v-model="form.description" required />
+                                <MarkdownEditor id="description" class="mt-1 block w-full" v-model="form.description" />
                                 <InputError :errors="form.errors.description" />
                             </div>
 
