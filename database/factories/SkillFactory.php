@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\SkillType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +22,7 @@ class SkillFactory extends Factory
             'icon' => $this->faker->imageUrl,
             'url' => $this->faker->url,
             'display_order' => $this->faker->numberBetween(0, 100),
-            'skill_type_id' => $this->faker->numberBetween(1, 3),
+            'skill_type_id' => SkillType::factory()->create()->id,
         ];
     }
 }

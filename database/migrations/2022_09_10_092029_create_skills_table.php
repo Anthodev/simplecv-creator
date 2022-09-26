@@ -15,6 +15,13 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::create('skill_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('label');
+            $table->string('code');
+            $table->timestamps();
+        });
+
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -22,6 +29,7 @@ return new class extends Migration
             $table->string('url')->nullable();
             $table->integer('display_order')->default(0);
             $table->integer('skill_type_id');
+            $table->foreign('skill_type_id')->references('id')->on('skill_types');
             $table->timestamps();
         });
     }
@@ -34,5 +42,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('skills');
+        Schema::dropIfExists('skill_types');
     }
 };

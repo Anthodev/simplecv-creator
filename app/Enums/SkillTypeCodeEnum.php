@@ -11,6 +11,17 @@ enum SkillTypeCodeEnum: string
     case PROGRAMMING_LANGUAGE = 'programming_language';
     case LANGUAGE = 'language';
     case INTEREST = 'interest';
-    case CONTACT = 'contact';
     case EXTRA = 'extra';
+
+    public static function getValues(): array
+    {
+        return [
+            self::HARD->value,
+            self::SOFT->value,
+            self::PROGRAMMING_LANGUAGE->value,
+            self::LANGUAGE->value,
+            self::INTEREST->value,
+            self::EXTRA->value,
+        ];
+    }
 }

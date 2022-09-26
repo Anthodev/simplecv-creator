@@ -15,6 +15,13 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::create('experience_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('label');
+            $table->string('code');
+            $table->timestamps();
+        });
+
         Schema::create('experiences', static function (Blueprint $table) {
             $table->id();
             $table->string('title');
@@ -26,6 +33,7 @@ return new class extends Migration
             $table->date('end_date')->nullable();
             $table->integer('display_order')->default(0);
             $table->integer('experience_type_id');
+            $table->foreign('experience_type_id')->references('id')->on('experience_types');
             $table->timestamps();
         });
     }
@@ -38,5 +46,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('experiences');
+        Schema::dropIfExists('experience_types');
     }
 };

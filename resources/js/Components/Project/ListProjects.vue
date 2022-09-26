@@ -16,7 +16,7 @@ defineProps({
 
 <template>
     <div class="accordion" id="projectsList">
-        <div v-for="project in projects" class="accordion-item bg-white border border-gray-200">
+        <div v-for="project in projects" class="accordion-item bg-white border border-gray-200 dark:bg-slate-700">
             <h2 class="accordion-header mb-0" :id="'title-'+ project.id">
                 <button class="
                     accordion-button
@@ -38,7 +38,7 @@ defineProps({
             </h2>
             <div :id="'data-' + project.id" class="accordion-collapse collapse show" :aria-labelledby="'title-' + project.id"
                  data-bs-parent="#projectsList">
-                <div class="accordion-body py-4 px-5">
+                <div class="accordion-body py-4 px-5 dark:bg-slate-700">
                     <FormUpdateProject :project="project" :projectStatuses="projectStatuses" />
                 </div>
             </div>

@@ -4,7 +4,10 @@ import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
     optimizeDeps: {
-        include: ['dayjs'],
+        include: [
+            '@toast-ui/editor',
+            'dayjs'
+        ],
     },
     plugins: [
         laravel({

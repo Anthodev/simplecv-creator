@@ -19,6 +19,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'display_name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
+            'picture_path' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:5000',
         ];
     }
 }

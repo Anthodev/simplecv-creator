@@ -49,13 +49,6 @@ class SkillTypeSeeder extends Seeder
 
         SkillType::factory()->create(
             [
-                'label' => 'Contacts',
-                'code' => SkillTypeCodeEnum::CONTACT->value,
-            ],
-        );
-
-        SkillType::factory()->create(
-            [
                 'label' => 'Extra',
                 'code' => SkillTypeCodeEnum::EXTRA->value,
             ],

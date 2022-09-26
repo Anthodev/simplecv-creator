@@ -21,7 +21,7 @@ class ProjectFactory extends Factory
             'description' => $this->faker->paragraph,
             'url' => $this->faker->url,
             'repo_url' => $this->faker->url,
-            'image' => $this->faker->imageUrl,
+            'image' => $this->faker->image,
             'status' => $this->faker->numberBetween(0, 2),
             'display_order' => $this->faker->numberBetween(0, 100),
         ];

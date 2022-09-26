@@ -31,7 +31,7 @@ class UpdateProjectRequest extends FormRequest
             'description' => ['required', 'string'],
             'url' => 'nullable|url',
             'repo_url' => 'nullable|url',
-            'image' => 'nullable|string|max:255',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:10000',
             'status' => ['required', 'integer'],
             'display_order' => ['required', 'integer'],
         ];

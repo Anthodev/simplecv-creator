@@ -32,7 +32,7 @@ onMounted(() => {
         },
         height: 'auto',
         language: 'fr-FR',
-        initialValue: props.data,
+        initialValue: props.data ?? '',
     });
 });
 </script>
@@ -45,7 +45,7 @@ onMounted(() => {
     .toastui-editor-contents p {
         font-family: 'Nunito', 'ui-sans-serif', monospace, 'Segoe UI';
         color: white;
-        font-size: 1.1em;
+        font-size: 1.0em;
     }
 
     .toastui-editor-contents iframe {

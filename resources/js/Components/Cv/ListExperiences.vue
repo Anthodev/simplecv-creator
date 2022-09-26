@@ -1,7 +1,7 @@
 <script setup>
 import 'tw-elements';
-import * as dayjs from 'dayjs';
-import MarkdownViewer from '@/Components/MarkdownViewer.vue';
+import dayjs from 'dayjs';
+import MarkdownViewer from '@/Components/Common/Form/MarkdownViewer.vue';
 import { MapPinIcon, CalendarIcon, BuildingOfficeIcon } from '@heroicons/vue/20/solid';
 
 let props = defineProps({
@@ -20,7 +20,7 @@ const formatDate = (date) => {
 
         <div v-for="experience in props.experiences">
             <div class="justify-center">
-                <div class="block px-6 py-4 rounded-lg shadow-lg bg-white dark:bg-gray-800">
+                <div class="block px-6 py-4 rounded-lg shadow-lg bg-white dark:bg-slate-700">
                     <h2 class="text-gray-900 dark:text-gray-200 text-2xl leading-tight font-medium mb-2 uppercase pb-2 border-b">{{ experience.title }}</h2>
 
                     <div class="flex justify-items-stretch">

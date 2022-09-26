@@ -1,6 +1,6 @@
 <script setup>
 import 'tw-elements';
-import MarkdownViewer from '@/Components/MarkdownViewer.vue';
+import MarkdownViewer from '@/Components/Common/Form/MarkdownViewer.vue';
 import { ChartBarIcon } from '@heroicons/vue/20/solid';
 import { FolderArrowDownIcon } from '@heroicons/vue/20/solid';
 
@@ -17,6 +17,9 @@ let props = defineProps({
         <div v-for="project in props.projects">
             <div class="justify-center">
                 <div class="block px-6 py-4 rounded-lg shadow-lg bg-white dark:bg-gray-800">
+                    <div v-if="project.image" class="text-center image-custom rounded-lg max-w-sm mx-auto">
+                        <img class="rounded-t-lg" :src="'../storage/' + project.image" :alt="project.title"/>
+                    </div>
                     <h2 class="text-gray-900 dark:text-gray-200 text-2xl leading-tight font-medium mb-2 uppercase pb-2 border-b">
                         <span v-if="project.url" class="underline hover:no-underline"><a :href="project.url" target="_blank">{{ project.title }}</a></span>
                         <span v-else>{{ project.title }}</span>
@@ -40,3 +43,9 @@ let props = defineProps({
         </div>
     </div>
 </template>
+
+<style scoped>
+.image-custom {
+    max-width: 30em;
+}
+</style>

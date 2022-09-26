@@ -1,11 +1,11 @@
 <script setup>
 import 'tw-elements';
 
-import TextInput from '@/Components/TextInput.vue';
-import MarkdownEditor from '@/Components/MarkdownEditor.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import InputError from '@/Components/InputError.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/Common/Form/TextInput.vue';
+import MarkdownEditor from '@/Components/Common/Form/MarkdownEditor.vue';
+import InputLabel from '@/Components/Common/Form/InputLabel.vue';
+import InputError from '@/Components/Common/Form/InputError.vue';
+import PrimaryButton from '@/Components/Common/Form/PrimaryButton.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
@@ -22,7 +22,8 @@ const props = defineProps({
 const form = useForm(props.project);
 
 const submit = () => {
-    form.patch(route('projects.update', this.project.id), {
+    form.post(route('projects.update', props.project.id), {
+        forceFormData: true,
         onFinish: () => {
             console.log(form);
             form.project = props.project;
@@ -32,7 +33,7 @@ const submit = () => {
 </script>
 
 <template>
-    <form @submit.prevent="form.patch(route('projects.update', this.project.id))">
+    <form @submit.prevent="form.post(route('projects.update', props.project.id))">
         <div class="flex flex-row pt-3">
             <div class="basis-1/2 mr-4">
                 <InputLabel for="title" value="Titre" />
@@ -53,7 +54,7 @@ const submit = () => {
             </div>
             <div class="basis-1/2">
                 <InputLabel for="image" value="Ajouter une image illustrant le projet" />
-                <TextInput id="image" type="text" class="mt-1 block w-full" v-model="form.image" />
+                <TextInput id="image" type="file" @input="form.image = $event.target.files[0]" class="mt-1 block w-full" v-model="form.image" />
                 <InputError :errors="form.errors.image" />
             </div>
         </div>
@@ -81,7 +82,7 @@ const submit = () => {
 
         <div class="flex flex-wrap items-center pt-4 rounded-b-md">
             <div class="justify-start">
-                <PrimaryButton type="button" @click="form.delete(route('projects.delete', this.project.id))" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton type="button" @click="form.delete(route('projects.delete', props.project.id))" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Supprimer
                 </PrimaryButton>
             </div>
@@ -93,3 +94,9 @@ const submit = () => {
         </div>
     </form>
 </template>
+
+<style scoped>
+#description {
+    background-color: white !important;
+}
+</style>

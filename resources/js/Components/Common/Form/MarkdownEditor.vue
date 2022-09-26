@@ -29,7 +29,7 @@ onMounted(() => {
                 },
             },
         },
-        initialValue: props.modelValue,
+        initialValue: props.modelValue ?? '',
         options: {
             usageStatistics: false,
         },

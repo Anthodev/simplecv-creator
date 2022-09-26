@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ExperienceType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,7 +26,7 @@ class ExperienceFactory extends Factory
             'start_date' => $this->faker->date,
             'end_date' => $this->faker->date,
             'display_order' => $this->faker->numberBetween(1, 10),
-            'experience_type_id' => $this->faker->numberBetween(1, 2),
+            'experience_type_id' => ExperienceType::factory()->create()->id,
         ];
     }
 }
