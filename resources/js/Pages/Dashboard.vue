@@ -15,13 +15,14 @@ const form = useForm({
     id: user.id,
     display_name: usePage().props.value.auth.user.display_name,
     description: usePage().props.value.auth.user.description,
+    title: usePage().props.value.auth.user.title,
     picture_path: '',
 });
 
 const submit = () => {
     form.post(route('users.update', usePage().props.value.auth.user.id), {
         forceFormData: true,
-        onFinish: () => form.reset('display_name', 'description', 'picture_path'),
+        onFinish: () => form.reset('display_name', 'title', 'description', 'picture_path'),
     });
 };
 </script>
@@ -57,6 +58,13 @@ const submit = () => {
                                     <TextInput id="display_name" type="text" class="mt-1 block w-full" v-model="form.display_name" required />
                                     <InputError :errors="form.errors.display_name" />
                                 </div>
+                                <div class="basis-1/2">
+                                    <InputLabel for="title" value="Titre du CV" />
+                                    <TextInput id="title" type="text" class="mt-1 block w-full" v-model="form.title" required />
+                                    <InputError :errors="form.errors.title" />
+                                </div>
+                            </div>
+                            <div class="flex flex-row pt-3">
                                 <div class="basis-1/2">
                                     <InputLabel for="picture_path" value="Photo du CV" />
                                     <TextInput id="picture_path" type="file" @input="form.picture_path = $event.target.files[0]" class="mt-1 block w-full" v-model="form.picture_path" />
