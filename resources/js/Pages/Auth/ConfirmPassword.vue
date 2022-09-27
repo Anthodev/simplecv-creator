@@ -25,7 +25,7 @@ const submit = () => {
             This is a secure area of the application. Please confirm your password before continuing.
         </div>
 
-        <form @submit.prevent="submit" class="dark:text-white dark:bg-slate-700">
+        <form @submit.prevent="submit" class="dark:text-gray-900 dark:bg-slate-700">
             <div>
                 <InputLabel for="password" value="Password" />
                 <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" autofocus />

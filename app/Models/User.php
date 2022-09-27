@@ -15,6 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string   $email
  * @property string   $password
  * @property string   $display_name
+ * @property string   $title
  * @property string   $description
  * @property string   $picture_path
  * @property string   $remember_token
@@ -37,6 +38,7 @@ class User extends Authenticatable
         'password',
         'display_name',
         'description',
+        'title',
         'picture_path',
     ];
 

@@ -24,7 +24,6 @@ const form = useForm(props.experience);
 const submit = () => {
     form.patch(route('experiences.update', props.experience.id), {
         onFinish: () => {
-            console.log(form);
             form.experience = props.experience;
         },
     });
@@ -53,7 +52,7 @@ const submit = () => {
             </div>
             <div class="basis-1/2">
                 <InputLabel for="company_url" value="Lien du site de l'établissement" />
-                <TextInput id="company_url" type="text" class="mt-1 block w-full" v-model="form.company_url" required />
+                <TextInput id="company_url" type="text" class="mt-1 block w-full" v-model="form.company_url" />
                 <InputError :errors="form.errors.company_url" />
             </div>
         </div>

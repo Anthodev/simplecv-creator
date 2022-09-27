@@ -29,7 +29,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
             A new verification link has been sent to the email address you provided during registration.
         </div>
 
-        <form @submit.prevent="submit" class="dark:text-white dark:bg-slate-700">
+        <form @submit.prevent="submit" class="dark:text-gray-900 dark:bg-slate-700">
             <div class="mt-4 flex items-center justify-between">
                 <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Resend Verification Email
