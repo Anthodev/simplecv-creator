@@ -20,7 +20,6 @@ const form = useForm(props.contact);
 const submit = () => {
     form.patch(route('contacts.update', props.contact.id), {
         onFinish: () => {
-            console.log(form);
             form.contact = props.contact;
         },
     });
