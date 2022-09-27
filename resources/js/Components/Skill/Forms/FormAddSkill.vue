@@ -1,10 +1,10 @@
 <script setup>
 import 'tw-elements';
 
-import TextInput from '@/Components/TextInput.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import InputError from '@/Components/InputError.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/Common/Form/TextInput.vue';
+import InputLabel from '@/Components/Common/Form/InputLabel.vue';
+import InputError from '@/Components/Common/Form/InputError.vue';
+import PrimaryButton from '@/Components/Common/Form/PrimaryButton.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 
 defineProps({
@@ -50,7 +50,7 @@ const submit = () => {
             </div>
             <div class="basis-2/6">
                 <InputLabel for="url" value="Url concernant la compétence" />
-                <TextInput id="url" type="text" class="mt-1 block w-full" v-model="form.url" required />
+                <TextInput id="url" type="text" class="mt-1 block w-full" v-model="form.url" />
                 <InputError :errors="form.errors.url" />
             </div>
         </div>

@@ -15,13 +15,12 @@ beforeEach(function () {
 it('can update a project', function (): void {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->patch(route('projects.update', $this->project->id), [
+    $response = $this->actingAs($user)->post(route('projects.update', $this->project->id), [
         'id' => $this->project->id,
         'title' => 'Test Project Updated',
         'description' => 'Test Description Updated',
         'url' => 'https://test-updated.com',
         'repo_url' => 'https://test-updated.com',
-        'image' => 'https://test-updated.com',
         'status' => ProjectStatusCodeEnum::MAINTAINED->value,
         'display_order' => 2,
     ]);
@@ -35,7 +34,6 @@ it('can update a project', function (): void {
             ->description->toBe('Test Description Updated')
             ->url->toBe('https://test-updated.com')
             ->repo_url->toBe('https://test-updated.com')
-            ->image->toBe('https://test-updated.com')
             ->status->toBe(ProjectStatusCodeEnum::MAINTAINED->value)
             ->display_order->toBe(2);
 });

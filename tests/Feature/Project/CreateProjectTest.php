@@ -16,7 +16,6 @@ it('can create a project', function (): void {
         'description' => 'Test Description',
         'url' => 'https://test.com',
         'repo_url' => 'https://test.com',
-        'image' => 'https://test.com',
         'status' => ProjectStatusCodeEnum::NOT_MAINTAINED->value,
         'display_order' => 1,
     ]);
@@ -30,7 +29,6 @@ it('can create a project', function (): void {
             ->description->toBe('Test Description')
             ->url->toBe('https://test.com')
             ->repo_url->toBe('https://test.com')
-            ->image->toBe('https://test.com')
             ->status->toBe(ProjectStatusCodeEnum::NOT_MAINTAINED->value)
             ->display_order->toBe(1);
 });

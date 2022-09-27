@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ExperienceTypeCodeEnum;
 use App\Enums\ProjectStatusCodeEnum;
+use App\Enums\SkillTypeCodeEnum;
+use App\Models\Contact;
 use App\Models\Experience;
 use App\Models\ExperienceType;
 use App\Models\Project;
@@ -12,6 +15,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,26 +25,45 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function home(): InertiaResponse
+    public function home(): InertiaResponse|RedirectResponse
     {
-        $experiences = Experience::all()->sortBy('display_order');
-        $experienceTypes = ExperienceType::all();
+        if (null === User::first()) {
+            return redirect()->route('register');
+        }
 
-        $projects = Project::all()->sortBy('display_order');
+        $experienceTypeJob = ExperienceType::where('code', ExperienceTypeCodeEnum::JOB->value)->first();
+        $experienceTypeEducation = ExperienceType::where('code', ExperienceTypeCodeEnum::EDUCATION->value)->first();
+
+        $jobs = Experience::where('experience_type_id', $experienceTypeJob->id)->get()->sortBy('display_order');
+        $educations = Experience::where('experience_type_id', $experienceTypeEducation->id)->get()->sortBy('display_order');
+
+        $projects = Project::all()->sortByDesc('status')->sortBy('display_order');
         $projectStatuses = ProjectStatusCodeEnum::toSimpleArray();
 
         $skills = Skill::all()->sortBy('display_order');
         $skillTypes = SkillType::all();
 
-        return Inertia::render('Welcome', [
+        $skillTypesArray = [];
+
+        foreach ($skillTypes as $skillType) {
+            if (in_array($skillType->code, SkillTypeCodeEnum::getValues(), true)) {
+                $skillTypesArray[$skillType->code] = $skillType->id;
+            }
+        }
+
+        $contacts = Contact::all()->sortBy('display_order');
+
+        return Inertia::render('Cv', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register') && User::count() === 0,
-            'experiences' => $experiences,
-            'experienceTypes' => $experienceTypes,
+            'user' => User::first(),
+            'contacts' => $contacts,
+            'jobs' => $jobs,
+            'educations' => $educations,
             'projects' => $projects,
             'projectStatuses' => $projectStatuses,
             'skills' => $skills,
-            'skillTypes' => $skillTypes,
+            'skillTypes' => $skillTypesArray,
         ]);
     }
 }

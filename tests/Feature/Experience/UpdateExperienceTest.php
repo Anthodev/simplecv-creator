@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Experience;
 
 use App\Models\Experience;
+use App\Models\ExperienceType;
 use App\Models\User;
 
 beforeEach(function () {
@@ -24,7 +25,7 @@ it('update an experience', function (): void {
         'start_date' => '2021-01-03',
         'end_date' => '2021-01-04',
         'display_order' => 2,
-        'experience_type_id' => 2,
+        'experience_type_id' => ExperienceType::factory()->create()->id,
     ]);
 
     $experience = Experience::first();
@@ -40,5 +41,5 @@ it('update an experience', function (): void {
             ->start_date->toBe('2021-01-03')
             ->end_date->toBe('2021-01-04')
             ->display_order->toBe(2)
-            ->experience_type_id->toBe(2);
+            ->experience_type_id->toBeInt();
 });

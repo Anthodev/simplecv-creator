@@ -1,11 +1,11 @@
 <script setup>
 import 'tw-elements';
 
-import TextInput from '@/Components/TextInput.vue';
-import TextAreaInput from '@/Components/TextAreaInput.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import InputError from '@/Components/InputError.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/Common/Form/TextInput.vue';
+import TextAreaInput from '@/Components/Common/Form/TextAreaInput.vue';
+import InputLabel from '@/Components/Common/Form/InputLabel.vue';
+import InputError from '@/Components/Common/Form/InputError.vue';
+import PrimaryButton from '@/Components/Common/Form/PrimaryButton.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
@@ -22,7 +22,7 @@ const props = defineProps({
 const form = useForm(props.skill);
 
 const submit = () => {
-    form.patch(route('skills.update', this.skill.id), {
+    form.patch(route('skills.update', props.skill.id), {
         onFinish: () => {
             console.log(form);
             form.skill = props.skill;
@@ -32,8 +32,8 @@ const submit = () => {
 </script>
 
 <template>
-    <form @submit.prevent="form.patch(route('skills.update', this.skill.id))">
-        <div class="flex flex-row pt-3">
+    <form @submit.prevent="form.patch(route('skills.update', props.skill.id))" class="dark:bg-slate-700">
+        <div class="flex flex-row pt-3 dark:bg-slate-700">
             <div class="basis-1/6 mr-4">
                 <InputLabel for="icon" value="Icône (FontAwesome)" />
                 <TextInput id="icon" type="text" class="mt-1 block w-full" v-model="form.icon" required />
@@ -46,7 +46,7 @@ const submit = () => {
             </div>
             <div class="basis-2/6">
                 <InputLabel for="url" value="Url concernant la compétence" />
-                <TextInput id="url" type="text" class="mt-1 block w-full" v-model="form.url" required />
+                <TextInput id="url" type="text" class="mt-1 block w-full" v-model="form.url" />
                 <InputError :errors="form.errors.url" />
             </div>
         </div>
@@ -67,7 +67,7 @@ const submit = () => {
 
         <div class="flex flex-wrap items-center pt-4 rounded-b-md">
             <div class="justify-start">
-                <PrimaryButton type="button" @click="form.delete(route('skills.delete', this.skill.id))" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton type="button" @click="form.delete(route('skills.delete', props.skill.id))" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Supprimer
                 </PrimaryButton>
             </div>

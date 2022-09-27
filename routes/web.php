@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ProjectController;
@@ -21,7 +22,7 @@ use Inertia\Inertia;
 
 Route::get('/', [Controller::class, 'home'])->name('home');
 
-Route::patch('users/{id}/update', [UserController::class, 'update'])->name('users.update');
+Route::post('users/{id}/update', [UserController::class, 'update'])->name('users.update');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -34,10 +35,17 @@ Route::controller(ExperienceController::class)->middleware(['auth', 'verified'])
     Route::delete('experiences/{id}/delete', 'destroy')->name('experiences.delete');
 });
 
+Route::controller(ContactController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('contacts', 'index')->name('contacts.index');
+    Route::post('contacts/add', 'store')->name('contacts.store');
+    Route::patch('contacts/{id}/update', 'update')->name('contacts.update');
+    Route::delete('contacts/{id}/delete', 'destroy')->name('contacts.delete');
+});
+
 Route::controller(ProjectController::class)->middleware(['auth', 'verified'])->group(function () {
     Route::get('projects', 'index')->name('projects.index');
     Route::post('projects/add', 'store')->name('projects.store');
-    Route::patch('projects/{id}/update', 'update')->name('projects.update');
+    Route::post('projects/{id}/update', 'update')->name('projects.update');
     Route::delete('projects/{id}/delete', 'destroy')->name('projects.delete');
 });
 

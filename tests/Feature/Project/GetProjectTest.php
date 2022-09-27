@@ -22,7 +22,6 @@ it('can get a project', function (): void {
         ->and($projectsProps['description'])->toBe($this->project->description)
         ->and($projectsProps['url'])->toBe($this->project->url)
         ->and($projectsProps['repo_url'])->toBe($this->project->repo_url)
-        ->and($projectsProps['image'])->toBe($this->project->image)
         ->and($projectsProps['status'])->toBe($this->project->status)
         ->and($projectsProps['display_order'])->toBe($this->project->display_order);
 });

@@ -10,13 +10,14 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- * @property int $id
- * @property string $name
- * @property string $email
- * @property string $password
- * @property string $display_name
- * @property string $description
- * @property string $remember_token
+ * @property int      $id
+ * @property string   $name
+ * @property string   $email
+ * @property string   $password
+ * @property string   $display_name
+ * @property string   $description
+ * @property string   $picture_path
+ * @property string   $remember_token
  * @property datetime $created_at
  * @property datetime $updated_at
  * @property datetime $email_verified_at
@@ -36,6 +37,7 @@ class User extends Authenticatable
         'password',
         'display_name',
         'description',
+        'picture_path',
     ];
 
     /**

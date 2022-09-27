@@ -34,4 +34,9 @@ class Experience extends Model
         'display_order',
         'experience_type_id',
     ];
+
+    public function experienceType()
+    {
+        return $this->belongsTo(ExperienceType::class);
+    }
 }

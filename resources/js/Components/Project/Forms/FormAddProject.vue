@@ -1,11 +1,11 @@
 <script setup>
 import 'tw-elements';
 
-import TextInput from '@/Components/TextInput.vue';
-import TextAreaInput from '@/Components/TextAreaInput.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import InputError from '@/Components/InputError.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/Common/Form/TextInput.vue';
+import MarkdownEditor from '@/Components/Common/Form/MarkdownEditor.vue';
+import InputLabel from '@/Components/Common/Form/InputLabel.vue';
+import InputError from '@/Components/Common/Form/InputError.vue';
+import PrimaryButton from '@/Components/Common/Form/PrimaryButton.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 
 defineProps({
@@ -28,6 +28,7 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('projects.store'), {
+        forceFormData: true,
         onFinish: () => form.reset('title', 'description', 'url', 'repo_url', 'image', 'status', 'display_order'),
     });
 };
@@ -61,7 +62,7 @@ const submit = () => {
             </div>
             <div class="basis-1/2">
                 <InputLabel for="image" value="Ajouter une image illustrant le projet" />
-                <TextInput id="image" type="text" class="mt-1 block w-full" v-model="form.image" />
+                <TextInput id="image" type="file" @input="form.image = $event.target.files[0]" class="mt-1 block w-full" v-model="form.image" />
                 <InputError :errors="form.errors.image" />
             </div>
         </div>
@@ -76,7 +77,7 @@ const submit = () => {
         </div>
         <div class="pt-3">
             <InputLabel for="description" value="Description" />
-            <TextAreaInput id="description" type="textarea" rows="10" class="mt-1 block w-full" v-model="form.description" required />
+            <MarkdownEditor id="description" class="mt-1 block w-full" v-model="form.description" />
             <InputError :errors="form.errors.description" />
         </div>
         <div class="flex flex-row pt-3">

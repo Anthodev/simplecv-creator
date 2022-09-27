@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
+import Dropdown from '@/Components/Common/Form/Dropdown.vue';
+import DropdownLink from '@/Components/Common/Form/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
@@ -29,6 +29,10 @@ const showingNavigationDropdown = ref(false);
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
+                                </NavLink>
+
+                                <NavLink :href="route('contacts.index')" :active="route().current('contacts.index')">
+                                    Contacts
                                 </NavLink>
 
                                 <NavLink :href="route('experiences.index')" :active="route().current('experiences.index')">
@@ -87,6 +91,10 @@ const showingNavigationDropdown = ref(false);
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink :href="route('contacts.index')" :active="route().current('contacts')">
+                            Contacts
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink :href="route('experiences.index')" :active="route().current('experiences')">

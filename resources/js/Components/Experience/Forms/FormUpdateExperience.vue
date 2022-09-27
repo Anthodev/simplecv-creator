@@ -1,11 +1,11 @@
 <script setup>
 import 'tw-elements';
 
-import TextInput from '@/Components/TextInput.vue';
-import TextAreaInput from '@/Components/TextAreaInput.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import InputError from '@/Components/InputError.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/Common/Form/TextInput.vue';
+import MarkdownEditor from '@/Components/Common/Form/MarkdownEditor.vue';
+import InputLabel from '@/Components/Common/Form/InputLabel.vue';
+import InputError from '@/Components/Common/Form/InputError.vue';
+import PrimaryButton from '@/Components/Common/Form/PrimaryButton.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
@@ -22,7 +22,7 @@ const props = defineProps({
 const form = useForm(props.experience);
 
 const submit = () => {
-    form.patch(route('experiences.update', this.experience.id), {
+    form.patch(route('experiences.update', props.experience.id), {
         onFinish: () => {
             console.log(form);
             form.experience = props.experience;
@@ -32,8 +32,8 @@ const submit = () => {
 </script>
 
 <template>
-    <form @submit.prevent="form.patch(route('experiences.update', this.experience.id))">
-        <div class="flex flex-row pt-3">
+    <form @submit.prevent="form.patch(route('experiences.update', props.experience.id))">
+        <div class="flex flex-row pt-3 group-input-field">
             <div class="basis-1/2 mr-4">
                 <InputLabel for="title" value="Titre" />
                 <TextInput id="title" type="text" class="mt-1 block w-full" v-model="form.title" required />
@@ -45,7 +45,7 @@ const submit = () => {
                 <InputError :errors="form.errors.company" />
             </div>
         </div>
-        <div class="flex flex-row pt-3">
+        <div class="flex flex-row pt-3 group-input-field">
             <div class="basis-1/2 mr-4">
                 <InputLabel for="location" value="Lieu" />
                 <TextInput id="location" type="text" class="mt-1 block w-full" v-model="form.location" required />
@@ -57,7 +57,7 @@ const submit = () => {
                 <InputError :errors="form.errors.company_url" />
             </div>
         </div>
-        <div class="flex flex-row pt-3">
+        <div class="flex flex-row pt-3 group-input-field">
             <div class="basis-1/2 mr-4">
                 <InputLabel for="start_date" value="Date de début" />
                 <TextInput id="start_date" type="date" class="mt-1 block w-full" v-model="form.start_date" required />
@@ -71,10 +71,10 @@ const submit = () => {
         </div>
         <div class="pt-3">
             <InputLabel for="description" value="Description" />
-            <TextAreaInput id="description" type="textarea" rows="10" class="mt-1 block w-full" v-model="form.description" required />
+            <MarkdownEditor id="description" class="mt-1 block w-full" v-model="form.description" />
             <InputError :errors="form.errors.description" />
         </div>
-        <div class="flex flex-row pt-3">
+        <div class="flex flex-row pt-3 group-input-field">
             <div class="basis-1/2 mr-4">
                 <InputLabel for="type" value="Type d'expérience" />
                 <select id="type" class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" v-model="form.experience_type_id" required ref="input">
@@ -89,9 +89,9 @@ const submit = () => {
             </div>
         </div>
 
-        <div class="flex flex-wrap items-center pt-4 rounded-b-md">
+        <div class="flex flex-wrap items-center pt-4 rounded-b-md group-input-field">
             <div class="justify-start">
-                <PrimaryButton type="button" @click="form.delete(route('experiences.delete', this.experience.id))" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton type="button" @click="form.delete(route('experiences.delete', props.experience.id))" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Supprimer
                 </PrimaryButton>
             </div>
@@ -103,3 +103,9 @@ const submit = () => {
         </div>
     </form>
 </template>
+
+<style scoped>
+#description {
+    background-color: white !important;
+}
+</style>

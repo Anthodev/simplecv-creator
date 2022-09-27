@@ -38,7 +38,7 @@ defineProps({
             </h2>
             <div :id="'data-' + experience.id" class="accordion-collapse collapse show" :aria-labelledby="'title-' + experience.id"
                  data-bs-parent="#experiencesList">
-                <div class="accordion-body py-4 px-5">
+                <div class="accordion-body py-4 px-5 dark:bg-slate-700">
                     <FormUpdateExperience :experience="experience" :experienceTypes="experienceTypes" />
                 </div>
             </div>

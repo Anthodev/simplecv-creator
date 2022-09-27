@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 
@@ -48,12 +49,18 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request): Response|RedirectResponse
     {
+        $picturePath = $request->file('image');
+
+        if (null !== $picturePath) {
+            $picturePath = Storage::putFileAs('files/projects', $request->file('image'), 'image-project-'.md5($request->request->get('title')).'.'.$picturePath->extension());
+        }
+
         Project::create([
             'title' => $request->request->get('title'),
             'description' => $request->request->get('description'),
             'url' => $request->request->get('url'),
             'repo_url' => $request->request->get('repo_url'),
-            'image' => $request->request->get('image'),
+            'image' => $picturePath ?? null,
             'status' => $request->request->get('status'),
             'display_order' => $request->request->get('display_order'),
         ]);
@@ -93,6 +100,19 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request): Response|RedirectResponse
     {
         $project = Project::find($request->request->get('id'));
+
+        $picturePath = $request->file('image');
+
+        if (null !== $picturePath) {
+            $oldPicturePath = $project->image;
+
+            if (null !== $oldPicturePath) {
+                Storage::delete($oldPicturePath);
+            }
+
+            $picturePath = Storage::putFileAs('files/projects', $request->file('image'), 'image-project-'.md5($request->request->get('title')).'.'.$picturePath->extension());
+        }
+
         $project->update($request->validated());
 
         return redirect()->route('projects.index')->with([

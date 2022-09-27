@@ -22,4 +22,9 @@ class ExperienceType extends Model
         'label',
         'code',
     ];
+
+    public function experiences(): HasMany
+    {
+        return $this->hasMany(Experience::class, 'experience_type_id');
+    }
 }

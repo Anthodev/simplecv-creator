@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Experience;
 
 use App\Models\Experience;
+use App\Models\ExperienceType;
 use App\Models\User;
 
 it('can create an experience', function (): void {
@@ -19,7 +20,7 @@ it('can create an experience', function (): void {
         'start_date' => '2021-01-01',
         'end_date' => '2021-01-02',
         'display_order' => 1,
-        'experience_type_id' => 1,
+        'experience_type_id' => ExperienceType::factory()->create()->id,
     ]);
 
     $experience = Experience::first();
@@ -35,5 +36,5 @@ it('can create an experience', function (): void {
             ->start_date->toBe('2021-01-01')
             ->end_date->toBe('2021-01-02')
             ->display_order->toBe(1)
-            ->experience_type_id->toBe(1);
+            ->experience_type_id->toBeInt();
 });

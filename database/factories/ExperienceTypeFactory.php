@@ -14,10 +14,11 @@ class ExperienceTypeFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            //
+            'label' => $this->faker->name,
+            'code' => $this->faker->word,
         ];
     }
 }
