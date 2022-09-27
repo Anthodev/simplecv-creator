@@ -41,7 +41,7 @@ const props = defineProps({
                 <Profile v-if="user.description" :description="user.description" />
                 <ListExperiences v-if="jobs.length > 0" :experiences="jobs" :title="'Experiences'" />
                 <ListProjects v-if="projects.length > 0" :projects="projects" :projectStatuses="projectStatuses" />
-                <ListExperiences v-if="educations.length > 0" :experiences="educations" :title="'Education'" />
+                <ListExperiences v-if="educations.length > 0" :experiences="educations" :title="'Formations'" />
             </div>
             <div class="basis-1/4 min-h-full">
                 <div class="h-full p-4 rounded-lg dark:bg-gray-800">
