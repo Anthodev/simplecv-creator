@@ -31,7 +31,7 @@ class UpdateExperienceRequest extends FormRequest
             'description' => ['required', 'string'],
             'location' => ['required', 'string', 'max:255'],
             'company' => ['required', 'string', 'max:255'],
-            'company_url' => ['required', 'url'],
+            'company_url' => 'nullable|url',
             'start_date' => ['required', 'date'],
             'end_date' => 'nullable|date',
             'display_order' => ['required', 'integer'],
