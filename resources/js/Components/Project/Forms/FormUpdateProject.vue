@@ -25,7 +25,6 @@ const submit = () => {
     form.post(route('projects.update', props.project.id), {
         forceFormData: true,
         onFinish: () => {
-            console.log(form);
             form.project = props.project;
         },
     });

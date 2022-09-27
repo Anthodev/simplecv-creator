@@ -24,7 +24,6 @@ const form = useForm(props.experience);
 const submit = () => {
     form.patch(route('experiences.update', props.experience.id), {
         onFinish: () => {
-            console.log(form);
             form.experience = props.experience;
         },
     });
