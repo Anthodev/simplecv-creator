@@ -24,6 +24,7 @@ class UserController extends Controller
         $user->update([
             'display_name' => $request->request->get('display_name'),
             'description' => $request->request->get('description'),
+            'title' => $request->request->get('title'),
             'picture_path' => $picturePath ?? $user->picture_path,
         ]);
 
