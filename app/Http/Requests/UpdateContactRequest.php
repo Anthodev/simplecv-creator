@@ -29,7 +29,7 @@ class UpdateContactRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'icon' => 'required|string|max:255',
-            'url' => 'nullable|url',
+            'url' => 'nullable|string|max:255',
             'display_order' => 'required|integer',
         ];
     }
