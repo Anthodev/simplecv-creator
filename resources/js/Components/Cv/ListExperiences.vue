@@ -8,6 +8,7 @@ import {onMounted} from "vue";
 let props = defineProps({
     experiences: Object,
     title: String,
+    idTabs: String,
 })
 
 const formatDate = (date) => {
@@ -48,14 +49,14 @@ onMounted(() => {
         <h1 class="font-sans font-medium leading-tight text-5xl mt-0 mb-2 border-l-8 pl-4 pb-1 dark:bg-gray-900 dark:text-white uppercase">{{ props.title }}</h1>
 
         <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="experiencesTabBar" data-tabs-toggle="#experiencesTabContent" role="tablist">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="experiencesTabBar" :data-tabs-toggle="'#' + props.idTabs" role="tablist">
                 <li v-for="experience in props.experiences" :key="experience.id" class="mr-2" role="presentation">
                     <button class="inline-block p-4 rounded-t-lg border-b-2 text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500" :id="'experience-' + experience.id + '-tab'" :data-tabs-target="'#experience-' + experience.id" type="button" role="tab" :aria-controls="'experience-' + experience.id" aria-selected="true">{{ experience.title }}</button>
                 </li>
             </ul>
         </div>
 
-        <div id="experiencesTabContent">
+        <div :id="props.idTabs">
             <div v-for="experience in props.experiences" :key="experience.id" class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" :id="'experience-' + experience.id" role="tabpanel" :aria-labelledby="'experience-' + experience.id + '-tab'">
                 <div class="block px-6 py-4 rounded-lg shadow-lg bg-white dark:bg-slate-700">
                     <h2 class="text-gray-900 dark:text-gray-200 text-2xl leading-tight font-medium mb-2 uppercase pb-2 border-b">{{ experience.title }}</h2>
