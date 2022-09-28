@@ -34,8 +34,15 @@ class Controller extends BaseController
         $experienceTypeJob = ExperienceType::where('code', ExperienceTypeCodeEnum::JOB->value)->first();
         $experienceTypeEducation = ExperienceType::where('code', ExperienceTypeCodeEnum::EDUCATION->value)->first();
 
-        $jobs = Experience::where('experience_type_id', $experienceTypeJob->id)->get()->sortBy('display_order');
-        $educations = Experience::where('experience_type_id', $experienceTypeEducation->id)->get()->sortBy('display_order');
+        $jobs = Experience::where('experience_type_id', $experienceTypeJob->id)
+            ->orderBy('display_order', 'ASC')
+            ->orderBy('start_date', 'DESC')
+            ->get();
+
+        $educations = Experience::where('experience_type_id', $experienceTypeEducation->id)
+            ->orderBy('display_order', 'ASC')
+            ->orderBy('start_date', 'DESC')
+            ->get();
 
         $projects = Project::all()->sortByDesc('status')->sortBy('display_order');
         $projectStatuses = ProjectStatusCodeEnum::toSimpleArray();
