@@ -39,9 +39,9 @@ const props = defineProps({
         <div class="px-4 container mx-auto flex flex-row dark:bg-gray-900 drop-shadow-lg mt-8 py-4">
             <div class="basis-3/4 mr-4">
                 <Profile v-if="user.description" :description="user.description" />
-                <ListExperiences v-if="jobs.length > 0" :experiences="jobs" :title="'Experiences'" />
+                <ListExperiences v-if="jobs.length > 0" :experiences="jobs" :idTabs="'experiencesTabContent'" :title="'Experiences'" />
                 <ListProjects v-if="projects.length > 0" :projects="projects" :projectStatuses="projectStatuses" />
-                <ListExperiences v-if="educations.length > 0" :experiences="educations" :title="'Formations'" />
+                <ListExperiences v-if="educations.length > 0" :experiences="educations" :idTabs="'educationsTabContent'" :title="'Formations'" />
             </div>
             <div class="basis-1/4 min-h-full">
                 <div class="h-full p-4 rounded-lg dark:bg-gray-800">
