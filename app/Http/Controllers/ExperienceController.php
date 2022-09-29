@@ -49,7 +49,9 @@ class ExperienceController extends Controller
     {
         Experience::create($request->validated());
 
-        return redirect()->route('experiences.index')->with('message', 'Experience created successfully.');
+        return back()->with('flash', [
+            'message' => 'success',
+        ]);
     }
 
     /**
@@ -82,8 +84,8 @@ class ExperienceController extends Controller
         $experience = Experience::find($request->request->get('id'));
         $experience->update($request->validated());
 
-        return redirect()->route('experiences.index')->with([
-            'message' => 'Experience updated successfully.',
+        return back()->with([
+            'message' => 'success',
             'experience' => $experience,
         ]);
     }
@@ -96,6 +98,8 @@ class ExperienceController extends Controller
         $experience = Experience::find($id);
         $experience->delete();
 
-        return redirect()->route('experiences.index')->with('message', 'Experience deleted successfully.');
+        return back()->with('flash', [
+            'message' => 'success',
+        ]);
     }
 }

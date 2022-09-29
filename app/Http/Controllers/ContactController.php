@@ -46,7 +46,9 @@ class ContactController extends Controller
     {
         Contact::create($request->validated());
 
-        return redirect()->route('contacts.index')->with('message', 'Contact created successfully.');
+        return back()->with('flash', [
+            'message' => 'success',
+        ]);
     }
 
     /**
@@ -83,7 +85,9 @@ class ContactController extends Controller
         $contact = Contact::find($request->request->get('id'));
         $contact->update($request->validated());
 
-        return redirect()->route('contacts.index')->with('message', 'Contact updated successfully.');
+        return back()->with('flash', [
+            'message' => 'success',
+        ]);
     }
 
     /**
@@ -97,6 +101,8 @@ class ContactController extends Controller
         $contact = Contact::find($id);
         $contact->delete();
 
-        return redirect()->route('contacts.index')->with('message', 'Contact deleted successfully.');
+        return back()->with('flash', [
+            'message' => 'success',
+        ]);
     }
 }

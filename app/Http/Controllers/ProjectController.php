@@ -65,7 +65,9 @@ class ProjectController extends Controller
             'display_order' => $request->request->get('display_order'),
         ]);
 
-        return redirect()->route('projects.index')->with('message', 'Project created successfully.');
+        return back()->with('flash', [
+            'message' => 'success',
+        ]);
     }
 
     /**
@@ -115,8 +117,8 @@ class ProjectController extends Controller
 
         $project->update($request->validated());
 
-        return redirect()->route('projects.index')->with([
-            'message' => 'Project updated successfully.',
+        return back()->with([
+            'message' => 'success',
             'project' => $project,
         ]);
     }
@@ -132,6 +134,8 @@ class ProjectController extends Controller
         $project = Project::find($id);
         $project->delete();
 
-        return redirect()->route('projects.index')->with('message', 'Project deleted successfully.');
+        return back()->with('flash', [
+            'message' => 'success',
+        ]);
     }
 }

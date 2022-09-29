@@ -28,6 +28,8 @@ class UserController extends Controller
             'picture_path' => $picturePath ?? $user->picture_path,
         ]);
 
-        return redirect()->route('dashboard')->with('message', 'User updated successfully.');
+        return back()->with('flash', [
+            'message' => 'success',
+        ]);
     }
 }
