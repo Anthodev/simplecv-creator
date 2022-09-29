@@ -33,7 +33,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('experiences', [ExperienceController::class, 'index'])->middleware(['auth', 'verified'])->name(
-    'users.index',
+    'experiences.index',
 );
 Route::controller(ExperienceController::class)->middleware(['auth', 'api'])->group(function () {
     Route::post('experiences/add', 'store')->name('experiences.store');
