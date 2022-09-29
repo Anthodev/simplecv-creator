@@ -22,7 +22,6 @@ use Inertia\Inertia;
 */
 
 Route::get('/csrf-token', RefreshCsrfTokenController::class);
-Route::post('/test', fn () => response()->json(['status' => 'ok']));
 
 Route::get('/', [Controller::class, 'home'])->name('home');
 

@@ -18,12 +18,18 @@ const form = useForm({
     remember: false
 });
 
-const submit = () => {
-    form.post(route('login'), {
-        onSuccess: (res) => {
-            this.form.data = res.props.data
-        },
-    });
+const submit = async () => {
+    let formData = new FormData();
+    formData.append('email', form.email);
+    formData.append('password', form.password);
+    formData.append('remember', form.remember);
+
+    axios.post(route('login'), formData)
+        .then((response) => {
+            if (response.status === 200) {
+                location.href = route('dashboard');
+            }
+        })
 };
 </script>
 
