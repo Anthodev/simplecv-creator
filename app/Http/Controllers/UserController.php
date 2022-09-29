@@ -28,7 +28,7 @@ class UserController extends Controller
             'picture_path' => $picturePath ?? $user->picture_path,
         ]);
 
-        return back()->with('flash', [
+        return redirect()->back()->with('flash', [
             'message' => 'success',
         ]);
     }

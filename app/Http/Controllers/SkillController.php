@@ -50,7 +50,7 @@ class SkillController extends Controller
     {
         Skill::create($request->validated());
 
-        return back()->with('flash', [
+        return redirect()->back()->with('flash', [
             'message' => 'success',
         ]);
     }
@@ -88,7 +88,7 @@ class SkillController extends Controller
         $skill = Skill::find($request->request->get('id'));
         $skill->update($request->validated());
 
-        return back()->with('flash', [
+        return redirect()->back()->with('flash', [
             'message' => 'success',
         ]);
     }
@@ -103,7 +103,7 @@ class SkillController extends Controller
         $skill = Skill::find($id);
         $skill->delete();
 
-        return back()->with('flash', [
+        return redirect()->back()->with('flash', [
             'message' => 'success',
         ]);
     }

@@ -65,7 +65,7 @@ class ProjectController extends Controller
             'display_order' => $request->request->get('display_order'),
         ]);
 
-        return back()->with('flash', [
+        return redirect()->back()->with('flash', [
             'message' => 'success',
         ]);
     }
@@ -117,7 +117,7 @@ class ProjectController extends Controller
 
         $project->update($request->validated());
 
-        return back()->with([
+        return redirect()->back()->with([
             'message' => 'success',
             'project' => $project,
         ]);
@@ -134,7 +134,7 @@ class ProjectController extends Controller
         $project = Project::find($id);
         $project->delete();
 
-        return back()->with('flash', [
+        return redirect()->back()->with('flash', [
             'message' => 'success',
         ]);
     }

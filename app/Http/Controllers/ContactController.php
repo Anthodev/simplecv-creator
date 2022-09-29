@@ -46,7 +46,7 @@ class ContactController extends Controller
     {
         Contact::create($request->validated());
 
-        return back()->with('flash', [
+        return redirect()->back()->with('flash', [
             'message' => 'success',
         ]);
     }
@@ -85,7 +85,7 @@ class ContactController extends Controller
         $contact = Contact::find($request->request->get('id'));
         $contact->update($request->validated());
 
-        return back()->with('flash', [
+        return redirect()->back()->with('flash', [
             'message' => 'success',
         ]);
     }
@@ -101,7 +101,7 @@ class ContactController extends Controller
         $contact = Contact::find($id);
         $contact->delete();
 
-        return back()->with('flash', [
+        return redirect()->back()->with('flash', [
             'message' => 'success',
         ]);
     }
