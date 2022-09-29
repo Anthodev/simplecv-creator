@@ -61,4 +61,4 @@ Route::controller(SkillController::class)->middleware(['auth', 'api'])->group(fu
     Route::delete('skills/{id}/delete', 'destroy')->name('skills.delete');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

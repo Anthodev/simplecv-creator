@@ -15,11 +15,19 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onSuccess: (res) => {
-            this.form.data = res.props.data
-        },
-    });
+    let formData = new FormData();
+    formData.append('name', form.name);
+    formData.append('email', form.email);
+    formData.append('password', form.password);
+    formData.append('password_confirmation', form.password_confirmation);
+    formData.append('terms', true);
+
+    axios.post(route('register'), formData)
+        .then((response) => {
+            if (response.status === 200) {
+                location.href = route('login');
+            }
+        })
 };
 </script>
 

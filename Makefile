@@ -7,7 +7,7 @@ DOCKER :=
 DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker-compose
 DOCKER_TEST := APP_ENV=testing
 
-CONSOLE := $(DOCKER) php
+CONSOLE := $(DOCKER) php artisan
 CONSOLE_MEMORY := $(DOCKER) php -d memory_limit=256M
 CONSOLE_TEST := $(DOCKER_TEST) php
 COMPOSER = $(DOCKER) composer
@@ -57,14 +57,21 @@ update: composer.json ## Update vendors according to the composer.json file
 
 ## —— Symfony ————————————————————————————————————————————————————————————————
 cc: ## Apply cache clear
-	$(DOCKER) sh -c "rm -rf var/cache"
 	$(CONSOLE) cache:clear
-	$(DOCKER) sh -c "chmod -R 777 var/cache"
 
 cc-test: ## Apply cache clear
-	$(DOCKER) sh -c "rm -rf var/cache"
 	$(CONSOLE_TEST) cache:clear
-	$(DOCKER) sh -c "chmod -R 777 var/cache"
+
+cc-config:
+	$(CONSOLE) config:clear
+
+cc-view:
+	$(CONSOLE) view:clear
+
+optimize:
+	$(CONSOLE) optimize:clear
+
+cc-all: cc cc-config cc-view optimize ## Apply cache clear
 
 doctrine-validate:
 	$(CONSOLE) doctrine:schema:validate --skip-sync $c
