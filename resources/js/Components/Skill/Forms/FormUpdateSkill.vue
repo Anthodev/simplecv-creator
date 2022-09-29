@@ -23,8 +23,8 @@ const form = useForm(props.skill);
 
 const submit = () => {
     form.patch(route('skills.update', props.skill.id), {
-        onFinish: () => {
-            form.skill = props.skill;
+        onSuccess: (res) => {
+            this.form.data = res.props.data
         },
     });
 };

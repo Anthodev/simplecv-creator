@@ -29,7 +29,9 @@ const form = useForm({
 const submit = () => {
     form.post(route('projects.store'), {
         forceFormData: true,
-        onFinish: () => form.reset('title', 'description', 'url', 'repo_url', 'image', 'status', 'display_order'),
+        onSuccess: (res) => {
+            this.form.data = res.props.data
+        },
     });
 };
 </script>

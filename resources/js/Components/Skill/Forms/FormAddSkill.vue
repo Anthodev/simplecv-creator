@@ -24,7 +24,9 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('skills.store'), {
-        onFinish: () => form.reset('name', 'icon', 'url', 'display_order', 'skill_type_id'),
+        onSuccess: (res) => {
+            this.form.data = res.props.data
+        },
     });
 };
 </script>

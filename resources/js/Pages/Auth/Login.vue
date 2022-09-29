@@ -20,7 +20,9 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('login'), {
-        onFinish: () => form.reset('password'),
+        onSuccess: (res) => {
+            this.form.data = res.props.data
+        },
     });
 };
 </script>

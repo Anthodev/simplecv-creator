@@ -22,7 +22,9 @@ const form = useForm({
 const submit = () => {
     form.post(route('users.update', usePage().props.value.auth.user.id), {
         forceFormData: true,
-        onFinish: () => form.reset('display_name', 'title', 'description', 'picture_path'),
+        onSuccess: (res) => {
+            this.form.data = res.props.data
+        },
     });
 };
 </script>

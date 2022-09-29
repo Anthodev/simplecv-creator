@@ -19,8 +19,8 @@ const form = useForm(props.contact);
 
 const submit = () => {
     form.patch(route('contacts.update', props.contact.id), {
-        onFinish: () => {
-            form.contact = props.contact;
+        onSuccess: (res) => {
+            this.form.data = res.props.data
         },
     });
 };

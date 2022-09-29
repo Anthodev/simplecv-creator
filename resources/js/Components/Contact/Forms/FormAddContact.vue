@@ -16,7 +16,9 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('contacts.store'), {
-        onFinish: () => form.reset('name', 'icon', 'url', 'display_order'),
+        onSuccess: (res) => {
+            this.form.data = res.props.data
+        },
     });
 };
 </script>

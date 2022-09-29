@@ -23,8 +23,8 @@ const form = useForm(props.experience);
 
 const submit = () => {
     form.patch(route('experiences.update', props.experience.id), {
-        onFinish: () => {
-            form.experience = props.experience;
+        onSuccess: (res) => {
+            this.form.data = res.props.data
         },
     });
 };

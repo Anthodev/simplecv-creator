@@ -29,7 +29,9 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('experiences.store'), {
-        onFinish: () => form.reset('title', 'description', 'location', 'company', 'company_url', 'start_date', 'end_date', 'display_order', 'experience_type_id'),
+        onSuccess: (res) => {
+            this.form.data = res.props.data
+        },
     });
 };
 </script>

@@ -24,8 +24,8 @@ const form = useForm(props.project);
 const submit = () => {
     form.post(route('projects.update', props.project.id), {
         forceFormData: true,
-        onFinish: () => {
-            form.project = props.project;
+        onSuccess: (res) => {
+            this.form.data = res.props.data
         },
     });
 };
