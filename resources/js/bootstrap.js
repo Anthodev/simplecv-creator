@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import get from 'lodash';
 window._ = _;
 
 /**
