@@ -1,0 +1,13 @@
+# For more information: https://laravel.com/docs/sail
+version: '3'
+services:
+    cv-app:
+        environment:
+          LARAVEL_SAIL: 0
+          XDEBUG_MODE: 'false'
+          XDEBUG_CONFIG: ''
+        networks:
+            - projects
+networks:
+    projects:
+        external: true

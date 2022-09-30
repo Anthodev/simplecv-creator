@@ -20,14 +20,14 @@ const submit = () => {
     formData.append('email', form.email);
     formData.append('password', form.password);
     formData.append('password_confirmation', form.password_confirmation);
-    formData.append('terms', true);
 
     axios.post(route('register'), formData)
         .then((response) => {
             if (response.status === 200) {
                 location.href = route('login');
             }
-        })
+        }
+    )
 };
 </script>
 

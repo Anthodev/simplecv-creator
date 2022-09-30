@@ -1,10 +1,10 @@
-containerName = "simplecv-creator-laravel.test-1"
+containerName = "simplecv-creator-cv-app-1"
 isContainerRunning := $(shell docker info > /dev/null 2>&1 && docker ps | grep $(containerName) > /dev/null 2>&1 && echo 1)
 user := $(shell id -u)
 group := $(shell id -g)
 
 DOCKER :=
-DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker-compose
+DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker compose
 DOCKER_TEST := APP_ENV=testing
 
 CONSOLE := $(DOCKER) php artisan
@@ -15,7 +15,7 @@ SAIL = vendor/bin/sail
 
 ifeq ($(isContainerRunning), 1)
 	DOCKER := @docker exec -t -u $(user):$(group) $(containerName) php
-	DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker-compose
+	DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker compose
 	DOCKER_TEST := @docker exec -t -u $(user):$(group) $(containerName) APP_ENV=testing php
 endif
 
@@ -26,6 +26,9 @@ build-docker:
 
 up:
 	sh vendor/bin/sail up -d
+
+up-prod:
+	sh vendor/bin/sail -f docker-compose.yml -f docker-compose.prod.yml up -d
 
 stop:
 	sh vendor/bin/sail stop
