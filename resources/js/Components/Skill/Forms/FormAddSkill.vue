@@ -23,11 +23,24 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('skills.store'), {
-        onSuccess: (res) => {
-            this.form.data = res.props.data
-        },
-    });
+    axios.post(route('skills.store'), form)
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success(
+                    {
+                        title: 'Compétence ajoutée',
+                        message: 'La compétence "' + form.name + '" a bien été ajoutée.',
+                    });
+            }
+
+            location.reload();
+        }).catch(() => {
+            flasher.error(
+                {
+                    title: 'Erreur lors de l\'ajout de la compétence',
+                    message: 'Une erreur est survenue lors de l\'ajout de la compétence "' + form.name + '".',
+                });
+        });
 };
 </script>
 

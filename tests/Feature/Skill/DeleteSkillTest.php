@@ -14,9 +14,7 @@ beforeEach(function () {
 it('can delete a skill', function (): void {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->delete(route('skills.delete', $this->skill->id));
+    $this->actingAs($user)->delete(route('skills.delete', $this->skill->id))->assertOk();
 
-    expect($response)
-        ->status()->toBe(302)
-        ->and(Skill::find($this->skill->id))->toBeNull();
+    expect(Skill::find($this->skill->id))->toBeNull();
 });

@@ -27,12 +27,22 @@ const form = useForm({
     experience_type_id: 1,
 });
 
-const submit = () => {
-    form.post(route('experiences.store'), {
-        onSuccess: (res) => {
-            this.form.data = res.props.data
-        },
-    });
+const submit = async () => {
+    axios.post(route('experiences.store'), form)
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success('Expérience "' + form.title + '" ajoutée avec succès');
+
+                location.reload();
+            }
+        })
+        .catch(function(error){
+            flasher.error(
+                {
+                    title: 'Erreur',
+                    message: 'Une erreur est survenue lors de l\'ajout de l\'expérience.',
+                });
+        });
 };
 </script>
 

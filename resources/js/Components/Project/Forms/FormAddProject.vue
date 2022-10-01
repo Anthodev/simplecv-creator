@@ -26,13 +26,36 @@ const form = useForm({
     project_type_id: 1,
 });
 
-const submit = () => {
-    form.post(route('projects.store'), {
-        forceFormData: true,
-        onSuccess: (res) => {
-            this.form.data = res.props.data
-        },
-    });
+const submit = async () => {
+    let formData = new FormData();
+    formData.append('title', form.title);
+    formData.append('description', form.description);
+    formData.append('url', form.url);
+    formData.append('repo_url', form.repo_url);
+    formData.append('image', form.image);
+    formData.append('status', form.status);
+    formData.append('display_order', form.display_order);
+
+    if (form.image) {
+        let file = form.image[0];
+        formData.append('file', file);
+    }
+
+    axios.post(route('projects.store'), formData)
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success('Le projet "' + form.title + '" a bien été ajouté');
+
+                location.reload();
+            }
+        })
+        .catch(function(error){
+            flasher.error(
+                {
+                    title: 'Erreur',
+                    message: 'Une erreur est survenue lors de l\'ajout du projet.',
+                });
+        });
 };
 </script>
 

@@ -33,6 +33,9 @@ up-prod:
 stop:
 	sh vendor/bin/sail stop
 
+down:
+	sh vendor/bin/sail down
+
 prune:
 	@docker-compose down --remove-orphans
 	@docker-compose down --volumes
@@ -88,26 +91,26 @@ drop-database: ## Drop the database
 	$(CONSOLE) doctrine:database:drop --force --if-exists
 
 migration: ## Apply doctrine migration
-	$(CONSOLE) artisan make:migration $c
+	$(CONSOLE) make:migration $c
 
 migrate: ## Apply doctrine migrate
-	$(CONSOLE) artisan migrate:fresh
+	$(CONSOLE) migrate:fresh
 
 generate-jwt: ## Generate private and public keys
 	$(CONSOLE) lexik:jwt:generate-keypair --overwrite -q $c
 
 ## —— Integration ✅ ——————————————————————————————————————————————————————
 load-fixtures: migrate ## Load fixtures
-	$(CONSOLE) artisan db:seed --class=ExperienceTypeSeeder
-	$(CONSOLE) artisan db:seed --class=SkillTypeSeeder
+	$(CONSOLE) db:seed --class=ExperienceTypeSeeder
+	$(CONSOLE) db:seed --class=SkillTypeSeeder
 
 ## —— Tests ✅ ————————————————————————————————————————————————————————————
 test-database: ### load database schema
 	$(CONSOLE_TEST) artisan migrate:fresh --seed
 
 test-load-fixtures: test-database ## load database schema & fixtures
-	$(CONSOLE_TEST) artisan db:seed --class=ExperienceTypeSeeder
-	$(CONSOLE_TEST) artisan db:seed --class=SkillTypeSeeder
+	$(CONSOLE_TEST) db:seed --class=ExperienceTypeSeeder
+	$(CONSOLE_TEST) db:seed --class=SkillTypeSeeder
 
 pest:
 	$(SAIL) bin pest

@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import get from 'lodash';
+import flasher from '@flasher/flasher';
 window._ = _;
+window.flasher = flasher
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

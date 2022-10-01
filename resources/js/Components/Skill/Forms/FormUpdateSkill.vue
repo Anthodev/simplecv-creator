@@ -2,11 +2,11 @@
 import 'tw-elements';
 
 import TextInput from '@/Components/Common/Form/TextInput.vue';
-import TextAreaInput from '@/Components/Common/Form/TextAreaInput.vue';
 import InputLabel from '@/Components/Common/Form/InputLabel.vue';
 import InputError from '@/Components/Common/Form/InputError.vue';
 import PrimaryButton from '@/Components/Common/Form/PrimaryButton.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
+import { defineProps } from 'vue';
 
 const props = defineProps({
     skill: {
@@ -19,19 +19,48 @@ const props = defineProps({
     },
 });
 
-const form = useForm(props.skill);
+const form = useForm(
+    {
+        id: props.skill.id,
+        name: props.skill.name,
+        icon: props.skill.icon,
+        url: props.skill.url,
+        skill_type_id: props.skill.skill_type_id,
+        display_order: props.skill.display_order,
+    }
+);
 
-const submit = () => {
-    form.patch(route('skills.update', props.skill.id), {
-        onSuccess: (res) => {
-            this.form.data = res.props.data
-        },
+const deleteSkill = async () => {
+    axios.delete(route('skills.delete', props.skill.id))
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success('Compétence supprimée avec succès');
+            }
+        });
+};
+
+const submit = async () => {
+    axios.patch(route('skills.update', props.skill.id), form)
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success(
+                    {
+                        title: 'Compétence modifiée',
+                        message: 'La compétence "' + form.name + '" a bien été modifiée.',
+                    });
+            }
+        }).catch(() =>{
+            flasher.error(
+                {
+                    title: 'Erreur lors de la modification de la compétence',
+                    message: 'Une erreur est survenue lors de la modification de la compétence "' + form.name + '".',
+                });
     });
 };
 </script>
 
 <template>
-    <form @submit.prevent="form.patch(route('skills.update', props.skill.id))" class="dark:bg-slate-700">
+    <form @submit.prevent="submit" class="dark:bg-slate-700">
         <div class="flex flex-row pt-3 dark:bg-slate-700">
             <div class="basis-1/6 mr-4">
                 <InputLabel for="icon" value="Icône (FontAwesome)" />
@@ -66,7 +95,7 @@ const submit = () => {
 
         <div class="flex flex-wrap items-center pt-4 rounded-b-md">
             <div class="justify-start">
-                <PrimaryButton type="button" @click="form.delete(route('skills.delete', props.skill.id))" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton type="button" @click="deleteSkill" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Supprimer
                 </PrimaryButton>
             </div>

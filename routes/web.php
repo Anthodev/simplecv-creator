@@ -55,9 +55,10 @@ Route::controller(ProjectController::class)->middleware(['auth.session', 'api'])
 });
 
 Route::get('skills', [SkillController::class, 'index'])->middleware(['auth.session', 'api'])->name('skills.index');
-Route::controller(SkillController::class)->middleware(['auth.session', 'api'])->group(function () {
+Route::controller(SkillController::class)->middleware(['auth', 'api'])->group(function () {
     Route::post('skills/add', 'store')->name('skills.store');
     Route::patch('skills/{id}/update', 'update')->name('skills.update');
+    Route::patch('api/skills/{id}/update', 'update')->name('skills.update');
     Route::delete('skills/{id}/delete', 'destroy')->name('skills.delete');
 });
 

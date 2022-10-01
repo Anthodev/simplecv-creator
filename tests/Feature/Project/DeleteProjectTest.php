@@ -14,9 +14,7 @@ beforeEach(function () {
 it('can delete a project', function (): void {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->delete(route('projects.delete', $this->project->id));
+    $response = $this->actingAs($user)->delete(route('projects.delete', $this->project->id))->assertOk();
 
-    expect($response)
-        ->status()->toBe(302)
-        ->and(Project::find($this->project->id))->toBeNull();
+    expect(Project::find($this->project->id))->toBeNull();
 });

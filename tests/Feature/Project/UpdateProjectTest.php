@@ -23,17 +23,15 @@ it('can update a project', function (): void {
         'repo_url' => 'https://test-updated.com',
         'status' => ProjectStatusCodeEnum::MAINTAINED->value,
         'display_order' => 2,
-    ]);
+    ])->assertOk();
 
     $project = Project::first();
 
-    expect($response)
-        ->status()->toBe(302)
-        ->and($project)
-            ->title->toBe('Test Project Updated')
-            ->description->toBe('Test Description Updated')
-            ->url->toBe('https://test-updated.com')
-            ->repo_url->toBe('https://test-updated.com')
-            ->status->toBe(ProjectStatusCodeEnum::MAINTAINED->value)
-            ->display_order->toBe(2);
+    expect($project)
+        ->title->toBe('Test Project Updated')
+        ->description->toBe('Test Description Updated')
+        ->url->toBe('https://test-updated.com')
+        ->repo_url->toBe('https://test-updated.com')
+        ->status->toBe(ProjectStatusCodeEnum::MAINTAINED->value)
+        ->display_order->toBe(2);
 });

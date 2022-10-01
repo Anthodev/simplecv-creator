@@ -9,10 +9,11 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProjectController extends Controller
 {
@@ -47,7 +48,7 @@ class ProjectController extends Controller
      * @param  StoreProjectRequest  $request
      * @return Response
      */
-    public function store(StoreProjectRequest $request): Response|RedirectResponse
+    public function store(StoreProjectRequest $request): Response
     {
         $picturePath = $request->file('image');
 
@@ -65,9 +66,7 @@ class ProjectController extends Controller
             'display_order' => $request->request->get('display_order'),
         ]);
 
-        return redirect()->back()->with('flash', [
-            'message' => 'success',
-        ]);
+        return new JsonResponse();
     }
 
     /**
@@ -99,7 +98,7 @@ class ProjectController extends Controller
      * @param  Project  $project
      * @return Response
      */
-    public function update(UpdateProjectRequest $request): Response|RedirectResponse
+    public function update(UpdateProjectRequest $request): Response
     {
         $project = Project::find($request->request->get('id'));
 
@@ -117,10 +116,7 @@ class ProjectController extends Controller
 
         $project->update($request->validated());
 
-        return redirect()->back()->with([
-            'message' => 'success',
-            'project' => $project,
-        ]);
+        return new JsonResponse();
     }
 
     /**
@@ -129,13 +125,11 @@ class ProjectController extends Controller
      * @param  Project  $project
      * @return Response
      */
-    public function destroy(int $id): Response|RedirectResponse
+    public function destroy(int $id): Response
     {
         $project = Project::find($id);
         $project->delete();
 
-        return redirect()->back()->with('flash', [
-            'message' => 'success',
-        ]);
+        return new JsonResponse();
     }
 }
