@@ -28,21 +28,21 @@ const form = useForm({
 });
 
 const submit = async () => {
-    form.post(route('experiences.store'), {
-        preserveScroll: true,
-        onSuccess: () => {
-            flasher.success({
-                title: 'Expérience ajoutée',
-                message: 'Expérience "' + form.title + '" ajoutée avec succès',
-            });
-        },
-        onError: () => {
-            flasher.error({
-                title: 'Erreur lors de l\'ajout de l\'expérience',
-                message: 'Une erreur est survenue lors de l\'ajout de l\'expérience',
-            });
-        },
-    });
+    axios.post(route('experiences.store'), form)
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success('Expérience "' + form.title + '" ajoutée avec succès');
+
+                location.reload();
+            }
+        })
+        .catch(() =>{
+            flasher.error(
+                {
+                    title: 'Erreur',
+                    message: 'Une erreur est survenue lors de l\'ajout de l\'expérience.',
+                });
+        });
 };
 </script>
 
