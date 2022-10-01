@@ -19,6 +19,8 @@ const props = defineProps({
     },
 });
 
+props.project.image = '';
+
 const form = useForm(props.project);
 
 const deleteProject = async () => {

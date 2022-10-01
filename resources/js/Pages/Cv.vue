@@ -48,7 +48,7 @@ const props = defineProps({
                     <div class="h-full rounded-lg dark:bg-slate-700">
                         <UserInfo :user="user" />
                         <ListContacts v-if="contacts.length > 0" :contacts="props.contacts" />
-                        <ListSkills v-if="skills.length > 0" :skills="props.skills" :skillTypes="skillTypes" class="mt-16" />
+                        <ListSkills :skills="props.skills" :skillTypes="skillTypes" class="mt-16" />
                     </div>
                 </div>
             </div>
