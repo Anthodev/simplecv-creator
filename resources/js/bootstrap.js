@@ -13,7 +13,11 @@ window.flasher = flasher
 import axios from 'axios';
 window.axios = axios;
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.withCredentials = true;
+window.axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-XSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+}
 
 axios.interceptors.response.use(response => response, async err => {
     const status = get(err, 'response.status')
