@@ -46,7 +46,11 @@ const submit = async () => {
         formData.append('file', file);
     }
 
-    axios.post(route('projects.update', props.project.id), formData)
+    axios.post(route('projects.update', props.project.id), formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    })
         .then((response) => {
             if (response.status === 200) {
                 flasher.success(
