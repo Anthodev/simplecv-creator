@@ -8,6 +8,7 @@ use App\Http\Requests\StoreExperienceRequest;
 use App\Http\Requests\UpdateExperienceRequest;
 use App\Models\Experience;
 use App\Models\ExperienceType;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -44,11 +45,11 @@ class ExperienceController extends Controller
      *
      * @param  StoreExperienceRequest  $request
      */
-    public function store(StoreExperienceRequest $request): Response
+    public function store(StoreExperienceRequest $request): RedirectResponse
     {
         Experience::create($request->validated());
 
-        return new JsonResponse();
+        return back();
     }
 
     /**

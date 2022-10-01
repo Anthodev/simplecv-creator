@@ -34,7 +34,7 @@ Route::get('/dashboard', function () {
 Route::get('experiences', [ExperienceController::class, 'index'])->middleware(['auth.session', 'api'])->name(
     'experiences.index',
 );
-Route::controller(ExperienceController::class)->middleware(['auth.session', 'api', 'api'])->group(function () {
+Route::controller(ExperienceController::class)->middleware(['auth'])->group(function () {
     Route::post('experiences/add', 'store')->name('experiences.store');
     Route::patch('experiences/{id}/update', 'update')->name('experiences.update');
     Route::delete('experiences/{id}/delete', 'destroy')->name('experiences.delete');
