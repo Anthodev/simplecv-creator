@@ -5,8 +5,6 @@ let props = defineProps({
     title: String,
     skills: Object,
 })
-
-console.log(Object.values(props.skills));
 </script>
 
 <template>

@@ -28,7 +28,6 @@ const getSkillsByType = (type) => {
     ])(skills);
 
     return res;
-    // return JSON.stringify(Object.values(props.skills)).filter(skill => skill.skill_type_id === props.skillTypes[type]);
 }
 </script>
 
