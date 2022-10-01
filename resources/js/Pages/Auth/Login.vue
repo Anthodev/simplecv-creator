@@ -27,7 +27,6 @@ const submit = async () => {
     axios.post(route('login'), formData, {
         headers: {
             'content-type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         }
     })
         .then((response) => {
