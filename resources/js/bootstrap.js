@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import get from 'lodash';
+import get from 'lodash/get';
 import flasher from '@flasher/flasher';
 window._ = _;
 window.flasher = flasher

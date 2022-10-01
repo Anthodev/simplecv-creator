@@ -21,7 +21,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('csrf-token', RefreshCsrfTokenController::class);
+Route::get('/csrf-token', RefreshCsrfTokenController::class);
 
 Route::get('/', [Controller::class, 'home'])->name('home');
 
