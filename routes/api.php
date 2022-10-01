@@ -30,22 +30,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('register', [RegisteredUserController::class, 'store']);
-
-Route::post('login', [AuthenticatedSessionController::class, 'store']);
-
-Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-    ->name('password.email');
-
-Route::post('reset-password', [NewPasswordController::class, 'store'])
-    ->name('password.update');
-
-Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-    ->middleware('throttle:6,1')
-    ->name('verification.send');
-
-Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(ExperienceController::class)->group(function () {
         Route::post('experiences/add', 'store')->name('experiences.store');
@@ -70,7 +54,4 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::patch('skills/{id}/update', 'update')->name('skills.update');
         Route::delete('skills/{id}/delete', 'destroy')->name('skills.delete');
     });
-
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->name('logout');
 });
