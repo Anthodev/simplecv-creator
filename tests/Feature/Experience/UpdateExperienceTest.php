@@ -26,20 +26,18 @@ it('update an experience', function (): void {
         'end_date' => '2021-01-04',
         'display_order' => 2,
         'experience_type_id' => ExperienceType::factory()->create()->id,
-    ]);
+    ])->assertOk();
 
     $experience = Experience::first();
 
-    expect($response)
-        ->status()->toBe(302)
-        ->and($experience)
-            ->title->toBe('Test Experience Updated')
-            ->description->toBe('Test Description Updated')
-            ->location->toBe('Test Location Updated')
-            ->company->toBe('Test Company Updated')
-            ->company_url->toBe('https://test-updated.com')
-            ->start_date->toBe('2021-01-03')
-            ->end_date->toBe('2021-01-04')
-            ->display_order->toBe(2)
-            ->experience_type_id->toBeInt();
+    expect($experience)
+        ->title->toBe('Test Experience Updated')
+        ->description->toBe('Test Description Updated')
+        ->location->toBe('Test Location Updated')
+        ->company->toBe('Test Company Updated')
+        ->company_url->toBe('https://test-updated.com')
+        ->start_date->toBe('2021-01-03')
+        ->end_date->toBe('2021-01-04')
+        ->display_order->toBe(2)
+        ->experience_type_id->toBeInt();
 });

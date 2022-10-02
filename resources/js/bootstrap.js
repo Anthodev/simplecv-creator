@@ -1,5 +1,8 @@
 import _ from 'lodash';
+import get from 'lodash/get';
+import flasher from '@flasher/flasher';
 window._ = _;
+window.flasher = flasher
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -10,7 +13,25 @@ window._ = _;
 import axios from 'axios';
 window.axios = axios;
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.withCredentials = true;
+window.axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-XSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+}
+
+axios.interceptors.response.use(response => response, async err => {
+    const status = get(err, 'response.status')
+
+    if (status === 419) {
+        // Refresh our session token
+        await axios.get('/csrf-token')
+
+        // Return a new request using the original request's configuration
+        return axios(err.response.config)
+    }
+
+    return Promise.reject(err)
+})
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

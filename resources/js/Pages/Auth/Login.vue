@@ -18,10 +18,13 @@ const form = useForm({
     remember: false
 });
 
-const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
+const submit = async () => {
+    axios.post(route('login'), form)
+        .then((response) => {
+            if (response.status === 200) {
+                location.href = route('dashboard');
+            }
+        })
 };
 </script>
 

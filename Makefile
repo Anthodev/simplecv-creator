@@ -1,13 +1,13 @@
-containerName = "simplecv-creator-laravel.test-1"
+containerName = "simplecv-creator-cv-app-1"
 isContainerRunning := $(shell docker info > /dev/null 2>&1 && docker ps | grep $(containerName) > /dev/null 2>&1 && echo 1)
 user := $(shell id -u)
 group := $(shell id -g)
 
 DOCKER :=
-DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker-compose
+DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker compose
 DOCKER_TEST := APP_ENV=testing
 
-CONSOLE := $(DOCKER) php
+CONSOLE := $(DOCKER) php artisan
 CONSOLE_MEMORY := $(DOCKER) php -d memory_limit=256M
 CONSOLE_TEST := $(DOCKER_TEST) php
 COMPOSER = $(DOCKER) composer
@@ -15,7 +15,7 @@ SAIL = vendor/bin/sail
 
 ifeq ($(isContainerRunning), 1)
 	DOCKER := @docker exec -t -u $(user):$(group) $(containerName) php
-	DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker-compose
+	DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker compose
 	DOCKER_TEST := @docker exec -t -u $(user):$(group) $(containerName) APP_ENV=testing php
 endif
 
@@ -27,8 +27,14 @@ build-docker:
 up:
 	sh vendor/bin/sail up -d
 
+up-prod:
+	sh vendor/bin/sail -f docker-compose.yml -f docker-compose.prod.yml up -d
+
 stop:
 	sh vendor/bin/sail stop
+
+down:
+	sh vendor/bin/sail down
 
 prune:
 	@docker-compose down --remove-orphans
@@ -57,14 +63,21 @@ update: composer.json ## Update vendors according to the composer.json file
 
 ## —— Symfony ————————————————————————————————————————————————————————————————
 cc: ## Apply cache clear
-	$(DOCKER) sh -c "rm -rf var/cache"
 	$(CONSOLE) cache:clear
-	$(DOCKER) sh -c "chmod -R 777 var/cache"
 
 cc-test: ## Apply cache clear
-	$(DOCKER) sh -c "rm -rf var/cache"
 	$(CONSOLE_TEST) cache:clear
-	$(DOCKER) sh -c "chmod -R 777 var/cache"
+
+cc-config:
+	$(CONSOLE) config:clear
+
+cc-view:
+	$(CONSOLE) view:clear
+
+optimize:
+	$(CONSOLE) optimize:clear
+
+cc-all: cc cc-config cc-view optimize ## Apply cache clear
 
 doctrine-validate:
 	$(CONSOLE) doctrine:schema:validate --skip-sync $c
@@ -78,26 +91,26 @@ drop-database: ## Drop the database
 	$(CONSOLE) doctrine:database:drop --force --if-exists
 
 migration: ## Apply doctrine migration
-	$(CONSOLE) artisan make:migration $c
+	$(CONSOLE) make:migration $c
 
 migrate: ## Apply doctrine migrate
-	$(CONSOLE) artisan migrate:fresh
+	$(CONSOLE) migrate:fresh
 
 generate-jwt: ## Generate private and public keys
 	$(CONSOLE) lexik:jwt:generate-keypair --overwrite -q $c
 
 ## —— Integration ✅ ——————————————————————————————————————————————————————
 load-fixtures: migrate ## Load fixtures
-	$(CONSOLE) artisan db:seed --class=ExperienceTypeSeeder
-	$(CONSOLE) artisan db:seed --class=SkillTypeSeeder
+	$(CONSOLE) db:seed --class=ExperienceTypeSeeder
+	$(CONSOLE) db:seed --class=SkillTypeSeeder
 
 ## —— Tests ✅ ————————————————————————————————————————————————————————————
 test-database: ### load database schema
 	$(CONSOLE_TEST) artisan migrate:fresh --seed
 
 test-load-fixtures: test-database ## load database schema & fixtures
-	$(CONSOLE_TEST) artisan db:seed --class=ExperienceTypeSeeder
-	$(CONSOLE_TEST) artisan db:seed --class=SkillTypeSeeder
+	$(CONSOLE_TEST) db:seed --class=ExperienceTypeSeeder
+	$(CONSOLE_TEST) db:seed --class=SkillTypeSeeder
 
 pest:
 	$(SAIL) bin pest

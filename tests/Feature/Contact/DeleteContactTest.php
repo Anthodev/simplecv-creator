@@ -14,7 +14,7 @@ beforeEach(function () {
 it('can delete a contact', function (): void {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->delete(route('contacts.delete', $this->contact->id))->assertRedirect(route('contacts.index'));
+    $this->actingAs($user)->delete(route('contacts.delete', $this->contact->id))->assertOk();
 
     expect(Contact::count())->toBe(0);
 });

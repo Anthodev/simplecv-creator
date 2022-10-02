@@ -21,17 +21,38 @@ const props = defineProps({
 
 const form = useForm(props.experience);
 
-const submit = () => {
-    form.patch(route('experiences.update', props.experience.id), {
-        onFinish: () => {
-            form.experience = props.experience;
-        },
-    });
+const deleteExperience = async () => {
+    axios.delete(route('experiences.delete', props.experience.id))
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success('Expérience supprimée avec succès');
+            }
+        });
+};
+
+const submit = async () => {
+    axios.patch(route('experiences.update', props.experience.id), form)
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success(
+                    {
+                        title: 'Expérience modifiée',
+                        message: 'L\'expérience "' + form.title + '" a bien été modifiée.',
+                    });
+            }
+        })
+        .catch(function(){
+            flasher.error(
+                {
+                    title: 'Erreur lors de la modification de l\'expérience',
+                    message: 'Une erreur est survenue lors de la modification de l\'expérience "' + form.title + '".',
+                });
+        });
 };
 </script>
 
 <template>
-    <form @submit.prevent="form.patch(route('experiences.update', props.experience.id))">
+    <form @submit.prevent="submit">
         <div class="flex flex-row pt-3 group-input-field">
             <div class="basis-1/2 mr-4">
                 <InputLabel for="title" value="Titre" />
@@ -90,7 +111,7 @@ const submit = () => {
 
         <div class="flex flex-wrap items-center pt-4 rounded-b-md group-input-field">
             <div class="justify-start">
-                <PrimaryButton type="button" @click="form.delete(route('experiences.delete', props.experience.id))" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton type="button" @click="deleteExperience" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Supprimer
                 </PrimaryButton>
             </div>

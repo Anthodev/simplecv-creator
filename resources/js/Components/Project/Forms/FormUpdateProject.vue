@@ -19,20 +19,61 @@ const props = defineProps({
     },
 });
 
+props.project.image = '';
+
 const form = useForm(props.project);
 
-const submit = () => {
-    form.post(route('projects.update', props.project.id), {
-        forceFormData: true,
-        onFinish: () => {
-            form.project = props.project;
+const deleteProject = async () => {
+    axios.delete(route('projects.delete', props.project.id))
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success('Projet supprimé avec succès');
+            }
+        });
+};
+
+const submit = async () => {
+    let formData = new FormData();
+    formData.append('id', form.id);
+    formData.append('title', form.title);
+    formData.append('description', form.description);
+    formData.append('url', form.url);
+    formData.append('repo_url', form.repo_url);
+    formData.append('image', form.image);
+    formData.append('status', form.status);
+    formData.append('display_order', form.display_order);
+
+    if (form.image) {
+        let file = form.image[0];
+        formData.append('file', file);
+    }
+
+    axios.post(route('projects.update', props.project.id), formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
         },
-    });
+    })
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success(
+                    {
+                        title: 'Projet modifié',
+                        message: 'Le projet "' + form.title + '" a bien été modifié.',
+                    });
+            }
+        })
+        .catch(function(error){
+            flasher.error(
+                {
+                    title: 'Erreur lors de la modification de la compétence',
+                    message: 'Une erreur est survenue lors de la modification du projet "' + form.name + '".',
+                });
+        });
 };
 </script>
 
 <template>
-    <form @submit.prevent="form.post(route('projects.update', props.project.id))">
+    <form @submit.prevent="submit">
         <div class="flex flex-row pt-3">
             <div class="basis-1/2 mr-4">
                 <InputLabel for="title" value="Titre" />
@@ -52,8 +93,8 @@ const submit = () => {
                 <InputError :errors="form.errors.url" />
             </div>
             <div class="basis-1/2">
-                <InputLabel for="image" value="Ajouter une image illustrant le projet" />
-                <TextInput id="image" type="file" @input="form.image = $event.target.files[0]" class="mt-1 block w-full" v-model="form.image" />
+                <InputLabel :for="'image-project-' + form.id" value="Ajouter une image illustrant le projet" />
+                <TextInput :id="'image-project-' + form.id" type="file" @input="form.image = $event.target.files[0]" class="mt-1 block w-full" v-model="form.image" />
                 <InputError :errors="form.errors.image" />
             </div>
         </div>
@@ -81,7 +122,7 @@ const submit = () => {
 
         <div class="flex flex-wrap items-center pt-4 rounded-b-md">
             <div class="justify-start">
-                <PrimaryButton type="button" @click="form.delete(route('projects.delete', props.project.id))" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton type="button" @click="deleteProject" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Supprimer
                 </PrimaryButton>
             </div>

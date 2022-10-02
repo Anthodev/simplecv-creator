@@ -8,17 +8,17 @@ use App\Http\Requests\StoreExperienceRequest;
 use App\Http\Requests\UpdateExperienceRequest;
 use App\Models\Experience;
 use App\Models\ExperienceType;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ExperienceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response|InertiaResponse
+    public function index(): InertiaResponse
     {
         $experiences = Experience::all()->sortBy('display_order');
         $experienceTypes = ExperienceType::all();
@@ -43,13 +43,12 @@ class ExperienceController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  StoreExperienceRequest  $request
-     * @return Response|RedirectResponse
      */
-    public function store(StoreExperienceRequest $request)
+    public function store(StoreExperienceRequest $request): Response
     {
         Experience::create($request->validated());
 
-        return redirect()->route('experiences.index')->with('message', 'Experience created successfully.');
+        return new JsonResponse();
     }
 
     /**
@@ -77,25 +76,22 @@ class ExperienceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateExperienceRequest $request): Response|RedirectResponse
+    public function update(UpdateExperienceRequest $request): Response
     {
         $experience = Experience::find($request->request->get('id'));
         $experience->update($request->validated());
 
-        return redirect()->route('experiences.index')->with([
-            'message' => 'Experience updated successfully.',
-            'experience' => $experience,
-        ]);
+        return new JsonResponse();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id): Response|RedirectResponse
+    public function destroy(int $id): Response
     {
         $experience = Experience::find($id);
         $experience->delete();
 
-        return redirect()->route('experiences.index')->with('message', 'Experience deleted successfully.');
+        return new JsonResponse();
     }
 }

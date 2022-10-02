@@ -19,11 +19,40 @@ const form = useForm({
     picture_path: '',
 });
 
-const submit = () => {
-    form.post(route('users.update', usePage().props.value.auth.user.id), {
-        forceFormData: true,
-        onFinish: () => form.reset('display_name', 'title', 'description', 'picture_path'),
-    });
+const submit = async () => {
+    let formData = new FormData();
+    formData.append('id', form.id);
+    formData.append('display_name', form.display_name);
+    formData.append('description', form.description);
+    formData.append('title', form.title);
+    formData.append('picture_path', form.picture_path);
+
+    if (form.picture_path) {
+        let file = form.picture_path[0];
+        formData.append('file', file);
+    }
+
+    axios.post(route('users.update', usePage().props.value.auth.user.id), formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    })
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success(
+                    {
+                        title: 'Profil modifié',
+                        message: 'Votre profil a bien été modifié.',
+                    });
+            }
+        })
+        .catch(() => {
+            flasher.error(
+                {
+                    title: 'Erreur lors de la modification de votre profil',
+                    message: 'Une erreur est survenue lors de la modification de votre profil.',
+                });
+        });
 };
 </script>
 

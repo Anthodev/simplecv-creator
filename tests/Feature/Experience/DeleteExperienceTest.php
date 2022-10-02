@@ -14,9 +14,7 @@ beforeEach(function () {
 it('can delete an experience', function (): void {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->delete(route('experiences.delete', $this->experience->id));
+    $response = $this->actingAs($user)->delete(route('experiences.delete', $this->experience->id))->assertOk();
 
-    expect($response)
-        ->status()->toBe(302)
-        ->and(Experience::find($this->experience->id))->toBeNull();
+    expect(Experience::find($this->experience->id))->toBeNull();
 });

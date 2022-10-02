@@ -10,12 +10,12 @@ use App\Models\User;
 it('can create a contact', function (): void {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->post(route('contacts.store'), [
+    $this->actingAs($user)->post(route('contacts.store'), [
         'name' => 'test',
         'icon' => 'test',
         'url' => 'http://test.io',
         'display_order' => 1,
-    ])->assertRedirect(route('contacts.index'));
+    ])->assertOk();
 
     $contact = Contact::first();
 
