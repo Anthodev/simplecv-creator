@@ -19,17 +19,7 @@ const form = useForm({
 });
 
 const submit = async () => {
-    let formData = new FormData();
-    formData.append('email', form.email);
-    formData.append('password', form.password);
-    formData.append('remember', form.remember);
-
-    axios.post(route('login'), formData, {
-        headers: {
-            'content-type': 'application/json',
-            'X-XSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-        }
-    })
+    axios.post(route('login'), form)
         .then((response) => {
             if (response.status === 200) {
                 location.href = route('dashboard');

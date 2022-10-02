@@ -8,11 +8,6 @@ let props = defineProps({
     skillTypes: Object,
 })
 
-const filterObject = (obj, callback) => {
-    return Object.fromEntries(Object.entries(obj).
-    filter(([key, val]) => callback(val, key)));
-}
-
 const getSkillsByType = (type) => {
     let res;
 
