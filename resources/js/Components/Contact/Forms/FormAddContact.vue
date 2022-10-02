@@ -14,10 +14,17 @@ const form = useForm({
     display_order: 0,
 });
 
-const submit = () => {
-    form.post(route('contacts.store'), {
-        onFinish: () => form.reset('name', 'icon', 'url', 'display_order'),
-    });
+const submit = async () => {
+    axios.post(route('contacts.store'), form)
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success(
+                    {
+                        title: 'Contact ajouté',
+                        message: 'Le contact "' + form.name + '" a bien été ajouté.',
+                    });
+            }
+        });
 };
 </script>
 

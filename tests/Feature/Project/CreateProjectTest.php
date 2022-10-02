@@ -18,17 +18,15 @@ it('can create a project', function (): void {
         'repo_url' => 'https://test.com',
         'status' => ProjectStatusCodeEnum::NOT_MAINTAINED->value,
         'display_order' => 1,
-    ]);
+    ])->assertOk();
 
     $project = Project::first();
 
-    expect($response)
-        ->status()->toBe(302)
-        ->and($project)
-            ->title->toBe('Test Project')
-            ->description->toBe('Test Description')
-            ->url->toBe('https://test.com')
-            ->repo_url->toBe('https://test.com')
-            ->status->toBe(ProjectStatusCodeEnum::NOT_MAINTAINED->value)
-            ->display_order->toBe(1);
+    expect($project)
+        ->title->toBe('Test Project')
+        ->description->toBe('Test Description')
+        ->url->toBe('https://test.com')
+        ->repo_url->toBe('https://test.com')
+        ->status->toBe(ProjectStatusCodeEnum::NOT_MAINTAINED->value)
+        ->display_order->toBe(1);
 });

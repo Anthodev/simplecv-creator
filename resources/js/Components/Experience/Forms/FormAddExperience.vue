@@ -27,10 +27,22 @@ const form = useForm({
     experience_type_id: 1,
 });
 
-const submit = () => {
-    form.post(route('experiences.store'), {
-        onFinish: () => form.reset('title', 'description', 'location', 'company', 'company_url', 'start_date', 'end_date', 'display_order', 'experience_type_id'),
-    });
+const submit = async () => {
+    axios.post(route('experiences.store'), form)
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success('Expérience "' + form.title + '" ajoutée avec succès');
+
+                location.reload();
+            }
+        })
+        .catch(() =>{
+            flasher.error(
+                {
+                    title: 'Erreur',
+                    message: 'Une erreur est survenue lors de l\'ajout de l\'expérience.',
+                });
+        });
 };
 </script>
 

@@ -20,7 +20,7 @@ it('can update a contact', function (): void {
         'icon' => 'test',
         'url' => 'http://test.io',
         'display_order' => 1,
-    ])->assertRedirect(route('contacts.index'));
+    ])->assertOk();
 
     $contact = Contact::first();
 

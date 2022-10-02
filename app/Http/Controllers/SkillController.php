@@ -9,9 +9,10 @@ use App\Http\Requests\UpdateSkillRequest;
 use App\Models\Skill;
 use App\Models\SkillType;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class SkillController extends Controller
 {
@@ -50,7 +51,7 @@ class SkillController extends Controller
     {
         Skill::create($request->validated());
 
-        return redirect()->route('skills.index')->with('message', 'Skill created successfully.');
+        return new JsonResponse();
     }
 
     /**
@@ -81,12 +82,12 @@ class SkillController extends Controller
      * @param  UpdateSkillRequest  $request
      * @param  Skill  $skill
      */
-    public function update(UpdateSkillRequest $request): Response|RedirectResponse
+    public function update(UpdateSkillRequest $request): Response
     {
         $skill = Skill::find($request->request->get('id'));
         $skill->update($request->validated());
 
-        return redirect()->route('skills.index')->with('message', 'Skill updated successfully.');
+        return new JsonResponse();
     }
 
     /**
@@ -99,6 +100,6 @@ class SkillController extends Controller
         $skill = Skill::find($id);
         $skill->delete();
 
-        return redirect()->route('skills.index')->with('message', 'Skill deleted successfully.');
+        return new JsonResponse();
     }
 }

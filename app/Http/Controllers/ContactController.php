@@ -8,9 +8,10 @@ use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\UpdateContactRequest;
 use App\Models\Contact;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ContactController extends Controller
 {
@@ -42,11 +43,11 @@ class ContactController extends Controller
      * @param  StoreContactRequest  $request
      * @return Response
      */
-    public function store(StoreContactRequest $request): Response|RedirectResponse
+    public function store(StoreContactRequest $request): Response
     {
         Contact::create($request->validated());
 
-        return redirect()->route('contacts.index')->with('message', 'Contact created successfully.');
+        return new JsonResponse();
     }
 
     /**
@@ -78,12 +79,12 @@ class ContactController extends Controller
      * @param  Contact  $contact
      * @return Response
      */
-    public function update(UpdateContactRequest $request): Response|RedirectResponse
+    public function update(UpdateContactRequest $request): Response
     {
         $contact = Contact::find($request->request->get('id'));
         $contact->update($request->validated());
 
-        return redirect()->route('contacts.index')->with('message', 'Contact updated successfully.');
+        return new JsonResponse();
     }
 
     /**
@@ -92,11 +93,11 @@ class ContactController extends Controller
      * @param  Contact  $contact
      * @return Response
      */
-    public function destroy(int $id): Response|RedirectResponse
+    public function destroy(int $id): Response
     {
         $contact = Contact::find($id);
         $contact->delete();
 
-        return redirect()->route('contacts.index')->with('message', 'Contact deleted successfully.');
+        return new JsonResponse();
     }
 }

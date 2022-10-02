@@ -15,23 +15,21 @@ beforeEach(function () {
 it('it can update a skill', function (): void {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->patch(route('skills.update', $this->skill->id), [
+    $this->actingAs($user)->patch(route('skills.update', $this->skill->id), [
         'id' => $this->skill->id,
         'name' => 'Test Skill',
         'icon' => 'Test Icon',
         'url' => 'https://test.com',
         'display_order' => 1,
         'skill_type_id' => SkillType::factory()->create()->id,
-    ]);
+    ])->assertOk();
 
     $skill = Skill::first();
 
-    expect($response)
-        ->status()->toBe(302)
-        ->and($skill)
-            ->name->toBe('Test Skill')
-            ->icon->toBe('Test Icon')
-            ->url->toBe('https://test.com')
-            ->display_order->toBe(1)
-            ->skill_type_id->toBeInt();
+    expect($skill)
+        ->name->toBe('Test Skill')
+        ->icon->toBe('Test Icon')
+        ->url->toBe('https://test.com')
+        ->display_order->toBe(1)
+        ->skill_type_id->toBeInt();
 });

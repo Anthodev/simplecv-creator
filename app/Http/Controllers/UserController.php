@@ -6,12 +6,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-    public function update(UpdateUserRequest $request): RedirectResponse
+    public function update(UpdateUserRequest $request): Response
     {
         $user = User::find($request->request->get('id'));
 
@@ -28,6 +29,6 @@ class UserController extends Controller
             'picture_path' => $picturePath ?? $user->picture_path,
         ]);
 
-        return redirect()->route('dashboard')->with('message', 'User updated successfully.');
+        return new JsonResponse();
     }
 }

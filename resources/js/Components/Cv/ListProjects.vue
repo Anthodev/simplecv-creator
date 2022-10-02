@@ -14,7 +14,7 @@ onMounted(() => {
     const tabElements = () => {
         let elements = [];
 
-        props.projects.forEach((project, index) => {
+        Object.values(props.projects).forEach((project, index) => {
             elements.push({
                 id: 'project-' + project.id,
                 triggerEl: document.querySelector('#project-' + project.id + '-tab'),

@@ -17,17 +17,38 @@ const props = defineProps({
 
 const form = useForm(props.contact);
 
-const submit = () => {
-    form.patch(route('contacts.update', props.contact.id), {
-        onFinish: () => {
-            form.contact = props.contact;
-        },
-    });
+const deleteContact = async () => {
+    axios.delete(route('contacts.delete', props.contact.id))
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success('Contact supprimé avec succès');
+            }
+        });
+};
+
+const submit = async () => {
+    axios.patch(route('contacts.update', props.contact.id), form)
+        .then((response) => {
+            if (response.status === 200) {
+                flasher.success(
+                    {
+                        title: 'Contact modifié',
+                        message: 'Le contact "' + form.name + '" a bien été modifié.',
+                    });
+            }
+        })
+        .catch(function(error){
+            flasher.error(
+                {
+                    title: 'Erreur lors de la modification du contact',
+                    message: 'Une erreur est survenue lors de la modification du contact "' + form.name + '".',
+                });
+        });
 };
 </script>
 
 <template>
-    <form @submit.prevent="form.patch(route('contacts.update', props.contact.id))">
+    <form @submit.prevent="submit">
         <div class="flex flex-row pt-3">
             <div class="basis-1/6 mr-4">
                 <InputLabel for="icon" value="Icône (FontAwesome)" />
@@ -55,7 +76,7 @@ const submit = () => {
 
         <div class="flex flex-wrap items-center pt-4 rounded-b-md">
             <div class="justify-start">
-                <PrimaryButton type="button" @click="form.delete(route('contacts.delete', props.contact.id))" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton type="button" @click="deleteContact" class="bg-red-700 hover:bg-red-900" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Supprimer
                 </PrimaryButton>
             </div>
